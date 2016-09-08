@@ -1342,6 +1342,7 @@ The release after Mars (4.5) will no longer support the deprecated usage!
 
 !ENTRY com.jaspersoft.studio 1 0 2016-09-08 12:38:55.889
 !MESSAGE Starting JaspersoftStudio bundle - Version: 6.2.1.final
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 !ENTRY org.eclipse.wb.core 4 4 2016-09-08 13:25:49.463
@@ -1655,3 +1656,5 @@ java.lang.IllegalArgumentException: Cannot set lower sequence number for root (p
 	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:52)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
 >>>>>>> 06f57b7a51c3645194efb7fd93b0b83eb54f0273
+=======
+>>>>>>> parent of 8198752... frm_reser hérite base
