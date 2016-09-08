@@ -64,3 +64,39 @@ The release after Mars (4.5) will no longer support the deprecated usage!
 
 !ENTRY org.eclipse.equinox.ds 1 0 2016-09-08 08:40:54.990
 !MESSAGE Could not bind a reference of component org.eclipse.fx.ide.css.cssext.ui.internal.DefaultCssExtProvider. The reference is: Reference[name = ICSSExtModelProvider, interface = org.eclipse.fx.ide.css.cssext.ICSSExtModelProvider, policy = dynamic, cardinality = 0..n, target = null, bind = bindCssExtensionModelProvider, unbind = unbindCssExtensionModelProvider]
+
+!ENTRY com.jaspersoft.studio 1 0 2016-09-08 08:47:29.124
+!MESSAGE Starting JaspersoftStudio bundle - Version: 6.2.1.final
+!SESSION 2016-09-08 12:00:12.061 -----------------------------------------------
+eclipse.buildId=4.5.2.M20160212-1500
+java.version=1.8.0_77
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -product org.eclipse.epp.package.jee.product -keyring /Users/1420978/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.jee.product -keyring /Users/1420978/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.equinox.ds 1 0 2016-09-08 12:00:24.487
+!MESSAGE Could not bind a reference of component org.eclipse.fx.core.internal.JUtilLoggerFactory. The reference is: Reference[name = registerHandler, interface = java.util.logging.Handler, policy = dynamic, policy-option = greedy, cardinality = 0..n, target = null, bind = registerHandler, unbind = unregisterHandler, updated = null]
+
+!ENTRY org.eclipse.equinox.ds 1 0 2016-09-08 12:00:27.826
+!MESSAGE Could not bind a reference of component org.eclipse.fx.ide.css.cssext.ui.internal.DefaultCssExtProvider. The reference is: Reference[name = ICSSExtModelProvider, interface = org.eclipse.fx.ide.css.cssext.ICSSExtModelProvider, policy = dynamic, cardinality = 0..n, target = null, bind = bindCssExtensionModelProvider, unbind = unbindCssExtensionModelProvider]
+
+!ENTRY org.eclipse.ui 2 0 2016-09-08 12:00:28.348
+!MESSAGE The 'org.eclipse.ui.startup' extension from 'com.google.gdt.eclipse.designer' does not provide a 'class' attribute.
+This usage is deprecated and a 'class' attribute should be provided.
+The release after Mars (4.5) will no longer support the deprecated usage!
+
+!ENTRY org.eclipse.ui 2 0 2016-09-08 12:00:28.353
+!MESSAGE The 'org.eclipse.ui.startup' extension from 'com.google.gdt.eclipse.designer.GXT' does not provide a 'class' attribute.
+This usage is deprecated and a 'class' attribute should be provided.
+The release after Mars (4.5) will no longer support the deprecated usage!
+
+!ENTRY org.eclipse.ui 2 0 2016-09-08 12:00:28.356
+!MESSAGE The 'org.eclipse.ui.startup' extension from 'com.google.gdt.eclipse.designer.SmartGWT' does not provide a 'class' attribute.
+This usage is deprecated and a 'class' attribute should be provided.
+The release after Mars (4.5) will no longer support the deprecated usage!
+
+!ENTRY org.eclipse.ui 2 0 2016-09-08 12:00:28.358
+!MESSAGE The 'org.eclipse.ui.startup' extension from 'com.google.gdt.eclipse.designer.UiBinder' does not provide a 'class' attribute.
+This usage is deprecated and a 'class' attribute should be provided.
+The release after Mars (4.5) will no longer support the deprecated usage!
