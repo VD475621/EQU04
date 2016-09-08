@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 INDEX VERSION 1.127+/Volumes/SHARED/Users/1444255/Documents/E2/.metadata/.plugins/org.eclipse.jdt.core
 711401471.index
 2574815864.index
@@ -19,3 +20,7 @@ INDEX VERSION 1.127+/Volumes/SHARED/Users/1444255/Documents/E2/.metadata/.plugin
 1790574510.index
 1732019476.index
 510549678.index
+=======
+INDEX VERSION 1.127+/Volumes/SHARED/Users/1420978/Documents/EQU04/.metadata/.plugins/org.eclipse.jdt.core
+1376355344.index
+>>>>>>> b6c2cf94c5cdfbe35310791d53993c1e2f1fcf16
