@@ -100,6 +100,7 @@ create table DE
     FKIdReser number(5,0),
     FKNoCham varchar2(3),
     Attribuee number(1,0),
+    constraint PK_FKIdReser_FKNoCham primary Key(FKIdReser, FKNoCham),
     constraint FK_DE_RESERVATION_IdReser foreign key (FKIdReser)
       references RESERVATION (IdReser),
     constraint FK_DE_CHAMBRE_NoCham foreign key (FKNoCham)
@@ -153,6 +154,7 @@ create table AYANT
 (
     FKNoCham varchar2(3),
     FKCodCom varchar2(2),
+    constraint PK_FKNoCham_FKCodCom primary Key(FKNoCham, FKCodCom),
     constraint FK_AYANT_CHAMBRE_NoCham foreign key (FKNoCham)
       references CHAMBRE (NoCham),
     constraint FK_AYANT_COMMODITE_CodCom foreign key (FKCodCom)
@@ -178,7 +180,4 @@ create table DEPART
 );
 
 
-/*-------------------------INSERTION------------------------------------------*/
-
-
-
+commit;

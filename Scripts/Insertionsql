@@ -1,0 +1,46 @@
+delete RESERVATION;
+delete CLIENT;
+delete ARRIVE;
+delete DE;
+delete TRX; 
+delete TYPTRX;
+delete COMMODITE;
+delete AYANT;
+delete CHAMBRE;
+delete DEPART;
+delete TYPECHAM;
+delete LOCALISATION; 
+
+
+/*******************CLIENT*****************************************************/
+
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (1, 'Joseph Frazier', null, '86-(473)465-8219', '372301994605287', 'americanexpress', '12/25/2017', '53-(648)719-9169', 381.12);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (2, 'Eugene Reed', null, '81-(667)878-0869', '3546634248888522', 'jcb', '3/3/2017', '1-(763)410-2560', 121.7);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (3, 'Debra Hunter', null, '92-(180)768-0280', '3565080632548551', 'jcb', '12/18/2017', '86-(127)101-7000', 291.99);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (4, 'John Reyes', null, '62-(858)602-2319', '560224888761398370', 'china-unionpay', '3/5/2017', '266-(409)108-9154', 271.08);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (5, 'Evelyn Reid', null, '86-(951)228-9610', '4844657894967792', 'visa-electron', '5/29/2018', '86-(160)843-8316', 187.28);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (6, 'Lillian Thompson', null, '62-(513)294-5605', '6304774693361925', 'laser', '7/5/2018', '63-(710)388-4352', 61.17);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (7, 'Andrew Lynch', null, '359-(270)821-2847', '630440866820306526', 'laser', '2/28/2018', '223-(520)267-8760', 281.38);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (8, 'Samuel Webb', null, '48-(962)957-2165', '379945744746644', 'americanexpress', '9/24/2017', '62-(265)642-1638', 320.36);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (9, 'Sara Green', '49560', '1-(616)177-6173', '3544237039887448', 'jcb', '8/4/2017', '62-(606)664-0105', 315.83);
+insert into CLIENT (IdCli, Nom, Adresse, Telephone, NoCarte, TypeCarte, DateExp, Fax, Solde_du) values (10, 'Wayne Williamson', null, '86-(947)224-4573', '4017957465834', 'visa', '4/14/2017', '353-(510)801-8931', 323.46);
+
+
+/********************RESERVATIONT**********************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMMIT;
