@@ -1,8 +1,6 @@
 package View;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import controleurs.Ctrl_Chambre;
@@ -10,15 +8,17 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+
+import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.JTable;
-import javax.swing.JScrollPane;
+
 
 public class Frm_Chambre extends Frm_Base{
 	
@@ -54,40 +54,38 @@ public class Frm_Chambre extends Frm_Base{
 	public Frm_Chambre() {
 		super();
 		
+		
 		Initialiser_ObjetGraph();
 		
 		
 	}
 	
-	
 	private void Initialiser_Listener()
 	{
-		btnNaviguer.addActionListener(new ActionListener())
-		{
-			
-		}
+		
 	}
-	
+
+
 	
 	
 	
 	private void Initialiser_ObjetGraph()
 	{
+		
 		JPanel Pn_Chambre = new JPanel();
 		Pn_Chambre.setBounds(26, 68, 493, 533);
 		getContentPane().add(Pn_Chambre);
 		Pn_Chambre.setLayout(null);
 		
-		JLabel Lb_NoCham = new JLabel("No. Cham");
-		Lb_NoCham.setBounds(6, 37, 62, 16);
-		Pn_Chambre.add(Lb_NoCham);
 		
 		JLabel Lb_Etage = new JLabel("Etage");
 		Lb_Etage.setBounds(6, 100, 61, 16);
 		Pn_Chambre.add(Lb_Etage);
 		
 		
-		
+		JLabel Lb_NoCham = new JLabel("No. Cham");
+		Lb_NoCham.setBounds(6, 37, 62, 16);
+		Pn_Chambre.add(Lb_NoCham);
 		
 		
 		JLabel lblEtat = new JLabel("Etat");
