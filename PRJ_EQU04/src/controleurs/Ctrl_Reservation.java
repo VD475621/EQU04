@@ -24,7 +24,7 @@ public class Ctrl_Reservation {
 	
 	public void Assign(Frm_Chambre frm_cham, int position)
 	{
-		modeleChambreTable = new Mod_ChambreTable((int) modeleChambre.Get_courant());
+		mod_reser_cham = new mod_reser_cham((int) mod_reser.Get_courant());
 		
 		//Faire un set de la table
 		
