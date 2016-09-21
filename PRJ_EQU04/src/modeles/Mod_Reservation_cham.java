@@ -1,7 +1,11 @@
 package modeles;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class Mod_Reservation_cham extends AbstractTableModel {
@@ -39,7 +43,7 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Reservation.java",
 					"ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
-	}cd EQU04
+	}
 	
 	
 	@Override

@@ -70,7 +70,7 @@ public final class Mod_Chambre{
 		try {    
 			
 			
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT ");
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT CHAMBRE.noCham, CHAMBRE.etage, CHAMBRE.etat,CHAMBRE.codTypCha, TYPECHAM.descType,CHAMBRE.codLoc,LOCALISATION.descLoc, CHAMBRE.prix ,CHAMBRE.memo FROM   CHAMBRE , TYPECHAM  , LOCALISATION where CHAMBRE.codTypCha = TYPECHAM.codTYPCHA and CHAMBRE.CodLoc = LOCALISATION.CodLoc ORDER BY CHAMBRE.NOCHAM ASC") ;
 			
 			
 			ResultSet rs = state.executeQuery();
