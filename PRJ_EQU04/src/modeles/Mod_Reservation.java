@@ -30,7 +30,7 @@ public class Mod_Reservation{
 	private Date dateReser;
 	private Date dateDebut;
 	private Date dateFin;
-
+	private ArrayList<Mod_Reservation> les_resers = new  ArrayList<Mod_Reservation_>();
 
 	
 	public Mod_Reservation()
