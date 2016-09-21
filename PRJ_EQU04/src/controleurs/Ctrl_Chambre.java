@@ -5,32 +5,70 @@ import modeles.Mod_ChambreTable;
 
 import java.util.ArrayList;
 
+import View.Frm_Base;
 import View.Frm_Chambre;
 
 public class Ctrl_Chambre {
 	
-	public Mod_Chambre modeleChambre = null;
-	private ArrayList<Mod_Chambre> Ls_chambre = null;
+
 	private int position = 0;
-	public Mod_ChambreTable modeleChambreTable = null; 
+	
+	private Frm_Chambre frm_Cham = null;
 	
 	
 	public Ctrl_Chambre(Frm_Chambre frm_cham)
 	{
-		modeleChambre = new Mod_Chambre(); 
-		Ls_chambre = modeleChambre.Get_LsChambre();
+	
+		this.frm_Cham = frm_cham;
+		
+		Mod_Chambre.Lire();
+	}
+	
+	
+	public void Assign()
+	{	//Faire un set de la table
+		frm_Cham.getTb_NoCham().setText(Mod_Chambre.getPosition(position, 0).toString());
+		frm_Cham.getTb_Etage().setText(Mod_Chambre.getPosition(position, 1).toString());
+		frm_Cham.getTb_Etat().setText(Mod_Chambre.getPosition(position, 2).toString());
+		frm_Cham.getTb_CodType().setText(Mod_Chambre.getPosition(position, 3).toString());
+		frm_Cham.getTb_Localisation().setText(Mod_Chambre.getPosition(position, 4).toString());
+		frm_Cham.getTb_DescType().setText(Mod_Chambre.getPosition(position, 5).toString());
+		frm_Cham.getTb_DescLoc().setText(Mod_Chambre.getPosition(position, 6).toString());
+		frm_Cham.getTb_Prix().setText(Mod_Chambre.getPosition(position, 7).toString());
+		frm_Cham.getTb_Memo().setText(Mod_Chambre.getPosition(position, 8).toString());
+		//table
 		
 	}
 	
 	
-	public void Assign(Frm_Chambre frm_cham, int position)
-	{
-		modeleChambreTable = new Mod_ChambreTable((int) modeleChambre.Get_courant());
-		
-		//Faire un set de la table
-		
-		
-		
+	
+	public void first(){  
+		position = 0;
+		Assign();
+    }
+	public void next(){  
+		if (position < Mod_Chambre.getNbRow() - 1)
+			position++;
+		else 
+			position = 0;
+		Assign();
 	}
+	public void next1(){
+		if (position > 0)
+			position--;
+		else 
+			position = Mod_Chambre.getNbRow() - 1;
+		Assign();	
+	}
+	public void last(){  
+		position = Mod_Chambre.getNbRow() - 1;
+		Assign();
+    }
+	public void quit(){  
+		Frm_Base frm_Base = new Frm_Base();
+		frm_Base.setVisible(true);
+		frm_Cham.dispose();
+		
+    }
 
 }

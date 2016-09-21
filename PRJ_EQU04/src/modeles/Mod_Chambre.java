@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
-public class Mod_Chambre extends AbstractTableModel{
+public final class Mod_Chambre{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,12 +23,29 @@ public class Mod_Chambre extends AbstractTableModel{
 	private String Desc_Loc;
 	private int courant = 0;
 	
-	private ArrayList<Mod_Chambre> Ls_Chambre = new ArrayList<Mod_Chambre>();
+	
+	public static ArrayList<ArrayList<?>> Ls_Chambre = new ArrayList<ArrayList<?>>();
+	
+
+	public static void setLs_Chambre(ArrayList<ArrayList<?>> ls_Chambre) {
+		Ls_Chambre = ls_Chambre;
+	}
+
+	public static ArrayList<String> Titre_Tab = new ArrayList<String>();
 	
 	
 	public Mod_Chambre()
 	{
 		super();
+		Titre_Tab.add("noCham");
+		Titre_Tab.add("etage");
+		Titre_Tab.add("etat");
+		Titre_Tab.add("codeType");
+		Titre_Tab.add("codeLoc");
+		Titre_Tab.add("descType");
+		Titre_Tab.add("descLoc");
+		Titre_Tab.add("prix");
+		Titre_Tab.add("memo");
 	}
 	
 	public Mod_Chambre(int No_Cham, int etage, double prix, boolean etat, String memo, String codtypcha,String codloc, String desctyp, String descloc)
@@ -48,7 +65,7 @@ public class Mod_Chambre extends AbstractTableModel{
 	}
 	
 	
-	public void Lire()
+	public static void Lire()
 	{
 		try {    
 			
@@ -58,18 +75,18 @@ public class Mod_Chambre extends AbstractTableModel{
 			
 			ResultSet rs = state.executeQuery();
 			while (rs.next()) {
-			    int No_Cham = rs.getInt("NoCham");
-			    int Etage = rs.getInt("Etage");
-			    double Prix = rs.getDouble("Prix");
-			    boolean Etat = rs.getBoolean("Etat");
-			    String Memo = rs.getString("Memo");
-			    String Codtypcha = rs.getString("CodTypCha");
-			    String CodLoc = rs.getString("CodLoc");
-			    String DescType = rs.getString("DescType");
-			    String DescLoc = rs.getString("DescLoc");
-			    
-				
-				Ls_Chambre.add(new Mod_Chambre(No_Cham,Etage,Prix,Etat,Memo,Codtypcha,CodLoc,DescType,DescLoc));  
+				ArrayList<Object> row = new ArrayList<Object>();
+				row.add(rs.getString("noCham"));
+				row.add(rs.getString("etage"));
+				row.add(rs.getBoolean("etat"));
+				row.add(rs.getString("codTypCha"));
+				row.add(rs.getString("codLoc"));
+				row.add(rs.getString("descType"));
+				row.add(rs.getString("descLoc"));
+				row.add(rs.getDouble("prix"));
+				row.add(rs.getString("memo"));
+				System.out.println(row.get(0));
+				Ls_Chambre.add(row);   
 				}		
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Chambre.java",
@@ -79,9 +96,14 @@ public class Mod_Chambre extends AbstractTableModel{
 	
 	
 	
+	
 	//Get et Set ------------------------------------------------------------------
-	public ArrayList<Mod_Chambre> Get_LsChambre()
-	{
+	
+	public static int getNbRow() {return Ls_Chambre.size();}
+	
+	public static Object getPosition(int rowIndex, int columnIndex) {return Ls_Chambre.get(rowIndex).get(columnIndex);}
+	
+	public static ArrayList<ArrayList<?>> getLs_Chambre() {
 		return Ls_Chambre;
 	}
 	
@@ -197,24 +219,5 @@ public class Mod_Chambre extends AbstractTableModel{
 	
 	
 	
-	
-	
-	@Override
-	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

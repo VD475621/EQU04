@@ -18,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class Frm_Chambre extends Frm_Base{
@@ -31,6 +33,15 @@ public class Frm_Chambre extends Frm_Base{
 	private JTextField Tb_DescType;
 	private JTextField Tb_DescLoc;
 	private JTextField Tb_Prix;
+	private JTextField Tb_Memo;
+	
+
+
+	public void setTb_Memo(JTextField tb_Memo) {
+		Tb_Memo = tb_Memo;
+	}
+
+
 	private JTable Tbl_Chambre;
 	private JTable Tbl_Chambre_1;
 
@@ -55,6 +66,7 @@ public class Frm_Chambre extends Frm_Base{
 		super();
 		
 		
+		
 		Initialiser_ObjetGraph();
 		
 		
@@ -62,6 +74,15 @@ public class Frm_Chambre extends Frm_Base{
 	
 	private void Initialiser_Listener()
 	{
+		getContentPane().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		
+		
+		
+		
 		
 	}
 
@@ -130,9 +151,9 @@ public class Frm_Chambre extends Frm_Base{
 		
 		
 		
-		JTextArea Ta_Memo = new JTextArea();
-		Ta_Memo.setBounds(24, 359, 440, 109);
-		Pn_Chambre.add(Ta_Memo);
+		 Tb_Memo = new JTextField();
+		Tb_Memo.setBounds(24, 359, 440, 109);
+		Pn_Chambre.add(Tb_Memo);
 		
 		JLabel Lb_Memo = new JLabel("Memo");
 		Lb_Memo.setBounds(21, 331, 61, 16);
@@ -165,21 +186,21 @@ public class Frm_Chambre extends Frm_Base{
 		Tb_NoCham.setBounds(80, 32, 130, 26);
 		Tb_NoCham.setEditable(false);
 		Tb_NoCham.setEnabled(false);
-		//Pn_Chambre.add(Tb_NoCham);
+		Pn_Chambre.add(Tb_NoCham);
 		Tb_NoCham.setColumns(10);
 		
 		Tb_Etage = new JTextField();
 		Tb_Etage.setBounds(80, 95, 130, 26);
 		Tb_Etage.setEditable(false);
 		Tb_Etage.setEnabled(false);
-		//Pn_Chambre.add(Tb_Etage);
+		Pn_Chambre.add(Tb_Etage);
 		Tb_Etage.setColumns(10);
 		
 		Tb_Etat = new JTextField();
 		Tb_Etat.setBounds(80, 155, 130, 26);
 		Tb_Etat.setEditable(false);
 		Tb_Etat.setEnabled(false);
-		//Pn_Chambre.add(Tb_Etat);
+		Pn_Chambre.add(Tb_Etat);
 		Tb_Etat.setColumns(10);
 		
 		
@@ -187,7 +208,7 @@ public class Frm_Chambre extends Frm_Base{
 		Tb_CodType.setBounds(80, 220, 130, 26);
 		Tb_CodType.setEditable(false);
 		Tb_CodType.setEnabled(false);
-		//Pn_Chambre.add(Tb_CodType);
+		Pn_Chambre.add(Tb_CodType);
 		Tb_CodType.setColumns(10);
 		
 		
@@ -195,20 +216,24 @@ public class Frm_Chambre extends Frm_Base{
 		Tb_Localisation.setBounds(349, 32, 130, 26);
 		Tb_Localisation.setEditable(false);
 		Tb_Localisation.setEnabled(false);
-		//Pn_Chambre.add(Tb_Localisation);
+		Pn_Chambre.add(Tb_Localisation);
 		Tb_Localisation.setColumns(10);
 		
 		Tb_Prix = new JTextField();
 		Tb_Prix.setBounds(349, 220, 130, 26);
 		Tb_Prix.setEditable(false);
 		Tb_Prix.setEnabled(false);
-		//Pn_Chambre.add(Tb_Prix);
+		Pn_Chambre.add(Tb_Prix);
 		Tb_Prix.setColumns(10);
 	}
 	
 	
 	
 	//-------------------------------------
+	public JTextField getTb_Memo() {
+		return Tb_Memo;
+	}
+	
 	public JTextField getTb_NoCham() {
 		return Tb_NoCham;
 	}
