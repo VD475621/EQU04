@@ -20,7 +20,7 @@ public class CtrlConnexion {
 	       
 	  	    ModConnexion.getInstance().connexion(nomUsager,mdp);   	
 	       	
-	       	testConnexion();
+	       	//testConnexion();
 	       	
 	       	fenetre.dispose();
 	        
