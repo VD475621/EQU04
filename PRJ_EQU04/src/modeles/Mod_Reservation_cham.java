@@ -40,7 +40,9 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	public void Lire_Enre(int p)
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("");
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKIdReser, c.NoCham, tc.CodTypCha, c.Prix, d.Attribuee" +
+																											"from De d, Chamber c, TypeCham tc" + 
+																											"where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham and d.FKIdReser = ?;");
 			state.setInt(1, p);
 			
 			ResultSet rs = state.executeQuery();
