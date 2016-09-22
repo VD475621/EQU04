@@ -49,7 +49,7 @@ public class Ctrl_Reservation {
 		mod_reser_cham = new Mod_Reservation_cham((int)mod_reser.Get_courant());
 		jt = new JTable(mod_reser_cham);
 		jt.removeColumn(jt.getColumnModel().getColumn(0));
-		frm.setjScrollPane( jt);
+		frm.setjScrollPane(jt);
 		
 		
 	}

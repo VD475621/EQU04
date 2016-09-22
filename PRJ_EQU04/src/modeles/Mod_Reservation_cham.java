@@ -19,6 +19,7 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	private String Type;
 	private double Prix;
 	private boolean occupee;
+	private int position;
 	
 	private ArrayList<Mod_Reservation_cham> les_reser_c = new  ArrayList<Mod_Reservation_cham>();
 	private final  String[] lesTitres = {"IdReser","No chambre", "Type", "Prix", "Occupee"};
@@ -34,17 +35,28 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	
 	public Mod_Reservation_cham(int position)
 	{
-		super();
+		//super();
+		this.setPosition(position);
 		Lire_Enre(position);
 	}
 	
+	
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
 	public void Lire_Enre(int p)
 	{
 		try {
 			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKIdReser, c.NoCham, tc.CodTypCha, c.Prix, d.Attribuee from De d, Chambre c, TypeCham tc where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham and d.FKIdReser = ?");
 			state.setInt(1, p);
 			
-			ResultSet rs = state.executeQuery();
+			ResultSet rs = state.executeQuery(); 
+			
 			while (rs.next()) {
 				int idreser = rs.getInt("FKIdReser");
 				String nocham = rs.getString("NoCham");
@@ -53,12 +65,13 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 				boolean occ = rs.getBoolean("Attribuee");
 				
 				//setIdReser(idreser);
-				System.out.println(nocham);
+			/*	System.out.println(nocham);
 				System.out.println(idreser);
 				System.out.println(type);
-				System.out.println(prix);
-				System.out.println(occ);
+				System.out.println(prix);*/
+				
 				les_reser_c.add(new Mod_Reservation_cham(idreser, nocham, type, prix, occ));  
+				System.out.println(les_reser_c.size());
 			}
 		} 
 		catch (SQLException e) 
@@ -89,12 +102,12 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
 		Mod_Reservation_cham c = (Mod_Reservation_cham)les_reser_c.get(rowIndex);
-		if(columnIndex == 0) c.getIdReser();
-		if(columnIndex == 1) c.getNoCham();
-		if(columnIndex == 2) c.getType();
-		if(columnIndex == 3) c.getPrix();
-		if(columnIndex == 4) c.isOccupee();
-		return null;
+		if(columnIndex == 0) return  c.getIdReser();
+		if(columnIndex == 1)return  c.getNoCham();
+		if(columnIndex == 2) return c.getType();
+		if(columnIndex == 3) return c.getPrix();
+		else return c.isOccupee();
+
 	}
 
 	public ArrayList<Mod_Reservation_cham> getLes_reser_c() {

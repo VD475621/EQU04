@@ -114,12 +114,12 @@ public class Frm_Connexion extends JDialog {
 		JLabel lblUser = new JLabel();
 		lblUser.setBounds(60, 34, 16, 16);
 		jPnCnx.add(lblUser);
-		lblUser.setIcon(new ImageIcon(Frm_Connexion.class.getResource("/elementsGraphiques/Images/connection/utilisateur.png")));
+		//lblUser.setIcon(new ImageIcon(Frm_Connexion.class.getResource("/elementsGraphiques/Images/connection/utilisateur.png")));
 		
 		JLabel lblMdP = new JLabel();
 		lblMdP.setBounds(60, 75, 16, 16);
 		jPnCnx.add(lblMdP);
-		lblMdP.setIcon(new ImageIcon(Frm_Connexion.class.getResource("/elementsGraphiques/Images/connection/key.png")));
+		//lblMdP.setIcon(new ImageIcon(Frm_Connexion.class.getResource("/elementsGraphiques/Images/connection/key.png")));
 		
 		txtUser = new JTextField();
 		txtUser.setBounds(88, 22, 223, 28);
