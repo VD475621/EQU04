@@ -57,7 +57,7 @@ public class Frm_Menu extends JFrame {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				win= new Frm_Chambre();
+				win= new Frm_Reservation();
 				win.setVisible(true);
 			}
 		});

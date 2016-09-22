@@ -35,7 +35,6 @@ public class Frm_Reservation extends Frm_Base {
 	private JTextField Tb_date_debut;
 	private JTextField Tb_date_fin;
 	private JTextField Tb_typ_carte;
-	private JTable Tbl_reservation;
 	private JFormattedTextField Tbf_solde_du;
 	private JFormattedTextField Tbf_exp;
 	private JFormattedTextField Tbf_telephone;
@@ -65,6 +64,7 @@ public class Frm_Reservation extends Frm_Base {
 	 */
 	public Frm_Reservation() {
 		super();
+		
 		btnFin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ct_reser.Dernier(instance);
@@ -97,7 +97,6 @@ public class Frm_Reservation extends Frm_Base {
 			}
 		});
 		
-		instance = this;
 		
 		btnNaviguerGauche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +107,6 @@ public class Frm_Reservation extends Frm_Base {
 		
 		setTitle("Reservation");
 		
-		Initialise();
 		
 		JPanel Pn_client = new JPanel();
 		Pn_client.setBounds(63, 63, 450, 225);
@@ -251,21 +249,14 @@ public class Frm_Reservation extends Frm_Base {
 		Lb_information_client.setBounds(187, 35, 234, 16);
 		getContentPane().add(Lb_information_client);
 		
-		ScrP_Reser = new JScrollPane();
-		ScrP_Reser.setBounds(63, 332, 964, 191);
-		getContentPane().add(ScrP_Reser);
 		
-		Tbl_reservation = new JTable();
+		instance = this;
+		ct_reser = new Ctrl_Reservation(instance);
 		
-		ScrP_Reser.setColumnHeaderView(Tbl_reservation);
 		
 		Consulter();
 	}
 	
-	private void Initialise()
-	{
-		
-	}
 	
 	private void Consulter()
 	{
@@ -297,13 +288,10 @@ public class Frm_Reservation extends Frm_Base {
 	
 	public void setjScrollPane(JTable UneTable)
 	{
-	
-		if (this.ScrP_Reser == null) 
-		   {
-			ScrP_Reser = new JScrollPane(UneTable);
-			ScrP_Reser.setBounds(20, 7,515, 175);
-		   }
+		ScrP_Reser = new JScrollPane(UneTable);
+		ScrP_Reser.setBounds(63, 332, 964, 191);
 		ScrP_Reser.setViewportView(UneTable);
+		getContentPane().add(ScrP_Reser);
 	}
 
 	public Frm_Reservation getInstance() {
@@ -384,14 +372,6 @@ public class Frm_Reservation extends Frm_Base {
 
 	public void setTb_typ_carte(JTextField tb_typ_carte) {
 		Tb_typ_carte = tb_typ_carte;
-	}
-
-	public JTable getTbl_reservation() {
-		return Tbl_reservation;
-	}
-
-	public void setTbl_reservation(JTable tbl_reservation) {
-		Tbl_reservation = tbl_reservation;
 	}
 
 	public JFormattedTextField getTbf_solde_du() {

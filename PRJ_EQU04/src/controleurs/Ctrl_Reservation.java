@@ -10,25 +10,25 @@ import modeles.Mod_Reservation;
 import modeles.Mod_Reservation_cham;
 
 public class Ctrl_Reservation {
-	public Mod_Reservation mod_reser = null;
-	public Mod_Reservation_cham mod_reser_cham = null;
-	private ArrayList<Mod_Reservation> Ls_reser = null;
+	public Mod_Reservation mod_reser;
+	public Mod_Reservation_cham mod_reser_cham;
+	private ArrayList<Mod_Reservation> Ls_reser;
 	private int position = 0;
-	
+	private JTable jt;
 	
 	public Ctrl_Reservation(Frm_Reservation frm_cham)
 	{
 		mod_reser = new Mod_Reservation(); 
 		Ls_reser = mod_reser.getLes_resers();
-		
+		Assign(frm_cham, position);
 	}
 	
 	
 	public void Assign(Frm_Reservation frm, int position)
 	{
-		mod_reser.setCourant((int) mod_reser.getValueAt(position, 0));
+		mod_reser.setCourant((int) mod_reser.getValueAt(position, 8));
 		
-		
+		frm.getTb_adresse().setText("allll");
 		//affichage de la reservation et du client
 		frm.getTb_IdCli().setText(mod_reser.getValueAt(position, 0).toString());
 		frm.getTb_Nom().setText(mod_reser.getValueAt(position, 1).toString());
@@ -45,8 +45,11 @@ public class Ctrl_Reservation {
 		
 		
 		//affichage des chambres
+		
 		mod_reser_cham = new Mod_Reservation_cham((int)mod_reser.Get_courant());
-		frm.setjScrollPane(new JTable(mod_reser_cham));
+		jt = new JTable(mod_reser_cham);
+		jt.removeColumn(jt.getColumnModel().getColumn(0));
+		frm.setjScrollPane(jt);
 		
 		
 	}
@@ -60,7 +63,7 @@ public class Ctrl_Reservation {
 	public void Suivant(Frm_Reservation f)
 	{
 		if (position<mod_reser.getLes_resers().size()-1)
-			position--;
+			position++;
 		else position= 0;
 		 mod_reser.setCourant((int)mod_reser.getValueAt(position, 0));
 		Assign(f, position);	
