@@ -57,7 +57,7 @@ public class Frm_Menu extends JFrame {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				win= new Frm_Chambre();
+				win= new Frm_Reservation();
 				win.setVisible(true);
 			}
 		});
@@ -98,7 +98,7 @@ public class Frm_Menu extends JFrame {
 		btnArrive.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				win= new Frm_Chambre();win.setVisible(true);
+				win= new Frm_Arrive();win.setVisible(true);
 			}
 		});
 		btnArrive.setBounds(222, 78, 105, 23);

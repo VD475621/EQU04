@@ -21,10 +21,11 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	private boolean occupee;
 	
 	private ArrayList<Mod_Reservation_cham> les_reser_c = new  ArrayList<Mod_Reservation_cham>();
-	private final  String[] lesTitres = {"No chambre", "Type", "Prix", "Occupee"};
+	private final  String[] lesTitres = {"IdReser","No chambre", "Type", "Prix", "Occupee"};
 	
-	public Mod_Reservation_cham(String nocham, String type, double prix, boolean occ)
+	public Mod_Reservation_cham(int idreser, String nocham, String type, double prix, boolean occ)
 	{
+		this.setIdReser(idreser);
 		this.setNoCham(nocham);
 		this.setType(type);
 		this.setPrix(prix);
@@ -40,26 +41,29 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	public void Lire_Enre(int p)
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKIdReser, c.NoCham, tc.CodTypCha, c.Prix, d.Attribuee" +
-																											"from De d, Chamber c, TypeCham tc" + 
-																											"where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham and d.FKIdReser = ?;");
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKIdReser, c.NoCham, tc.CodTypCha, c.Prix, d.Attribuee from De d, Chambre c, TypeCham tc where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham and d.FKIdReser = ?");
 			state.setInt(1, p);
 			
 			ResultSet rs = state.executeQuery();
 			while (rs.next()) {
-				int idreser = rs.getInt("IdReser");
+				int idreser = rs.getInt("FKIdReser");
 				String nocham = rs.getString("NoCham");
-				String type = rs.getString("Type");
+				String type = rs.getString("CodTypCha");
 				double prix = rs.getDouble("Prix");
-				boolean occ = rs.getBoolean("Occupee");
+				boolean occ = rs.getBoolean("Attribuee");
 				
-				setIdReser(idreser);
-				les_reser_c.add(new Mod_Reservation_cham(nocham, type, prix, occ));  
+				//setIdReser(idreser);
+				System.out.println(nocham);
+				System.out.println(idreser);
+				System.out.println(type);
+				System.out.println(prix);
+				System.out.println(occ);
+				les_reser_c.add(new Mod_Reservation_cham(idreser, nocham, type, prix, occ));  
 			}
 		} 
 		catch (SQLException e) 
 		{
-			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Reservation.java","ALERTE", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Reservation_cham.java","ALERTE", JOptionPane.ERROR_MESSAGE);System.out.println(e);
 		}
 	}
 	
@@ -68,6 +72,11 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	public int getRowCount() {
 		// TODO Auto-generated method stub
 		return les_reser_c.size();
+	}
+	@Override
+	public String getColumnName(int columnIndex)
+	{
+		return lesTitres[columnIndex];
 	}
 
 	@Override
@@ -80,10 +89,11 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
 		Mod_Reservation_cham c = (Mod_Reservation_cham)les_reser_c.get(rowIndex);
-		if(columnIndex == 0) c.getNoCham();
-		if(columnIndex == 1) c.getType();
-		if(columnIndex == 2) c.getPrix();
-		if(columnIndex == 3) c.isOccupee();
+		if(columnIndex == 0) c.getIdReser();
+		if(columnIndex == 1) c.getNoCham();
+		if(columnIndex == 2) c.getType();
+		if(columnIndex == 3) c.getPrix();
+		if(columnIndex == 4) c.isOccupee();
 		return null;
 	}
 
