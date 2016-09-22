@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import controleurs.Ctrl_Reservation;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -30,7 +33,9 @@ public class Frm_Reservation extends Frm_Base {
 	private JFormattedTextField Tbf_exp;
 	private JFormattedTextField Tbf_telephone;
 	private JFormattedTextField Tbf_fax;
-
+	
+	private Ctrl_Reservation ct_reser;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -202,6 +207,7 @@ public class Frm_Reservation extends Frm_Base {
 		getContentPane().add(ScrP_Reser);
 		
 		Tbl_reservation = new JTable();
+		
 		ScrP_Reser.setColumnHeaderView(Tbl_reservation);
 		
 		Consulter();
@@ -209,6 +215,24 @@ public class Frm_Reservation extends Frm_Base {
 	
 	private void Initialise()
 	{
+		Tbl_reservation.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		
+		Tb_IdReser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+
+		Tb_IdCli.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		
 		btnFin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
