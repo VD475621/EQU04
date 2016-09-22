@@ -15,6 +15,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 
 public class Frm_Reservation extends Frm_Base {
 
@@ -241,6 +242,15 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_reservation.add(Tb_date_fin);
 		Tb_date_fin.setColumns(10);
 		
+		JButton Btn_PkList = new JButton("...");
+		Btn_PkList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ct_reser.ListeReservation(instance);
+			}
+		});
+		Btn_PkList.setBounds(268, 7, 28, 23);
+		Pn_reservation.add(Btn_PkList);
+		
 		JLabel Lb_information_reser = new JLabel("Information sur la reservation");
 		Lb_information_reser.setBounds(683, 35, 220, 16);
 		getContentPane().add(Lb_information_reser);
@@ -413,9 +423,4 @@ public class Frm_Reservation extends Frm_Base {
 	public void setCt_reser(Ctrl_Reservation ct_reser) {
 		this.ct_reser = ct_reser;
 	}
-
-	
-	
-	
-	
 }

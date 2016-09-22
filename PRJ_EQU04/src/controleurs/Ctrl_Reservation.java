@@ -6,6 +6,8 @@ import javax.swing.JTable;
 
 import View.Frm_Chambre;
 import View.Frm_Reservation;
+import View.Pk_List;
+import modeles.Mod_Pk_Reservation;
 import modeles.Mod_Reservation;
 import modeles.Mod_Reservation_cham;
 
@@ -84,47 +86,11 @@ public class Ctrl_Reservation {
 		Assign(f, position);
 	}
 	
-	
-/*
-	//GESTION DES LISTES DE SÉLECTION (PICKLISTS)
-		//Liste des bons à partir du modèle ModBonAcheteur (vue principale)
-		//voir CtrlListBons et WinListBons
-		public void ListeBons (WinBon winBon)
-		{   WinListBons pkListBon = new WinListBons();
-		    pkListBon.setVisible(true);
-			AffecteValeurs(winBon,pkListBon.getNoLigneSel());	
-		}
-		
-		//Liste des acheteurs voir WinListAcheteurs, ModListAcheteur et CtrlListAcheteurs
-		public void ListeAch (WinBon winBon)
-		{   WinListAcheteurs pkListAch = new WinListAcheteurs();
-		    pkListAch.setLocationRelativeTo(winBon.getbtnPkAch());
-		    pkListAch.setVisible(true);
-		    pkListAch.setEnabled(true);
-			AfficheAcheteur(winBon,pkListAch);	
-		}
-		
-		//Liste des produits voir WinListProduits, ModListProduits et CtrlListProduits
-		public void ListeProduits (WinBon winBon)
-		{   WinListProduits pkListProd = new WinListProduits();
-		    ModContientProduit unProduit;
-		    pkListProd.setLocationRelativeTo(winBon.getBtnAjtProduit());
-		    pkListProd.setVisible(true);
-		    pkListProd.setEnabled(true);
-		    
-		    //récupération des informations de la liste de sélection via son controleur
-		    int noProd = pkListProd.getCtrl().getNoProduit();
-			String descProd = pkListProd.getCtrl().getDesProd();
-			Double prixProd = pkListProd.getCtrl().getPrixProd();
-			int Qte = 0;
-			Double prixVente = 0.0;
-			
-			// Création d'un produit selon le modèle contient produit
-			unProduit = new ModContientProduit(noProd,descProd,Qte,prixProd,prixVente);
-			modeleProduit.AjouteProduit(unProduit);
-			winBon.setjScrollPane(new JTable(modeleProduit)); 
-		}
-		*/
+	public void ListeReservation(Frm_Reservation f)
+	{
+		this.position = Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des R�servations");
+		this.Assign(f, position);
+	}
 	
 
 	public Mod_Reservation getMod_reser() {
