@@ -26,6 +26,10 @@ public class Frm_Reservation extends Frm_Base {
 	private JTextField Tb_date_fin;
 	private JTextField Tb_typ_carte;
 	private JTable Tbl_reservation;
+	private JFormattedTextField Tbf_solde_du;
+	private JFormattedTextField Tbf_exp;
+	private JFormattedTextField Tbf_telephone;
+	private JFormattedTextField Tbf_fax;
 
 	/**
 	 * Launch the application.
@@ -95,17 +99,17 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_client.add(Tb_Nom);
 		Tb_Nom.setColumns(10);
 		
-		JFormattedTextField Tbf_telephone = new JFormattedTextField();
+		Tbf_telephone = new JFormattedTextField();
 		Tbf_telephone.setEditable(false);
 		Tbf_telephone.setText("(   )     -     ");
 		Tbf_telephone.setBounds(79, 84, 130, 26);
 		Pn_client.add(Tbf_telephone);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setEditable(false);
-		formattedTextField.setText("(   )     -     ");
-		formattedTextField.setBounds(247, 84, 130, 26);
-		Pn_client.add(formattedTextField);
+		Tbf_fax = new JFormattedTextField();
+		Tbf_fax.setEditable(false);
+		Tbf_fax.setText("(   )     -     ");
+		Tbf_fax.setBounds(247, 84, 130, 26);
+		Pn_client.add(Tbf_fax);
 		
 		JLabel Lb_typCarte = new JLabel("Type de Carte");
 		Lb_typCarte.setBounds(6, 135, 93, 16);
@@ -119,7 +123,7 @@ public class Frm_Reservation extends Frm_Base {
 		Lb_solde_du.setBounds(212, 179, 61, 16);
 		Pn_client.add(Lb_solde_du);
 		
-		JFormattedTextField Tbf_exp = new JFormattedTextField();
+		Tbf_exp = new JFormattedTextField();
 		Tbf_exp.setEditable(false);
 		Tbf_exp.setText("jj/mm/aaaa");
 		Tbf_exp.setBounds(79, 174, 121, 26);
@@ -131,7 +135,7 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_client.add(Tb_typ_carte);
 		Tb_typ_carte.setColumns(10);
 		
-		JFormattedTextField Tbf_solde_du = new JFormattedTextField();
+		Tbf_solde_du = new JFormattedTextField();
 		Tbf_solde_du.setEditable(false);
 		Tbf_solde_du.setText("0,00 $");
 		Tbf_solde_du.setBounds(273, 174, 104, 26);
@@ -194,11 +198,13 @@ public class Frm_Reservation extends Frm_Base {
 		getContentPane().add(Lb_information_client);
 		
 		JScrollPane ScrP_Reser = new JScrollPane();
-		ScrP_Reser.setBounds(63, 336, 964, 191);
+		ScrP_Reser.setBounds(63, 332, 964, 191);
 		getContentPane().add(ScrP_Reser);
 		
 		Tbl_reservation = new JTable();
 		ScrP_Reser.setColumnHeaderView(Tbl_reservation);
+		
+		Consulter();
 	}
 	
 	private void Initialise()
@@ -280,4 +286,189 @@ public class Frm_Reservation extends Frm_Base {
 	{
 		
 	}
+
+	/**
+	 * @return the tb_IdCli
+	 */
+	private JTextField getTb_IdCli() {
+		return Tb_IdCli;
+	}
+
+	/**
+	 * @param tb_IdCli the tb_IdCli to set
+	 */
+	private void setTb_IdCli(JTextField tb_IdCli) {
+		Tb_IdCli = tb_IdCli;
+	}
+
+	/**
+	 * @return the tb_adresse
+	 */
+	private JTextField getTb_adresse() {
+		return Tb_adresse;
+	}
+
+	/**
+	 * @param tb_adresse the tb_adresse to set
+	 */
+	private void setTb_adresse(JTextField tb_adresse) {
+		Tb_adresse = tb_adresse;
+	}
+
+	/**
+	 * @return the tb_Nom
+	 */
+	private JTextField getTb_Nom() {
+		return Tb_Nom;
+	}
+
+	/**
+	 * @param tb_Nom the tb_Nom to set
+	 */
+	private void setTb_Nom(JTextField tb_Nom) {
+		Tb_Nom = tb_Nom;
+	}
+
+	/**
+	 * @return the tb_IdReser
+	 */
+	private JTextField getTb_IdReser() {
+		return Tb_IdReser;
+	}
+
+	/**
+	 * @param tb_IdReser the tb_IdReser to set
+	 */
+	private void setTb_IdReser(JTextField tb_IdReser) {
+		Tb_IdReser = tb_IdReser;
+	}
+
+	/**
+	 * @return the tb_date_reser
+	 */
+	private JTextField getTb_date_reser() {
+		return Tb_date_reser;
+	}
+
+	/**
+	 * @param tb_date_reser the tb_date_reser to set
+	 */
+	private void setTb_date_reser(JTextField tb_date_reser) {
+		Tb_date_reser = tb_date_reser;
+	}
+
+	/**
+	 * @return the tb_date_debut
+	 */
+	private JTextField getTb_date_debut() {
+		return Tb_date_debut;
+	}
+
+	/**
+	 * @param tb_date_debut the tb_date_debut to set
+	 */
+	private void setTb_date_debut(JTextField tb_date_debut) {
+		Tb_date_debut = tb_date_debut;
+	}
+
+	/**
+	 * @return the tb_date_fin
+	 */
+	private JTextField getTb_date_fin() {
+		return Tb_date_fin;
+	}
+
+	/**
+	 * @param tb_date_fin the tb_date_fin to set
+	 */
+	private void setTb_date_fin(JTextField tb_date_fin) {
+		Tb_date_fin = tb_date_fin;
+	}
+
+	/**
+	 * @return the tb_typ_carte
+	 */
+	private JTextField getTb_typ_carte() {
+		return Tb_typ_carte;
+	}
+
+	/**
+	 * @param tb_typ_carte the tb_typ_carte to set
+	 */
+	private void setTb_typ_carte(JTextField tb_typ_carte) {
+		Tb_typ_carte = tb_typ_carte;
+	}
+
+	/**
+	 * @return the tbl_reservation
+	 */
+	private JTable getTbl_reservation() {
+		return Tbl_reservation;
+	}
+
+	/**
+	 * @param tbl_reservation the tbl_reservation to set
+	 */
+	private void setTbl_reservation(JTable tbl_reservation) {
+		Tbl_reservation = tbl_reservation;
+	}
+
+	/**
+	 * @return the tbf_solde_du
+	 */
+	private JFormattedTextField getTbf_solde_du() {
+		return Tbf_solde_du;
+	}
+
+	/**
+	 * @param tbf_solde_du the tbf_solde_du to set
+	 */
+	private void setTbf_solde_du(JFormattedTextField tbf_solde_du) {
+		Tbf_solde_du = tbf_solde_du;
+	}
+
+	/**
+	 * @return the tbf_exp
+	 */
+	private JFormattedTextField getTbf_exp() {
+		return Tbf_exp;
+	}
+
+	/**
+	 * @param tbf_exp the tbf_exp to set
+	 */
+	private void setTbf_exp(JFormattedTextField tbf_exp) {
+		Tbf_exp = tbf_exp;
+	}
+
+	/**
+	 * @return the tbf_telephone
+	 */
+	private JFormattedTextField getTbf_telephone() {
+		return Tbf_telephone;
+	}
+
+	/**
+	 * @param tbf_telephone the tbf_telephone to set
+	 */
+	private void setTbf_telephone(JFormattedTextField tbf_telephone) {
+		Tbf_telephone = tbf_telephone;
+	}
+
+	/**
+	 * @return the tbf_fax
+	 */
+	private JFormattedTextField getTbf_fax() {
+		return Tbf_fax;
+	}
+
+	/**
+	 * @param tbf_fax the tbf_fax to set
+	 */
+	private void setTbf_fax(JFormattedTextField tbf_fax) {
+		Tbf_fax = tbf_fax;
+	}
+	
+	
+	
 }

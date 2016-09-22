@@ -31,5 +31,39 @@ public class Ctrl_Reservation {
 		
 		
 	}
+
+
+	/**
+	 * @return the ls_reser
+	 */
+	private ArrayList<Mod_Reservation> getLs_reser() {
+		return Ls_reser;
+	}
+
+
+	/**
+	 * @param ls_reser the ls_reser to set
+	 */
+	private void setLs_reser(ArrayList<Mod_Reservation> ls_reser) {
+		Ls_reser = ls_reser;
+	}
+
+
+	/**
+	 * @return the position
+	 */
+	private int getPosition() {
+		return position;
+	}
+
+
+	/**
+	 * @param position the position to set
+	 */
+	private void setPosition(int position) {
+		this.position = position;
+	}
+	
+	
 	
 }
