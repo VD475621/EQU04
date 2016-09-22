@@ -25,6 +25,8 @@ public class ModelArrive {
 	private String DateDebut;
 	private String DateFin;
 	
+	private int courant = 0;
+	
 	private static Connection laConnexion = ModConnexion.getInstance().getLaConnectionStatique();
     private final ArrayList<ModelArrive> lesEnreg = new ArrayList<ModelArrive>();
  
@@ -58,7 +60,7 @@ public class ModelArrive {
         try {    
             lesEnreg.clear();
             Statement state = laConnexion.createStatement();
-            ResultSet rs = state.executeQuery("SELECT Client.IdCli,Client.Nom,Client.Adresse,Client.Telephone,Client.Fax,Arrive.FKNoCham,Reservation.IdReser,Reservation.dateReser,Reservation.dateDebut,Reservation.dateFin FROM Client,Arrive,Reservation WHERE Client.IdCli = Arrive.FKIdCli AND Client.IdCli = Reservation.FKIdCli");                                                                                                                                                                                                                                                                                                                                                                                                                                   
+            ResultSet rs = state.executeQuery("SELECT c.IdCli,c.Nom,c.Adresse,c.Telephone,c.Fax,a.FKNoCham,r.IdReser,r.dateReser,r.dateDebut,r.dateFin FROM CLIENT c,RESERVATION r ,ARRIVE a WHERE r.FKIdCli = c.IdCli AND a.FKIdReser = r.IdReser;");                                                                                                                                                                                                                                                                                                                                                                                                                                   
  
             while (rs.next())
             {
@@ -138,6 +140,34 @@ public class ModelArrive {
     {
         return DateFin;
     }
+    
+    public int Get_courant() {
+		// TODO Auto-generated method stub
+		return courant;
+	}
+
+	public void setCourant(int valueAt) {
+		// TODO Auto-generated method stub
+		
+		this.courant = valueAt;
+	}
+	
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		ModelArrive reser = (ModelArrive)lesEnreg.get(rowIndex);
+		if(columnIndex == 0) return reser.getNoCli();
+		if(columnIndex == 1) return reser.getNomCli();
+		if(columnIndex == 2) return reser.getAdrCli();
+		if(columnIndex == 3) return reser.getTelCli();
+		if(columnIndex == 4) return reser.getFaxCli();
+		if(columnIndex == 5) return reser.getNoChamCli();
+		if(columnIndex == 6) return reser.getNoReserv();
+		if(columnIndex == 7) return reser.getDateReserv();
+		if(columnIndex == 8) return reser.getDateDebut();
+		if(columnIndex == 9) return reser.getDateFin();
+		
+		return null;
+	}
     
     
  
