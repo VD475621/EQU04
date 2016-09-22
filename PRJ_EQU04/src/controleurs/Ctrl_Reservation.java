@@ -46,7 +46,7 @@ public class Ctrl_Reservation {
 			position--;
 		else position= 0;
 		 mod_reser.setCourant((int)mod_reser.getValueAt(position, 0));
-		Assign(f,position);	
+		Assign(f, position);	
 	}
 	
 	public void Precedent(Frm_Reservation f)

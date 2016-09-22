@@ -13,12 +13,19 @@ import controleurs.Ctrl_Reservation;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Frm_Reservation extends Frm_Base {
 
+	
+	
 	/**
 	 * 
 	 */
+	
+	private Frm_Reservation instance;
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField Tb_IdCli;
 	private JTextField Tb_adresse;
@@ -57,6 +64,47 @@ public class Frm_Reservation extends Frm_Base {
 	 */
 	public Frm_Reservation() {
 		super();
+		btnFin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ct_reser.Dernier(instance);
+			}
+		});
+		btnNaviguer_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ct_reser.Suivant(instance);
+			}
+		});
+		btnConsulter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnModifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAjouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNaviguer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ct_reser.Precedent(instance);
+			}
+		});
+		
+		instance = this;
+		
+		btnNaviguerGauche.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ct_reser.Premier(instance);
+			}
+		});
+		
+		
 		setTitle("Reservation");
 		
 		Initialise();
@@ -215,72 +263,7 @@ public class Frm_Reservation extends Frm_Base {
 	
 	private void Initialise()
 	{
-		Tbl_reservation.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		
-		Tb_IdReser.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-
-		Tb_IdCli.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-		});
-		
-		btnFin.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		btnNaviguer_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		btnConsulter.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		btnModifier.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		btnSupprimer.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		btnAjouter.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		btnNaviguer.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		btnNaviguerGauche.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-			}
-		});
 	}
 	
 	private void Consulter()
