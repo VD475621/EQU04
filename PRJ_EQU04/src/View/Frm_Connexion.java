@@ -129,5 +129,7 @@ public class Frm_Connexion extends JDialog {
 		txtMdp = new JPasswordField();
 		txtMdp.setBounds(88, 62, 223, 28);
 		jPnCnx.add(txtMdp);
+		this.txtUser.setText("EQU04PRG01");
+		this.txtMdp.setText("j52754");
 	}
 }
