@@ -17,7 +17,7 @@ public class Ctrl_Reservation {
 	public Ctrl_Reservation(Frm_Reservation frm_cham)
 	{
 		mod_reser = new Mod_Reservation(); 
-		Ls_reser = mod_reser.Get_LsChambre();
+		Ls_reser = mod_reser.getLes_resers();
 		
 	}
 	
@@ -33,36 +33,47 @@ public class Ctrl_Reservation {
 	}
 
 
-	/**
-	 * @return the ls_reser
-	 */
-	private ArrayList<Mod_Reservation> getLs_reser() {
+	public Mod_Reservation getMod_reser() {
+		return mod_reser;
+	}
+
+
+	public void setMod_reser(Mod_Reservation mod_reser) {
+		this.mod_reser = mod_reser;
+	}
+
+
+	public Mod_Reservation_cham getMod_reser_cham() {
+		return mod_reser_cham;
+	}
+
+
+	public void setMod_reser_cham(Mod_Reservation_cham mod_reser_cham) {
+		this.mod_reser_cham = mod_reser_cham;
+	}
+
+
+	public ArrayList<Mod_Reservation> getLs_reser() {
 		return Ls_reser;
 	}
 
 
-	/**
-	 * @param ls_reser the ls_reser to set
-	 */
-	private void setLs_reser(ArrayList<Mod_Reservation> ls_reser) {
+	public void setLs_reser(ArrayList<Mod_Reservation> ls_reser) {
 		Ls_reser = ls_reser;
 	}
 
 
-	/**
-	 * @return the position
-	 */
-	private int getPosition() {
+	public int getPosition() {
 		return position;
 	}
 
 
-	/**
-	 * @param position the position to set
-	 */
-	private void setPosition(int position) {
+	public void setPosition(int position) {
 		this.position = position;
 	}
+
+
+	
 	
 	
 	

@@ -190,4 +190,14 @@ public class Mod_Reservation{
 	{
 		return this.dateFin;
 	}
+
+	public ArrayList<Mod_Reservation> getLes_resers() {
+		return les_resers;
+	}
+
+	public void setLes_resers(ArrayList<Mod_Reservation> les_resers) {
+		this.les_resers = les_resers;
+	}
+	
+	
 }

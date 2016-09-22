@@ -311,187 +311,119 @@ public class Frm_Reservation extends Frm_Base {
 		
 	}
 
-	/**
-	 * @return the tb_IdCli
-	 */
-	private JTextField getTb_IdCli() {
+	public JTextField getTb_IdCli() {
 		return Tb_IdCli;
 	}
 
-	/**
-	 * @param tb_IdCli the tb_IdCli to set
-	 */
-	private void setTb_IdCli(JTextField tb_IdCli) {
+	public void setTb_IdCli(JTextField tb_IdCli) {
 		Tb_IdCli = tb_IdCli;
 	}
 
-	/**
-	 * @return the tb_adresse
-	 */
-	private JTextField getTb_adresse() {
+	public JTextField getTb_adresse() {
 		return Tb_adresse;
 	}
 
-	/**
-	 * @param tb_adresse the tb_adresse to set
-	 */
-	private void setTb_adresse(JTextField tb_adresse) {
+	public void setTb_adresse(JTextField tb_adresse) {
 		Tb_adresse = tb_adresse;
 	}
 
-	/**
-	 * @return the tb_Nom
-	 */
-	private JTextField getTb_Nom() {
+	public JTextField getTb_Nom() {
 		return Tb_Nom;
 	}
 
-	/**
-	 * @param tb_Nom the tb_Nom to set
-	 */
-	private void setTb_Nom(JTextField tb_Nom) {
+	public void setTb_Nom(JTextField tb_Nom) {
 		Tb_Nom = tb_Nom;
 	}
 
-	/**
-	 * @return the tb_IdReser
-	 */
-	private JTextField getTb_IdReser() {
+	public JTextField getTb_IdReser() {
 		return Tb_IdReser;
 	}
 
-	/**
-	 * @param tb_IdReser the tb_IdReser to set
-	 */
-	private void setTb_IdReser(JTextField tb_IdReser) {
+	public void setTb_IdReser(JTextField tb_IdReser) {
 		Tb_IdReser = tb_IdReser;
 	}
 
-	/**
-	 * @return the tb_date_reser
-	 */
-	private JTextField getTb_date_reser() {
+	public JTextField getTb_date_reser() {
 		return Tb_date_reser;
 	}
 
-	/**
-	 * @param tb_date_reser the tb_date_reser to set
-	 */
-	private void setTb_date_reser(JTextField tb_date_reser) {
+	public void setTb_date_reser(JTextField tb_date_reser) {
 		Tb_date_reser = tb_date_reser;
 	}
 
-	/**
-	 * @return the tb_date_debut
-	 */
-	private JTextField getTb_date_debut() {
+	public JTextField getTb_date_debut() {
 		return Tb_date_debut;
 	}
 
-	/**
-	 * @param tb_date_debut the tb_date_debut to set
-	 */
-	private void setTb_date_debut(JTextField tb_date_debut) {
+	public void setTb_date_debut(JTextField tb_date_debut) {
 		Tb_date_debut = tb_date_debut;
 	}
 
-	/**
-	 * @return the tb_date_fin
-	 */
-	private JTextField getTb_date_fin() {
+	public JTextField getTb_date_fin() {
 		return Tb_date_fin;
 	}
 
-	/**
-	 * @param tb_date_fin the tb_date_fin to set
-	 */
-	private void setTb_date_fin(JTextField tb_date_fin) {
+	public void setTb_date_fin(JTextField tb_date_fin) {
 		Tb_date_fin = tb_date_fin;
 	}
 
-	/**
-	 * @return the tb_typ_carte
-	 */
-	private JTextField getTb_typ_carte() {
+	public JTextField getTb_typ_carte() {
 		return Tb_typ_carte;
 	}
 
-	/**
-	 * @param tb_typ_carte the tb_typ_carte to set
-	 */
-	private void setTb_typ_carte(JTextField tb_typ_carte) {
+	public void setTb_typ_carte(JTextField tb_typ_carte) {
 		Tb_typ_carte = tb_typ_carte;
 	}
 
-	/**
-	 * @return the tbl_reservation
-	 */
-	private JTable getTbl_reservation() {
+	public JTable getTbl_reservation() {
 		return Tbl_reservation;
 	}
 
-	/**
-	 * @param tbl_reservation the tbl_reservation to set
-	 */
-	private void setTbl_reservation(JTable tbl_reservation) {
+	public void setTbl_reservation(JTable tbl_reservation) {
 		Tbl_reservation = tbl_reservation;
 	}
 
-	/**
-	 * @return the tbf_solde_du
-	 */
-	private JFormattedTextField getTbf_solde_du() {
+	public JFormattedTextField getTbf_solde_du() {
 		return Tbf_solde_du;
 	}
 
-	/**
-	 * @param tbf_solde_du the tbf_solde_du to set
-	 */
-	private void setTbf_solde_du(JFormattedTextField tbf_solde_du) {
+	public void setTbf_solde_du(JFormattedTextField tbf_solde_du) {
 		Tbf_solde_du = tbf_solde_du;
 	}
 
-	/**
-	 * @return the tbf_exp
-	 */
-	private JFormattedTextField getTbf_exp() {
+	public JFormattedTextField getTbf_exp() {
 		return Tbf_exp;
 	}
 
-	/**
-	 * @param tbf_exp the tbf_exp to set
-	 */
-	private void setTbf_exp(JFormattedTextField tbf_exp) {
+	public void setTbf_exp(JFormattedTextField tbf_exp) {
 		Tbf_exp = tbf_exp;
 	}
 
-	/**
-	 * @return the tbf_telephone
-	 */
-	private JFormattedTextField getTbf_telephone() {
+	public JFormattedTextField getTbf_telephone() {
 		return Tbf_telephone;
 	}
 
-	/**
-	 * @param tbf_telephone the tbf_telephone to set
-	 */
-	private void setTbf_telephone(JFormattedTextField tbf_telephone) {
+	public void setTbf_telephone(JFormattedTextField tbf_telephone) {
 		Tbf_telephone = tbf_telephone;
 	}
 
-	/**
-	 * @return the tbf_fax
-	 */
-	private JFormattedTextField getTbf_fax() {
+	public JFormattedTextField getTbf_fax() {
 		return Tbf_fax;
 	}
 
-	/**
-	 * @param tbf_fax the tbf_fax to set
-	 */
-	private void setTbf_fax(JFormattedTextField tbf_fax) {
+	public void setTbf_fax(JFormattedTextField tbf_fax) {
 		Tbf_fax = tbf_fax;
 	}
+
+	public Ctrl_Reservation getCt_reser() {
+		return ct_reser;
+	}
+
+	public void setCt_reser(Ctrl_Reservation ct_reser) {
+		this.ct_reser = ct_reser;
+	}
+
+	
 	
 	
 	

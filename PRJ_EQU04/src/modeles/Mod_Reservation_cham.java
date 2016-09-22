@@ -69,19 +69,18 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 		return null;
 	}
 
-	/**
-	 * @return the les_reser_c
-	 */
-	private ArrayList<Mod_Reservation_cham> getLes_reser_c() {
+	public ArrayList<Mod_Reservation_cham> getLes_reser_c() {
 		return les_reser_c;
 	}
 
-	/**
-	 * @param les_reser_c the les_reser_c to set
-	 */
-	private void setLes_reser_c(ArrayList<Mod_Reservation_cham> les_reser_c) {
+	public void setLes_reser_c(ArrayList<Mod_Reservation_cham> les_reser_c) {
 		this.les_reser_c = les_reser_c;
 	}
+
+	public String[] getLesTitres() {
+		return lesTitres;
+	}
+
 	
 	
 
