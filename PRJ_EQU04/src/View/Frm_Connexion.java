@@ -1,29 +1,27 @@
 package View;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import controleurs.CtrlConnexion;
 import elementsGraphiques.BtnOption;
 import elementsGraphiques.Police;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-public class WinCnx extends JDialog {
+public class Frm_Connexion extends JDialog {
 
 	/**
 	 * 
@@ -32,7 +30,7 @@ public class WinCnx extends JDialog {
 	private JPanel pnPrinc;
 	protected JTextField txtUser;
 	protected JPasswordField txtMdp;
-	private WinCnx instance;
+	private Frm_Connexion instance;
 
 	/**
 	 * Launch the application.
@@ -42,7 +40,7 @@ public class WinCnx extends JDialog {
 			public void run() {
 				
 				try {
-					WinCnx tmp = new WinCnx(); 
+					Frm_Connexion tmp = new Frm_Connexion(); 
 					 tmp.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +52,7 @@ public class WinCnx extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public WinCnx() {
+	public Frm_Connexion() {
 		instance=this;
 		setTitle("AUTHENTIFICATION");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -84,7 +82,7 @@ public class WinCnx extends JDialog {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			WinCnx.this.setVisible(false);
+			Frm_Connexion.this.setVisible(false);
 				
 				
 			}
@@ -116,12 +114,12 @@ public class WinCnx extends JDialog {
 		JLabel lblUser = new JLabel();
 		lblUser.setBounds(60, 34, 16, 16);
 		jPnCnx.add(lblUser);
-		lblUser.setIcon(new ImageIcon(WinCnx.class.getResource("/elementsGraphiques/Images/connection/utilisateur.png")));
+		lblUser.setIcon(new ImageIcon(Frm_Connexion.class.getResource("/elementsGraphiques/Images/connection/utilisateur.png")));
 		
 		JLabel lblMdP = new JLabel();
 		lblMdP.setBounds(60, 75, 16, 16);
 		jPnCnx.add(lblMdP);
-		lblMdP.setIcon(new ImageIcon(WinCnx.class.getResource("/elementsGraphiques/Images/connection/key.png")));
+		lblMdP.setIcon(new ImageIcon(Frm_Connexion.class.getResource("/elementsGraphiques/Images/connection/key.png")));
 		
 		txtUser = new JTextField();
 		txtUser.setBounds(88, 22, 223, 28);

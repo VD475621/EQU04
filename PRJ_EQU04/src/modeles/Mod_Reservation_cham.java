@@ -17,7 +17,12 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	private ArrayList<Mod_Reservation_cham> les_reser_c = new  ArrayList<Mod_Reservation_cham>();
 	private final  String[] lesTitres = {"No chambre", "Type", "Prix", "Occupée"};
 	
-	Mod_Reservation_cham()
+	public Mod_Reservation_cham()
+	{
+		
+	}
+	
+	public Mod_Reservation_cham(int position)
 	{
 		
 	}

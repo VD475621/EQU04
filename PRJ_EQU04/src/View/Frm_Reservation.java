@@ -1,16 +1,15 @@
 package View;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JTable;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Frm_Reservation extends Frm_Base {
 
@@ -50,6 +49,8 @@ public class Frm_Reservation extends Frm_Base {
 	public Frm_Reservation() {
 		super();
 		
+		Initialise();
+		
 		JPanel Pn_client = new JPanel();
 		Pn_client.setBounds(63, 63, 450, 225);
 		getContentPane().add(Pn_client);
@@ -76,26 +77,31 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_client.add(lb_fax);
 		
 		Tb_IdCli = new JTextField();
+		Tb_IdCli.setEditable(false);
 		Tb_IdCli.setBounds(79, 1, 130, 26);
 		Pn_client.add(Tb_IdCli);
 		Tb_IdCli.setColumns(10);
 		
 		Tb_adresse = new JTextField();
+		Tb_adresse.setEditable(false);
 		Tb_adresse.setBounds(79, 39, 298, 26);
 		Pn_client.add(Tb_adresse);
 		Tb_adresse.setColumns(10);
 		
 		Tb_Nom = new JTextField();
+		Tb_Nom.setEditable(false);
 		Tb_Nom.setBounds(247, 1, 130, 26);
 		Pn_client.add(Tb_Nom);
 		Tb_Nom.setColumns(10);
 		
 		JFormattedTextField Tbf_telephone = new JFormattedTextField();
+		Tbf_telephone.setEditable(false);
 		Tbf_telephone.setText("(   )     -     ");
 		Tbf_telephone.setBounds(79, 84, 130, 26);
 		Pn_client.add(Tbf_telephone);
 		
 		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setEditable(false);
 		formattedTextField.setText("(   )     -     ");
 		formattedTextField.setBounds(247, 84, 130, 26);
 		Pn_client.add(formattedTextField);
@@ -113,16 +119,19 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_client.add(Lb_solde_du);
 		
 		JFormattedTextField Tbf_exp = new JFormattedTextField();
+		Tbf_exp.setEditable(false);
 		Tbf_exp.setText("jj/mm/aaaa");
 		Tbf_exp.setBounds(79, 174, 121, 26);
 		Pn_client.add(Tbf_exp);
 		
 		Tb_typ_carte = new JTextField();
+		Tb_typ_carte.setEditable(false);
 		Tb_typ_carte.setBounds(99, 130, 174, 26);
 		Pn_client.add(Tb_typ_carte);
 		Tb_typ_carte.setColumns(10);
 		
 		JFormattedTextField Tbf_solde_du = new JFormattedTextField();
+		Tbf_solde_du.setEditable(false);
 		Tbf_solde_du.setText("0,00 $");
 		Tbf_solde_du.setBounds(273, 174, 104, 26);
 		Pn_client.add(Tbf_solde_du);
@@ -149,23 +158,27 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_reservation.add(Lb_date_fin);
 		
 		Tb_IdReser = new JTextField();
+		Tb_IdReser.setEditable(false);
 		Tb_IdReser.setBounds(128, 5, 130, 26);
 		Pn_reservation.add(Tb_IdReser);
 		Tb_IdReser.setColumns(10);
 		
 		Tb_date_reser = new JTextField();
+		Tb_date_reser.setEditable(false);
 		Tb_date_reser.setText("jj/mm/aaaa");
 		Tb_date_reser.setBounds(128, 39, 130, 26);
 		Pn_reservation.add(Tb_date_reser);
 		Tb_date_reser.setColumns(10);
 		
 		Tb_date_debut = new JTextField();
+		Tb_date_debut.setEditable(false);
 		Tb_date_debut.setText("jj/mm/aaaa");
 		Tb_date_debut.setBounds(128, 79, 130, 26);
 		Pn_reservation.add(Tb_date_debut);
 		Tb_date_debut.setColumns(10);
 		
 		Tb_date_fin = new JTextField();
+		Tb_date_fin.setEditable(false);
 		Tb_date_fin.setText("jj/mm/aaaa");
 		Tb_date_fin.setBounds(128, 117, 130, 26);
 		Pn_reservation.add(Tb_date_fin);
@@ -185,5 +198,49 @@ public class Frm_Reservation extends Frm_Base {
 		
 		Tbl_reservation = new JTable();
 		ScrP_Reser.setColumnHeaderView(Tbl_reservation);
+	}
+	
+	private void Initialise()
+	{
+		btnFin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnNaviguer_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnConsulter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnModifier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnSupprimer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnAjouter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnNaviguer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnNaviguerGauche.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
 	}
 }

@@ -1,12 +1,8 @@
 package controleurs;
 
-import modeles.Mod_Chambre;
-import modeles.Mod_ChambreTable;
-
-import java.util.ArrayList;
-
 import View.Frm_Base;
 import View.Frm_Chambre;
+import modeles.Mod_Chambre;
 
 public class Ctrl_Chambre {
 	

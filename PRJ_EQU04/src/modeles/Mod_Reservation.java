@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
 
 public class Mod_Reservation{
 	
@@ -30,7 +29,7 @@ public class Mod_Reservation{
 	private Date dateReser;
 	private Date dateDebut;
 	private Date dateFin;
-	private ArrayList<Mod_Reservation> les_resers = new  ArrayList<Mod_Reservation_>();
+	private ArrayList<Mod_Reservation> les_resers = new  ArrayList<Mod_Reservation>();
 
 	
 	public Mod_Reservation()

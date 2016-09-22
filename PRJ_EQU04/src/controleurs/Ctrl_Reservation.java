@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import View.Frm_Chambre;
 import View.Frm_Reservation;
-import modeles.Mod_Chambre;
-import modeles.Mod_ChambreTable;
 import modeles.Mod_Reservation;
 import modeles.Mod_Reservation_cham;
 
@@ -26,7 +24,7 @@ public class Ctrl_Reservation {
 	
 	public void Assign(Frm_Chambre frm_cham, int position)
 	{
-		mod_reser_cham = new mod_reser_cham((int) mod_reser.Get_courant());
+		mod_reser_cham = new Mod_Reservation_cham((int) mod_reser.Get_courant());
 		
 		//Faire un set de la table
 		

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
 
 public final class Mod_Chambre{
 

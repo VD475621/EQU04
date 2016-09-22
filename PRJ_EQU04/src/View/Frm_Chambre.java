@@ -1,25 +1,13 @@
 package View;
 import java.awt.EventQueue;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import controleurs.Ctrl_Chambre;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 
 public class Frm_Chambre extends Frm_Base{
