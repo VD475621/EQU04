@@ -16,6 +16,14 @@ public class Frm_Base extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	protected JButton btnNaviguerGauche;
+	protected JButton btnAjouter;
+	protected JButton btnSupprimer;
+	protected JButton btnConsulter;
+	protected JButton btnNaviguer;
+	protected JButton btnFin;
+	protected JButton btnNaviguer_1;
+	protected JButton btnModifier;
 
 	/**
 	 * Launch the application.
@@ -44,7 +52,7 @@ public class Frm_Base extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNaviguerGauche = new JButton("Debut");
+		 btnNaviguerGauche = new JButton("Debut");
 		btnNaviguerGauche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -52,19 +60,19 @@ public class Frm_Base extends JFrame {
 		btnNaviguerGauche.setBounds(36, 667, 117, 29);
 		contentPane.add(btnNaviguerGauche);
 		
-		JButton btnAjouter = new JButton("Ajouter");
+		 btnAjouter = new JButton("Ajouter");
 		btnAjouter.setBounds(294, 667, 117, 29);
 		contentPane.add(btnAjouter);
 		
-		JButton btnSupprimer = new JButton("Supprimer");
+		 btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.setBounds(423, 667, 117, 29);
 		contentPane.add(btnSupprimer);
 		
-		JButton btnConsulter = new JButton("Consulter");
+		 btnConsulter = new JButton("Consulter");
 		btnConsulter.setBounds(682, 667, 117, 29);
 		contentPane.add(btnConsulter);
 		
-		JButton btnNaviguer = new JButton("Avant");
+		 btnNaviguer = new JButton("Avant");
 		btnNaviguer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -72,15 +80,15 @@ public class Frm_Base extends JFrame {
 		btnNaviguer.setBounds(165, 667, 117, 29);
 		contentPane.add(btnNaviguer);
 		
-		JButton btnFin = new JButton("Fin");
+		 btnFin = new JButton("Fin");
 		btnFin.setBounds(940, 667, 117, 29);
 		contentPane.add(btnFin);
 		
-		JButton btnNaviguer_1 = new JButton("Apres");
+		 btnNaviguer_1 = new JButton("Apres");
 		btnNaviguer_1.setBounds(811, 667, 117, 29);
 		contentPane.add(btnNaviguer_1);
 		
-		JButton btnModifier = new JButton("Modifier");
+		 btnModifier = new JButton("Modifier");
 		btnModifier.setBounds(553, 667, 117, 29);
 		contentPane.add(btnModifier);
 	}

@@ -3,6 +3,7 @@ package modeles;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.TimeZone;
 
 import javax.swing.JOptionPane;
 
@@ -33,22 +34,28 @@ public final class ModConnexion {
 				} 
 			catch(SQLException e)
 				{
-					JOptionPane.showMessageDialog(null,"Classe non trouvée" + "pour le chargement" + "du pilote JDBC Oracle", "ALERTE", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Classe non trouvee " + "pour le chargement " + "du pilote JDBC Oracle", "ALERTE", JOptionPane.ERROR_MESSAGE);
 					ok = false;
 				}
 			
 			if (ok == true)
 				{
-					try{
-							//Création de la connection
-							setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@10.10.1.60:1522:orcl",nomUsager,mdp));
-					    
-						}
-					catch(SQLException e)
-						{
-						//	JOptionPane.showMessageDialog(null,  e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
-							ok = false;
-						}
+					try {
+						setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@10.10.1.60:1522:orcl",nomUsager,mdp));
+					}
+					catch(SQLException en)
+					{
+						System.out.println("Cannot connect to local");
+						try{
+								//Création de la connection
+								setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@205.236.2.160:1522:orcl",nomUsager,mdp));
+							}
+						catch(SQLException e)
+							{
+								JOptionPane.showMessageDialog(null,  e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
+								ok = false;
+							}
+					}
 				}
 			return ok;
 	}
