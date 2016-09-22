@@ -44,9 +44,10 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 				//setNumBon(noBon);
 				//lesProduits.add(new ModContientProduit(num_prod,des_prod,quan_com,prix_unitaire,prix_vente));  
 				}		
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Reservation.java",
-					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Reservation.java","ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

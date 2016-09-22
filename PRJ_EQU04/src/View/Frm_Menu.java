@@ -68,7 +68,7 @@ public class Frm_Menu extends JFrame {
 		btnDepart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, new Object(), "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnDepart.setBounds(83, 112, 105, 23);
@@ -78,7 +78,7 @@ public class Frm_Menu extends JFrame {
 		btnAdministration.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, new Object(), "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnAdministration.setBounds(83, 146, 105, 23);
@@ -88,7 +88,7 @@ public class Frm_Menu extends JFrame {
 		btnClient.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, new Object(), "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnClient.setBounds(222, 44, 105, 23);
@@ -108,7 +108,7 @@ public class Frm_Menu extends JFrame {
 		btnTransaction.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, new Object(), "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 		});
@@ -119,11 +119,20 @@ public class Frm_Menu extends JFrame {
 		btnQuitter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				try {
+					this.finalize();
+				} catch (Throwable e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnQuitter.setBounds(222, 146, 105, 23);
 		contentPane.add(btnQuitter);
 	}
 	
+	public void finalize()
+	{
+		this.dispose();
+	}
 }

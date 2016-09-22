@@ -33,7 +33,7 @@ public final class ModConnexion {
 				} 
 			catch(SQLException e)
 				{
-					JOptionPane.showMessageDialog(null,"Classe non trouvée" + "pour le chargement" + "du pilote JDBC Oracle", "ALERTE", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Classe non trouvee " + "pour le chargement " + "du pilote JDBC Oracle", "ALERTE", JOptionPane.ERROR_MESSAGE);
 					ok = false;
 				}
 			

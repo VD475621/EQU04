@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 
-public class Mod_Reservation{
+public class Mod_Reservation extends AbstractTableModel{
 	
 	/**
 	 * 
@@ -29,15 +30,18 @@ public class Mod_Reservation{
 	private Date dateReser;
 	private Date dateDebut;
 	private Date dateFin;
+	
+	private int courant=0;
+	
 	private ArrayList<Mod_Reservation> les_resers = new  ArrayList<Mod_Reservation>();
-
+	public final  String[] lesTitres = {"IdCli", "Nom","adresse","telephone","fax","typ_carte","exp","solde_du", "IdReser", "dateReser","dateDebut", "dateFin"};
 	
 	public Mod_Reservation()
 	{
 		Lire_Enre();
 	}
 	
-	public Mod_Reservation(int IdCli, String nom, String adresse, String telephone, String fax, String typ_carte, Date exp, double solde_du, int IdReser, Date dateReser, Date dateDebut, Date dateFin)
+	public Mod_Reservation(int IdCli, String nom, String adresse, String telephone, String fax, String typ_carte, java.sql.Date exp, double solde_du, int IdReser, java.sql.Date dateReser, java.sql.Date dateDebut, java.sql.Date dateFin)
 	{
 		SetIdCli(IdCli);
 		SetNom(nom);
@@ -57,23 +61,33 @@ public class Mod_Reservation{
 	public void Lire_Enre()
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("");
-			//state.setInt(1,vnumbon);
-			
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("");	
 			ResultSet rs = state.executeQuery();
+			
+			
 			while (rs.next()) {
-			    int noBon = rs.getInt("");
-				int num_prod = rs.getInt("");
-			    String des_prod = rs.getString("");
-				int quan_com = rs.getInt("");
-				double prix_unitaire = rs.getDouble("");
-				double prix_vente = rs.getDouble("");
-				//setNumBon(noBon);
-				//lesProduits.add(new ModContientProduit(num_prod,des_prod,quan_com,prix_unitaire,prix_vente));  
-				}		
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Reservation.java",
-					"ALERTE", JOptionPane.ERROR_MESSAGE);
+				int idcli = rs.getInt("IdCli");
+				String nom = rs.getString("Nom");
+				String adresse = rs.getString("Adresse");
+				String tel = rs.getString("Telephone");
+				String fax = rs.getString("Fax");
+				String carte = rs.getString("TypCarte");
+				java.sql.Date exp = rs.getDate("Exp");
+				double solde = rs.getDouble("solde_du");
+				int idreser = rs.getInt("IdReser");
+				java.sql.Date datreser = rs.getDate("dateReser");
+				java.sql.Date datdebut = rs.getDate("dateDebut");
+				java.sql.Date datfin = rs.getDate("dateFin");
+				
+				
+				
+				les_resers.add(new Mod_Reservation(idcli, nom, adresse, tel, fax, carte, exp, solde, idreser, datreser, datdebut, datfin)); 
+				this.setCourant(idreser);
+			}		
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java", "ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -197,6 +211,49 @@ public class Mod_Reservation{
 
 	public void setLes_resers(ArrayList<Mod_Reservation> les_resers) {
 		this.les_resers = les_resers;
+	}
+
+	public int Get_courant() {
+		// TODO Auto-generated method stub
+		return courant;
+	}
+
+	public void setCourant(int valueAt) {
+		// TODO Auto-generated method stub
+		
+		this.courant = valueAt;
+	}
+
+	@Override
+	public int getColumnCount() {
+		// TODO Auto-generated method stub
+		return lesTitres.length;
+	}
+
+	@Override
+	public int getRowCount() {
+		// TODO Auto-generated method stub
+		return les_resers.size();
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		Mod_Reservation reser = (Mod_Reservation)les_resers.get(rowIndex);
+		if(columnIndex == 0) return reser.GetIdCli();
+		if(columnIndex == 1) return reser.GetNom();
+		if(columnIndex == 2) return reser.GetAdresse();
+		if(columnIndex == 3) return reser.GetTelephone();
+		if(columnIndex == 4) return reser.GetFax();
+		if(columnIndex == 5) return reser.GetTypeCarte();
+		if(columnIndex == 6) return reser.GetExp();
+		if(columnIndex == 7) return reser.GetSolde();
+		if(columnIndex == 8) return reser.GetIdReser();
+		if(columnIndex == 9) return reser.GetDateReser();
+		if(columnIndex == 10) return reser.GetDateDebut();
+		if(columnIndex == 11) return reser.GetDateFin();
+		
+		return null;
 	}
 	
 	
