@@ -2,16 +2,14 @@ package controleurs;
 
 import java.util.ArrayList;
 
-import javax.swing.JTable;
-
 import View.Frm_Arrive;
-import modeles.Mod_Reservation_cham;
+import modeles.Mod_Arrive_Cham;
 import modeles.ModelArrive;
 
 public class Ctrl_Arrive {
 	public ModelArrive mod_arrive = null;
 	private Frm_Arrive form;
-	public Mod_Reservation_cham mod_arrive_cham = null;
+	public Mod_Arrive_Cham mod_arrive_cham = null;
 	private ArrayList<ModelArrive> Ls_reser = null;
 	private int position = 0;
 	
@@ -47,7 +45,7 @@ public class Ctrl_Arrive {
 		
 		
 		//affichage des chambres
-		mod_arrive_cham = new Mod_Reservation_cham(mod_arrive.Get_courant());
+		mod_arrive_cham = new Mod_Arrive_Cham(mod_arrive.getValueAt(position, 6).toString());
 		form.getTBL_Reserv().setModel(mod_arrive_cham);
 		
 		

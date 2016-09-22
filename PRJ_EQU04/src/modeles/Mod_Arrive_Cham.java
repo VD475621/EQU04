@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
-public class Mod_Reservation_cham extends AbstractTableModel {
+public class Mod_Arrive_Cham extends AbstractTableModel {
 	
 	/**
 	 * 
@@ -18,12 +18,12 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	private String NoCham;
 	private String Type;
 	private double Prix;
-	private boolean occupee;
+	private boolean Occupee;
 	
-	private ArrayList<Mod_Reservation_cham> les_reser_c = new  ArrayList<Mod_Reservation_cham>();
+	private ArrayList<Mod_Arrive_Cham> les_reser_c = new  ArrayList<Mod_Arrive_Cham>();
 	private final  String[] lesTitres = {"No chambre", "Type", "Prix", "Occupee"};
 	
-	public Mod_Reservation_cham(String nocham, String type, double prix, boolean occ)
+	public Mod_Arrive_Cham(String nocham, String type, double prix, boolean occ)
 	{
 		this.setNoCham(nocham);
 		this.setType(type);
@@ -31,35 +31,32 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 		this.setOccupee(occ);
 	}
 	
-	public Mod_Reservation_cham(int position)
+	public Mod_Arrive_Cham(String _IdReserv)
 	{
 		super();
-		Lire_Enre(position);
+		Lire_Enre(_IdReserv);
 	}
 	
-	public void Lire_Enre(int p)
+	public void Lire_Enre(String _IdReserv)
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKIdReser, c.NoCham, tc.CodTypCha, c.Prix, d.Attribuee" +
-																											"from De d, Chamber c, " + 
-																											"where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham");
-			state.setInt(1, p);
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select c.NoCham, c.FKCodTypCha, c.Prix, c.Etat FROM De d, Chambre c WHERE c.NoCham = d.FKNoCham AND d.FKIdReser = ?");
+			state.setInt(1, Integer.parseInt(_IdReserv));
 			
 			ResultSet rs = state.executeQuery();
+
 			while (rs.next()) {
-				int idreser = rs.getInt("IdReser");
 				String nocham = rs.getString("NoCham");
-				String type = rs.getString("Type");
+				String type = rs.getString("FKCodTypCha");
 				double prix = rs.getDouble("Prix");
-				boolean occ = rs.getBoolean("Occupee");
+				boolean occ = rs.getBoolean("Etat");
 				
-				setIdReser(idreser);
-				les_reser_c.add(new Mod_Reservation_cham(nocham, type, prix, occ));  
+				les_reser_c.add(new Mod_Arrive_Cham(nocham, type, prix, occ));  
 			}
 		} 
 		catch (SQLException e) 
 		{
-			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Reservation.java","ALERTE", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getErrorCode() + " " + e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -79,19 +76,19 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		Mod_Reservation_cham c = (Mod_Reservation_cham)les_reser_c.get(rowIndex);
-		if(columnIndex == 0) c.getNoCham();
-		if(columnIndex == 1) c.getType();
-		if(columnIndex == 2) c.getPrix();
-		if(columnIndex == 3) c.isOccupee();
+		Mod_Arrive_Cham c = (Mod_Arrive_Cham)les_reser_c.get(rowIndex);
+		if(columnIndex == 0) {return c.getNoCham();}
+		if(columnIndex == 1) {return c.getType();}
+		if(columnIndex == 2) {return c.getPrix();}
+		if(columnIndex == 3) {return c.isOccupee();}
 		return null;
 	}
 
-	public ArrayList<Mod_Reservation_cham> getLes_reser_c() {
+	public ArrayList<Mod_Arrive_Cham> getLes_reser_c() {
 		return les_reser_c;
 	}
 
-	public void setLes_reser_c(ArrayList<Mod_Reservation_cham> les_reser_c) {
+	public void setLes_reser_c(ArrayList<Mod_Arrive_Cham> les_reser_c) {
 		this.les_reser_c = les_reser_c;
 	}
 
@@ -124,11 +121,11 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	}
 
 	public boolean isOccupee() {
-		return occupee;
+		return Occupee;
 	}
 
 	public void setOccupee(boolean occupee) {
-		this.occupee = occupee;
+		this.Occupee = occupee;
 	}
 
 	public int getIdReser() {

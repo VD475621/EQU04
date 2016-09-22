@@ -258,6 +258,7 @@ public class Frm_Arrive extends Frm_Base {
                 ));
 		
 		Consulter();
+		crt_arrive.Premier();
 	}
 	
 	private void Consulter()
