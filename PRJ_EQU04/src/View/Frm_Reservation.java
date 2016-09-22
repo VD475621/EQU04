@@ -48,6 +48,7 @@ public class Frm_Reservation extends Frm_Base {
 	 */
 	public Frm_Reservation() {
 		super();
+		setTitle("Reservation");
 		
 		Initialise();
 		
@@ -64,7 +65,7 @@ public class Frm_Reservation extends Frm_Base {
 		Lb_adresse.setBounds(6, 44, 61, 16);
 		Pn_client.add(Lb_adresse);
 		
-		JLabel Lb_telephone = new JLabel("Téléphone");
+		JLabel Lb_telephone = new JLabel("Telephone");
 		Lb_telephone.setBounds(6, 89, 74, 16);
 		Pn_client.add(Lb_telephone);
 		
@@ -114,7 +115,7 @@ public class Frm_Reservation extends Frm_Base {
 		Lb_exp.setBounds(6, 179, 74, 16);
 		Pn_client.add(Lb_exp);
 		
-		JLabel Lb_solde_du = new JLabel("Solde dû");
+		JLabel Lb_solde_du = new JLabel("Solde du");
 		Lb_solde_du.setBounds(212, 179, 61, 16);
 		Pn_client.add(Lb_solde_du);
 		
@@ -141,15 +142,15 @@ public class Frm_Reservation extends Frm_Base {
 		getContentPane().add(Pn_reservation);
 		Pn_reservation.setLayout(null);
 		
-		JLabel Lb_Reservation = new JLabel("No. Réservation");
+		JLabel Lb_Reservation = new JLabel("No. Reservation");
 		Lb_Reservation.setBounds(6, 10, 107, 16);
 		Pn_reservation.add(Lb_Reservation);
 		
-		JLabel Lb_date_reser = new JLabel("Réservé le ");
+		JLabel Lb_date_reser = new JLabel("Reserve le ");
 		Lb_date_reser.setBounds(6, 44, 107, 16);
 		Pn_reservation.add(Lb_date_reser);
 		
-		JLabel Lb_date_debut = new JLabel("Date de début");
+		JLabel Lb_date_debut = new JLabel("Date de debut");
 		Lb_date_debut.setBounds(6, 84, 107, 16);
 		Pn_reservation.add(Lb_date_debut);
 		
@@ -184,11 +185,11 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_reservation.add(Tb_date_fin);
 		Tb_date_fin.setColumns(10);
 		
-		JLabel Lb_information_reser = new JLabel("Information sur la réservation");
+		JLabel Lb_information_reser = new JLabel("Information sur la reservation");
 		Lb_information_reser.setBounds(683, 35, 220, 16);
 		getContentPane().add(Lb_information_reser);
 		
-		JLabel Lb_information_client = new JLabel("Information sur le client qui réserve");
+		JLabel Lb_information_client = new JLabel("Information sur le client qui reserve");
 		Lb_information_client.setBounds(187, 35, 234, 16);
 		getContentPane().add(Lb_information_client);
 		
@@ -205,42 +206,78 @@ public class Frm_Reservation extends Frm_Base {
 		btnFin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 		btnNaviguer_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 		btnConsulter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 		btnModifier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 		btnSupprimer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 		btnAjouter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 		btnNaviguer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
 		btnNaviguerGauche.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				
 			}
 		});
+	}
+	
+	private void Consulter()
+	{
+		Tb_IdReser.setEditable(false);
+		Tb_IdCli.setEditable(false);
+		Tb_adresse.setEditable(false);
+		Tb_Nom.setEditable(false);
+		Tb_IdReser.setEditable(false);
+		Tb_date_reser.setEditable(false);
+		Tb_date_debut.setEditable(false);
+		Tb_date_fin.setEditable(false);
+		Tb_typ_carte.setEditable(false);
+	}
+	
+	private void Ajouter()
+	{
+		
+	}
+	
+	private void Modifier()
+	{
+		
+	}
+	
+	private void Supprimer()
+	{
+		
 	}
 }

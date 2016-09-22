@@ -7,8 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-import View.Frm_Base;
-import View.Frm_Chambre;
+import View.Frm_Menu;
 import modeles.ModConnexion;
 
 
@@ -25,7 +24,7 @@ public class CtrlConnexion {
 	       	//testConnexion();
 	       	
 	       	fenetre.dispose();
-	        Frm_Base fenetrer = new Frm_Chambre();
+	        Frm_Menu fenetrer = new Frm_Menu();
 	        fenetrer.show();
 	    //   	WinPrincipal fendebut = new WinPrincipal();
 	    	//WinBon fendebut = new WinBon();
