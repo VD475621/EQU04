@@ -19,7 +19,7 @@ import controleurs.Ctrl_Arrive;
 public class Frm_Arrive extends Frm_Base {
 
 	private static final long serialVersionUID = 1L;
-	private Frm_Arrive instance;
+	
 	private JTextField TB_CliNo;
 	private JTextField TB_Nom;
 	private JTextField TB_Adresse;
@@ -32,6 +32,7 @@ public class Frm_Arrive extends Frm_Base {
 	private JTextField TB_DateFin;
 	private JTextField TB_NoCli;
 	private JTextField TB_NomReserv;
+	private JScrollPane SP_Table;
 	private JTable TBL_Reserv;
 	
 	private Ctrl_Arrive crt_arrive;
@@ -58,15 +59,16 @@ public class Frm_Arrive extends Frm_Base {
 	 */
 	public Frm_Arrive() {
 		super();
+		crt_arrive = new Ctrl_Arrive(this);
 		
 		btnFin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crt_arrive.Dernier(instance);
+				crt_arrive.Dernier();
 			}
 		});
 		btnNaviguer_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crt_arrive.Suivant(instance);
+				crt_arrive.Suivant();
 			}
 		});
 		btnConsulter.addActionListener(new ActionListener() {
@@ -87,15 +89,13 @@ public class Frm_Arrive extends Frm_Base {
 		});
 		btnNaviguer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crt_arrive.Precedent(instance);
+				crt_arrive.Precedent();
 			}
 		});
 		
-		instance = this;
-		
 		btnNaviguerGauche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crt_arrive.Premier(instance);
+				crt_arrive.Premier();
 			}
 		});
 		
@@ -247,7 +247,7 @@ public class Frm_Arrive extends Frm_Base {
 		SPRT_Middle.setBounds(49, 333, 833, 3);
 		PN_Arrive.add(SPRT_Middle);
 		
-		JScrollPane SP_Table = new JScrollPane();
+		SP_Table = new JScrollPane();
 		SP_Table.setBounds(38, 315, 844, 202);
 		PN_Arrive.add(SP_Table);
 		
@@ -256,6 +256,24 @@ public class Frm_Arrive extends Frm_Base {
 		TBL_Reserv.setModel(new DefaultTableModel(new Object[][] {},
                 new String[] {"No. Chambre", "Code Type", "Prix","Occupée"}
                 ));
+		
+		Consulter();
+	}
+	
+	private void Consulter()
+	{
+		TB_CliNo.setEditable(false);
+		TB_Nom.setEditable(false);
+		TB_Adresse.setEditable(false);
+		TB_Tel.setEditable(false);
+		TB_Fax.setEditable(false);
+		TB_NumCham.setEditable(false);
+		TB_NoReserv.setEditable(false);
+		TB_DateReserv.setEditable(false);
+		TB_DateDebut.setEditable(false);
+		TB_DateFin.setEditable(false);
+		TB_NoCli.setEditable(false);
+		TB_NomReserv.setEditable(false);
 	}
 	
 	public JTextField getTB_CliNo() {return TB_CliNo;}
@@ -271,5 +289,6 @@ public class Frm_Arrive extends Frm_Base {
 	public JTextField getTB_NoCli() {return TB_NoCli;}
 	public JTextField getTB_NomReserv() {return TB_NomReserv;}
 	public JTable getTBL_Reserv() {return TBL_Reserv;}
+	public JScrollPane getScrollP() {return SP_Table;}
 	
 }

@@ -60,23 +60,46 @@ public class ModelArrive {
         try {    
             lesEnreg.clear();
             Statement state = laConnexion.createStatement();
-            ResultSet rs = state.executeQuery("SELECT c.IdCli,c.Nom,c.Adresse,c.Telephone,c.Fax,a.FKNoCham,r.IdReser,r.dateReser,r.dateDebut,r.dateFin FROM CLIENT c,RESERVATION r ,ARRIVE a WHERE r.FKIdCli = c.IdCli AND a.FKIdReser = r.IdReser;");                                                                                                                                                                                                                                                                                                                                                                                                                                   
+            ResultSet rs = state.executeQuery("SELECT c.IdCli,c.Nom,c.Adresse,c.Telephone,c.Fax,a.FKNoCham,r.IdReser,r.dateReser,r.dateDebut,r.dateFin FROM CLIENT c,RESERVATION r ,ARRIVE a WHERE r.FKIdCli = c.IdCli AND a.FKIdReser = r.IdReser");                                                                                                                                                                                                                                                                                                                                                                                                                                   
  
             while (rs.next())
             {
             	String _NoCli = rs.getString("IdCli");
+            	//System.out.println(_NoCli);
             	String _NomCli = rs.getString("Nom");
             	String _AdrCli = rs.getString("Adresse");
             	String _TelCli = rs.getString("Telephone");
             	String _FaxCli = rs.getString("Fax");
             	String _NoChamCli = rs.getString("FKNoCham");
-            	
             	String _NoReserv = rs.getString("IdReser");
-            	String _DateReserv = rs.getString("dateReser");
-            	String _DateDebut = rs.getString("dateDebut");
-            	String _DateFin = rs.getString("dateFin");
+            	
+            	Date date = null;
+                try {
+                    date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(rs.getString("dateReser"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                
+            	String _DateReserv = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            	
+            	try {
+                    date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(rs.getString("dateDebut"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            	
+            	String _DateDebut = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            	
+            	try {
+                    date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(rs.getString("dateFin"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            	
+            	String _DateFin = new SimpleDateFormat("yyyy-MM-dd").format(date);
             	
                 lesEnreg.add(new ModelArrive(_NoCli,_NomCli,_AdrCli,_TelCli,_FaxCli,_NoChamCli,_NoReserv,_DateReserv,_DateDebut,_DateFin));  
+                //System.out.println("Enregistrements count:" + lesEnreg.size());
             }           
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(),
@@ -154,7 +177,7 @@ public class ModelArrive {
 	
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		ModelArrive reser = (ModelArrive)lesEnreg.get(rowIndex);
+		ModelArrive reser = lesEnreg.get(rowIndex);
 		if(columnIndex == 0) return reser.getNoCli();
 		if(columnIndex == 1) return reser.getNomCli();
 		if(columnIndex == 2) return reser.getAdrCli();

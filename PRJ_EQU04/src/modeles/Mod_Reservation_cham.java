@@ -42,7 +42,7 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 		try {
 			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKIdReser, c.NoCham, tc.CodTypCha, c.Prix, d.Attribuee" +
 																											"from De d, Chamber c, TypeCham tc" + 
-																											"where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham and d.FKIdReser = ?;");
+																											"where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham");
 			state.setInt(1, p);
 			
 			ResultSet rs = state.executeQuery();
@@ -95,8 +95,8 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 		this.les_reser_c = les_reser_c;
 	}
 
-	public String[] getLesTitres() {
-		return lesTitres;
+	public String getColumnName(int ColumnIndex) {
+		return lesTitres[ColumnIndex];
 	}
 
 	public String getNoCham() {

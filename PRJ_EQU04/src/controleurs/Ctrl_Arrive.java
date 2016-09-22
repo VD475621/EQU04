@@ -2,79 +2,88 @@ package controleurs;
 
 import java.util.ArrayList;
 
+import javax.swing.JTable;
+
 import View.Frm_Arrive;
+import modeles.Mod_Reservation_cham;
 import modeles.ModelArrive;
 
 public class Ctrl_Arrive {
 	public ModelArrive mod_arrive = null;
-	//public mod_arrivevation_cham mod_arrive_cham = null;
+	private Frm_Arrive form;
+	public Mod_Reservation_cham mod_arrive_cham = null;
 	private ArrayList<ModelArrive> Ls_reser = null;
 	private int position = 0;
 	
 	
 	public Ctrl_Arrive(Frm_Arrive frm_arriv)
 	{
+		form = frm_arriv;
 		mod_arrive = new ModelArrive(); 
 		Ls_reser = mod_arrive.getLesEnreg();
 		
 	}
 	
 	
-	public void Assign(Frm_Arrive frm, int position)
+	public void Assign(int position)
 	{
-		mod_arrive.setCourant((int) mod_arrive.getValueAt(position, 0));
+		mod_arrive.setCourant(position);
 		
 		
 		//affichage de la reservation et du client
-		frm.getTB_CliNo().setText(mod_arrive.getValueAt(position, 0).toString());
-		frm.getTB_Nom().setText(mod_arrive.getValueAt(position, 1).toString());
-		frm.getTB_Adr().setText(mod_arrive.getValueAt(position, 2).toString());
-		frm.getTB_Tel().setText(mod_arrive.getValueAt(position, 3).toString());
-		frm.getTB_Fax().setText(mod_arrive.getValueAt(position, 4).toString());
-		frm.getTB_NumCham().setText(mod_arrive.getValueAt(position, 5).toString());
-		frm.getTB_NoReserv().setText(mod_arrive.getValueAt(position, 6).toString());
-		frm.getTB_DateReserv().setText(mod_arrive.getValueAt(position, 7).toString());
-		frm.getTB_DateDebut().setText(mod_arrive.getValueAt(position, 8).toString());
-		frm.getTB_DateFin().setText(mod_arrive.getValueAt(position, 9).toString());
-		frm.getTB_NoCli().setText(mod_arrive.getValueAt(position, 0).toString());
-		frm.getTB_NomReserv().setText(mod_arrive.getValueAt(position, 1).toString());
+		
+		form.getTB_CliNo().setText(mod_arrive.getValueAt(position, 0).toString());
+		form.getTB_Nom().setText(mod_arrive.getValueAt(position, 1).toString());
+		form.getTB_Adr().setText(mod_arrive.getValueAt(position, 2).toString());
+		form.getTB_Tel().setText(mod_arrive.getValueAt(position, 3).toString());
+		form.getTB_Fax().setText(mod_arrive.getValueAt(position, 4).toString());
+		form.getTB_NumCham().setText(mod_arrive.getValueAt(position, 5).toString());
+		form.getTB_NoReserv().setText(mod_arrive.getValueAt(position, 6).toString());
+		form.getTB_DateReserv().setText(mod_arrive.getValueAt(position, 7).toString());
+		form.getTB_DateDebut().setText(mod_arrive.getValueAt(position, 8).toString());
+		form.getTB_DateFin().setText(mod_arrive.getValueAt(position, 9).toString());
+		form.getTB_NoCli().setText(mod_arrive.getValueAt(position, 0).toString());
+		form.getTB_NomReserv().setText(mod_arrive.getValueAt(position, 1).toString());
 		
 		
 		//affichage des chambres
-		//mod_arrive_cham = new mod_arrivevation_cham((int)mod_arrive.Get_courant());
-		//frm.setjScrollPane(new JTable(mod_arrive_cham));
+		mod_arrive_cham = new Mod_Reservation_cham(mod_arrive.Get_courant());
+		form.getTBL_Reserv().setModel(mod_arrive_cham);
 		
 		
 	}
 	
-	public void Premier(Frm_Arrive f)
+	public void Premier()
 	{
 		this.position = 0;
-		Assign(f, position);
+		Assign(position);
 	}
 	
-	public void Suivant(Frm_Arrive f)
+	public void Suivant()
 	{
-		if (position<mod_arrive.getLesEnreg().size()-1)
-			position--;
-		else position= 0;
-		 mod_arrive.setCourant((int)mod_arrive.getValueAt(position, 0));
-		Assign(f, position);	
+		if(position > (mod_arrive.getLesEnreg().size() - 1) )
+			position = 0;
+		else
+			position++;
+		 mod_arrive.setCourant(position);
+		Assign(position);	
 	}
 	
-	public void Precedent(Frm_Arrive f)
+	public void Precedent()
 	{
-		if (position> 0)
+		if (position < 0)
+			position = mod_arrive.getLesEnreg().size() - 1;
+		else 
 			position--;
-		else position= 0;
-		 mod_arrive.setCourant((int)mod_arrive.getValueAt(position, 0));
-		Assign(f,position);	
+		
+		 mod_arrive.setCourant(position);
+		Assign(position);	
 	}
 	
-	public void Dernier(Frm_Arrive f)
+	public void Dernier()
 	{
 		this.position = mod_arrive.getLesEnreg().size()-1;
-		Assign(f, position);
+		Assign(position);
 	}
 	
 	
