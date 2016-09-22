@@ -24,12 +24,29 @@ public class Ctrl_Reservation {
 	}
 	
 	
-	public void Assign(Frm_Reservation frm_cham, int position)
+	public void Assign(Frm_Reservation frm, int position)
 	{
-		mod_reser_cham = new Mod_Reservation_cham((int) mod_reser.Get_courant());
+		mod_reser.setCourant((int) mod_reser.getValueAt(position, 0));
 		
-		//Faire un set de la table
 		
+		//affichage de la reservation et du client
+		frm.getTb_IdCli().setText(mod_reser.getValueAt(position, 0).toString());
+		frm.getTb_Nom().setText(mod_reser.getValueAt(position, 1).toString());
+		frm.getTb_adresse().setText(mod_reser.getValueAt(position, 2).toString());
+		frm.getTbf_telephone().setText(mod_reser.getValueAt(position, 3).toString());
+		frm.getTbf_fax().setText(mod_reser.getValueAt(position, 4).toString());
+		frm.getTb_typ_carte().setText(mod_reser.getValueAt(position, 5).toString());
+		frm.getTbf_exp().setText(mod_reser.getValueAt(position, 6).toString());
+		frm.getTbf_solde_du().setText(mod_reser.getValueAt(position, 7).toString());
+		frm.getTb_IdReser().setText(mod_reser.getValueAt(position, 8).toString());
+		frm.getTb_date_reser().setText(mod_reser.getValueAt(position, 9).toString());
+		frm.getTb_date_debut().setText(mod_reser.getValueAt(position, 10).toString());
+		frm.getTb_date_fin().setText(mod_reser.getValueAt(position, 11).toString());
+		
+		
+		//affichage des chambres
+		mod_reser_cham = new Mod_Reservation_cham((int)mod_reser.Get_courant());
+		frm.setjScrollPane(new JTable(mod_reser_cham));
 		
 		
 	}

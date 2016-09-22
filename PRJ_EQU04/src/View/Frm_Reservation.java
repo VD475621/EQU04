@@ -40,6 +40,7 @@ public class Frm_Reservation extends Frm_Base {
 	private JFormattedTextField Tbf_exp;
 	private JFormattedTextField Tbf_telephone;
 	private JFormattedTextField Tbf_fax;
+	private JScrollPane ScrP_Reser;
 	
 	private Ctrl_Reservation ct_reser;
 	
@@ -250,7 +251,7 @@ public class Frm_Reservation extends Frm_Base {
 		Lb_information_client.setBounds(187, 35, 234, 16);
 		getContentPane().add(Lb_information_client);
 		
-		JScrollPane ScrP_Reser = new JScrollPane();
+		ScrP_Reser = new JScrollPane();
 		ScrP_Reser.setBounds(63, 332, 964, 191);
 		getContentPane().add(ScrP_Reser);
 		
@@ -292,6 +293,33 @@ public class Frm_Reservation extends Frm_Base {
 	private void Supprimer()
 	{
 		
+	}
+	
+	public void setjScrollPane(JTable UneTable)
+	{
+	
+		if (this.ScrP_Reser == null) 
+		   {
+			ScrP_Reser = new JScrollPane(UneTable);
+			ScrP_Reser.setBounds(20, 7,515, 175);
+		   }
+		ScrP_Reser.setViewportView(UneTable);
+	}
+
+	public Frm_Reservation getInstance() {
+		return instance;
+	}
+
+	public void setInstance(Frm_Reservation instance) {
+		this.instance = instance;
+	}
+
+	public JScrollPane getScrP_Reser() {
+		return ScrP_Reser;
+	}
+
+	public void setScrP_Reser(JScrollPane scrP_Reser) {
+		ScrP_Reser = scrP_Reser;
 	}
 
 	public JTextField getTb_IdCli() {
