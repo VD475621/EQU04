@@ -2,6 +2,8 @@ package View;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,9 +14,12 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controleurs.Ctrl_Arrive;
+
 public class Frm_Arrive extends Frm_Base {
 
 	private static final long serialVersionUID = 1L;
+	private Frm_Arrive instance;
 	private JTextField TB_CliNo;
 	private JTextField TB_Nom;
 	private JTextField TB_Adresse;
@@ -28,6 +33,8 @@ public class Frm_Arrive extends Frm_Base {
 	private JTextField TB_NoCli;
 	private JTextField TB_NomReserv;
 	private JTable TBL_Reserv;
+	
+	private Ctrl_Arrive crt_arrive;
 	
 
 	/**
@@ -51,6 +58,47 @@ public class Frm_Arrive extends Frm_Base {
 	 */
 	public Frm_Arrive() {
 		super();
+		
+		btnFin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crt_arrive.Dernier(instance);
+			}
+		});
+		btnNaviguer_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crt_arrive.Suivant(instance);
+			}
+		});
+		btnConsulter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnModifier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnAjouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNaviguer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crt_arrive.Precedent(instance);
+			}
+		});
+		
+		instance = this;
+		
+		btnNaviguerGauche.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crt_arrive.Premier(instance);
+			}
+		});
+		
 		getContentPane().setLayout(null);
 		
 		JPanel PN_Arrive = new JPanel();
@@ -209,4 +257,19 @@ public class Frm_Arrive extends Frm_Base {
                 new String[] {"No. Chambre", "Code Type", "Prix","Occupée"}
                 ));
 	}
+	
+	public JTextField getTB_CliNo() {return TB_CliNo;}
+	public JTextField getTB_Nom() {return TB_Nom;}
+	public JTextField getTB_Adr() {return TB_Adresse;}
+	public JTextField getTB_Tel() {return TB_Tel;}
+	public JTextField getTB_Fax() {return TB_Fax;}
+	public JTextField getTB_NumCham() {return TB_NumCham;}
+	public JTextField getTB_NoReserv() {return TB_NoReserv;}
+	public JTextField getTB_DateReserv() {return TB_DateReserv;}
+	public JTextField getTB_DateDebut() {return TB_DateDebut;}
+	public JTextField getTB_DateFin() {return TB_DateFin;}
+	public JTextField getTB_NoCli() {return TB_NoCli;}
+	public JTextField getTB_NomReserv() {return TB_NomReserv;}
+	public JTable getTBL_Reserv() {return TBL_Reserv;}
+	
 }
