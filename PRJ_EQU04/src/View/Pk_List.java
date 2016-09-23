@@ -13,43 +13,43 @@ import javax.swing.table.AbstractTableModel;
 public final class Pk_List extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-    private static JTable DgTable;
-	private static int NoLigneSel = 0;
-	
-	private Pk_List(AbstractTableModel model,String Title) 
+	private static JTable jt;
+	private static int No_ligne = 0;
+
+	private Pk_List(AbstractTableModel m, String t)
 	{
-		
-        DgTable = new JTable(model);
-        add(new JScrollPane(DgTable));
+
+        jt = new JTable(m);
+        add(new JScrollPane(jt));
         this.setBounds(150, 150, 450, 200);
         setModal(true);
-		setTitle(Title);
+		setTitle(t);
 	    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-	    NoLigneSel = 0;
-		DgTable.addMouseListener(new MouseAdapter() 
+	    No_ligne = 0;
+		jt.addMouseListener(new MouseAdapter()
 		{
-	  		@Override
-	  		public void mousePressed(MouseEvent e) 
-	  		{
-	  			NoLigneSel = DgTable.getSelectedRow();
-	  			dispose();
-	   			e.setSource(null);
-  			}
+	  			@Override
+	  			public void mousePressed(MouseEvent e)
+	  			{
+				  	//No_ligne = jt.getSelectedRow();
+	  				No_ligne = (int)jt.getValueAt(jt.getSelectedRow()-1, 0);
+				  	dispose();
+				   	e.setSource(null);
+	  			}
   		});
 		setVisible(true);
 	}
-	
-	
-	
+
+
+
 	/** return the selectedRow from a table created with model and title
-	 * 
-	 * @param model will construct the table
-	 * @param Title will name the window
+	 *
+	 * @param m will construct the table
+	 * @param t will name the window
 	 * @return the row selected or 0 if clause without selection
 	 */
-	public final static int pickFromTable(AbstractTableModel model,String Title){
-		new Pk_List(model,Title);
-		return NoLigneSel;
+	public final static int pickFromTable(AbstractTableModel m,String t){
+		new Pk_List(m, t);
+		return No_ligne;
 	}
 }
-
