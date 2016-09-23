@@ -73,6 +73,11 @@ public class ModelArrive {
             	String _NoChamCli = rs.getString("FKNoCham");
             	String _NoReserv = rs.getString("IdReser");
             	
+            	System.out.println(_NoCli);
+            	System.out.println(_NomCli);
+            	System.out.println(_NoReserv);
+            	System.out.println("---------------------");
+            	
             	Date date = null;
                 try {
                     date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(rs.getString("dateReser"));

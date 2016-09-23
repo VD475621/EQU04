@@ -84,6 +84,15 @@ public class Ctrl_Arrive {
 		Assign(position);
 	}
 	
+	public int getIndexofReserv(String IdReserv)
+	{
+		for(int i = 0;i < (mod_arrive.getLesEnreg().size()-1) ; i++){
+			if(mod_arrive.getValueAt(i,6).toString().equals(IdReserv))
+				return i;
+		}
+		return -1;
+	}
+	
 	
 /*
 	//GESTION DES LISTES DE SÉLECTION (PICKLISTS)

@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -189,6 +191,17 @@ public class Frm_Arrive extends Frm_Base {
 		TB_NoReserv.setBounds(133, 6, 130, 26);
 		PN_InfoReserv.add(TB_NoReserv);
 		TB_NoReserv.setColumns(10);
+		TB_NoReserv.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e)
+			{
+				if(e.getClickCount() >= 2)
+				{
+					System.out.println("DoubleClicked");
+					PickList PlForm = new PickList(crt_arrive);
+					PlForm.setVisible(true);
+				}
+			}
+		});
 		
 		JLabel LB_DateReserv = new JLabel("Réservé le :");
 		LB_DateReserv.setBounds(16, 53, 80, 16);
