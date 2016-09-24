@@ -31,8 +31,8 @@ public final class Pk_List extends JDialog {
 	  			@Override
 	  			public void mousePressed(MouseEvent e)
 	  			{
-				  	//No_ligne = jt.getSelectedRow();
-	  				No_ligne = (int)jt.getValueAt(jt.getSelectedRow()-1, 0);
+				  	No_ligne = jt.getSelectedRow();
+	  				//No_ligne = (int)jt.getValueAt(jt.getSelectedRow()-1, 0);
 				  	dispose();
 				   	e.setSource(null);
 	  			}
