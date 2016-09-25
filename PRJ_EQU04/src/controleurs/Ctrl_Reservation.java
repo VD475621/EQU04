@@ -30,7 +30,6 @@ public class Ctrl_Reservation {
 	{
 		mod_reser.setCourant((int) mod_reser.getValueAt(position, 8));
 		
-		frm.getTb_adresse().setText("allll");
 		//affichage de la reservation et du client
 		frm.getTb_IdCli().setText(mod_reser.getValueAt(position, 0).toString());
 		frm.getTb_Nom().setText(mod_reser.getValueAt(position, 1).toString());
@@ -88,7 +87,7 @@ public class Ctrl_Reservation {
 	
 	public void ListeReservation(Frm_Reservation f)
 	{
-		this.position = Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des Réservations");
+		this.position = Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des Rï¿½servations");
 		this.Assign(f, position);
 	}
 	

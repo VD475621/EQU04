@@ -85,6 +85,7 @@ public class Mod_Reservation extends AbstractTableModel{
 				les_resers.add(new Mod_Reservation(idcli, nom, adresse, tel, fax, carte, exp, solde, idreser, datreser, datdebut, datfin)); 
 				this.setCourant(idreser);
 			}
+			rs.close();
 		} 
 		catch (SQLException e) 
 		{
@@ -242,6 +243,7 @@ public class Mod_Reservation extends AbstractTableModel{
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
 		Mod_Reservation reser = (Mod_Reservation)les_resers.get(rowIndex);
+		
 		if(columnIndex == 0) return reser.GetIdCli();
 		if(columnIndex == 1) return reser.GetNom();
 		if(columnIndex == 2) return reser.GetAdresse();

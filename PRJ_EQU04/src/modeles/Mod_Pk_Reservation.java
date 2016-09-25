@@ -16,7 +16,7 @@ public class Mod_Pk_Reservation extends AbstractTableModel{
 	private java.sql.Date dateDebut;
 	private java.sql.Date dateFin;
 	
-	private ArrayList<ArrayList<?>> LesResers = new  ArrayList<ArrayList<?>>();
+	private ArrayList<ArrayList<?>> enregReser = new  ArrayList<ArrayList<?>>();
 	private final  String[] lesTitres = {"NoReser","IdCli", "Nom", "DateReser", "DateDebut", "DateFin"};
 	
 	public Mod_Pk_Reservation()
@@ -42,7 +42,7 @@ public class Mod_Pk_Reservation extends AbstractTableModel{
 				row.add(rs.getDate("dateDebut"));
 				row.add(rs.getDate("dateFin"));
 
-				LesResers.add(row); 
+				enregReser.add(row); 
 			}
 		} 
 		catch (SQLException e) 
@@ -115,7 +115,7 @@ public class Mod_Pk_Reservation extends AbstractTableModel{
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return LesResers.size();
+		return enregReser.size();
 	}
 	@Override
 	public String getColumnName(int columnIndex)
@@ -132,7 +132,7 @@ public class Mod_Pk_Reservation extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		return LesResers.get(rowIndex).get(columnIndex);
+		return enregReser.get(rowIndex).get(columnIndex);
 	}
 	
 	
