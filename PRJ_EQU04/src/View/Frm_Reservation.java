@@ -66,16 +66,6 @@ public class Frm_Reservation extends Frm_Base {
 	public Frm_Reservation() {
 		super();
 		
-		btnFin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ct_reser.Dernier(instance);
-			}
-		});
-		btnNaviguer_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ct_reser.Suivant(instance);
-			}
-		});
 		btnConsulter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -92,19 +82,31 @@ public class Frm_Reservation extends Frm_Base {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
+		//precedent
 		btnNaviguer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ct_reser.Precedent(instance);
 			}
 		});
-		
-		
+		//premier
 		btnNaviguerGauche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ct_reser.Premier(instance);
 			}
 		});
-		
+		//dernier
+		btnFin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ct_reser.Dernier(instance);
+			}
+		});
+		//suivant
+		btnNaviguer_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ct_reser.Suivant(instance);
+			}
+		});
 		
 		setTitle("Reservation");
 		

@@ -66,7 +66,7 @@ public class Ctrl_Reservation {
 		if (position<mod_reser.getLes_resers().size()-1)
 			position++;
 		else position= 0;
-		 mod_reser.setCourant((int)mod_reser.getValueAt(position, 0));
+		 	mod_reser.setCourant((int)mod_reser.getValueAt(position, 8));
 		Assign(f, position);	
 	}
 	
@@ -75,7 +75,7 @@ public class Ctrl_Reservation {
 		if (position> 0)
 			position--;
 		else position= 0;
-		 mod_reser.setCourant((int)mod_reser.getValueAt(position, 0));
+		 	mod_reser.setCourant((int)mod_reser.getValueAt(position, 8));
 		Assign(f,position);	
 	}
 	

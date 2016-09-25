@@ -9,6 +9,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class Mod_Pk_Reservation extends AbstractTableModel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int IdReser;
 	private int IdCli;
 	private String Nom;
@@ -29,7 +33,7 @@ public class Mod_Pk_Reservation extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select r.IdReser, c.IdCli, nom, dateReser, dateDebut, DateFin "
 												+ " from RESERVATION r, CLIENT c "
-												+ " where r.FKIdCli=c.IdCli");	
+												+ " where r.FKIdCli=c.IdCli order by r.IdReser");	
 			ResultSet rs = state.executeQuery();
 			
 			while (rs.next()) {

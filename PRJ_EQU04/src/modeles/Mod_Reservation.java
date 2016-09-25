@@ -61,8 +61,8 @@ public class Mod_Reservation extends AbstractTableModel{
 	{
 		try {
 			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT c.IdCli, c.Nom, c.Adresse, c.Telephone, c.fax, c.TypeCarte, c.DateExp, "+
-								"c.Solde_Du, r.IdReser, r.dateReser, r.dateDebut, r.dateFin " + 
-								"FROM CLIENT c, RESERVATION r WHERE r.FKIdCli=c.IdCli");	
+																											"c.Solde_Du, r.IdReser, r.dateReser, r.dateDebut, r.dateFin " + 
+																											"FROM CLIENT c, RESERVATION r WHERE r.FKIdCli=c.IdCli order by r.IdReser");	
 			ResultSet rs = state.executeQuery();
 			
 			
@@ -80,10 +80,10 @@ public class Mod_Reservation extends AbstractTableModel{
 				java.sql.Date datdebut = rs.getDate("dateDebut");
 				java.sql.Date datfin = rs.getDate("dateFin");
 
-				//System.out.println(idreser);
+				System.out.println(idcli + " " + nom + " " + adresse + " " + tel +" " + fax + " " + carte +  " " + exp + " " + solde + " " + idreser + " " + datreser + " " + datdebut + " " + datfin);
 				
 				les_resers.add(new Mod_Reservation(idcli, nom, adresse, tel, fax, carte, exp, solde, idreser, datreser, datdebut, datfin)); 
-				this.setCourant(idreser);
+				//this.setCourant(idreser);
 			}
 			rs.close();
 		} 
@@ -223,7 +223,6 @@ public class Mod_Reservation extends AbstractTableModel{
 
 	public void setCourant(int valueAt) {
 		// TODO Auto-generated method stub
-		
 		this.courant = valueAt;
 	}
 
