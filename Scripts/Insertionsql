@@ -8,7 +8,6 @@ DELETE FROM TYPECHAM;
 DELETE FROM LOCALISATION;
 DELETE FROM TYPTRX;
 DELETE FROM RESERVATION;
-DELETE FROM CARTECREDIT;
 DELETE FROM CLIENT;
 DELETE FROM COMMODITE;
 
@@ -107,7 +106,7 @@ insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Ar
 insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Arrive.nextval, 16, 6, '180', sysdate-15);
 insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Arrive.nextval, 17, 7, '190', sysdate-16);
 insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Arrive.nextval, 18, 8, '010', sysdate-17);
-insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Arrive.nextval, 18, 12, '020', sysdate-17);
+insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Arrive.nextval, 18, 6, '020', sysdate-17);
 --insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Arrive.nextval, 19, 9, '030', sysdate-18);
 insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Arrive.nextval, 20, 10, '040', sysdate-19);
 --insert into ARRIVE(NoArrive,FKIdReser,FKIdCli,FKNoCham,dateArrive) values(SEQ_Arrive.nextval, 20, 13, '050', sysdate-19);
@@ -120,13 +119,13 @@ insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) v
 insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,12,2,'140',sysdate-6,'VD');
 insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,13,3,'150',sysdate-7,'CG');
 insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,14,4,'160',sysdate-12,'MQ');
-insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,15,5,'170',sysdate-12,'VD');
-insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,16,6,'180',sysdate-13,'MQ');
-insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,17,7,'190',sysdate-13,'VD');
-insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,18,8,'010',sysdate-13,'CG');
-insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,18,12,'020',sysdate-13,'CG');
+--insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,15,5,'170',sysdate-12,'VD');
+--insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,16,6,'180',sysdate-13,'MQ');
+--insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,17,7,'190',sysdate-13,'VD');
+--insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,18,8,'010',sysdate-13,'CG');
+--insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,18,6,'020',sysdate-13,'CG');
 --insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,19,9,'030',sysdate-13,'CG');
-insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,20,10,'040',sysdate-14,'CG');
+--insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,20,10,'040',sysdate-14,'CG');
 --insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,20,13,'050',sysdate-14,'CG');
 
 
