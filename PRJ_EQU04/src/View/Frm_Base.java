@@ -24,6 +24,8 @@ public class Frm_Base extends JFrame {
 	protected JButton btnFin;
 	protected JButton btnNaviguer_1;
 	protected JButton btnModifier;
+	protected JButton btnAnnuler;
+	protected JButton btnSauvegarder;
 
 	/**
 	 * Launch the application.
@@ -91,5 +93,13 @@ public class Frm_Base extends JFrame {
 		 btnModifier = new JButton("Modifier");
 		btnModifier.setBounds(553, 667, 117, 29);
 		contentPane.add(btnModifier);
+		
+		btnSauvegarder = new JButton("Sauvegarder");
+		btnSauvegarder.setBounds(423, 626, 117, 29);
+		contentPane.add(btnSauvegarder);
+		
+		btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setBounds(553, 626, 117, 29);
+		contentPane.add(btnAnnuler);
 	}
 }

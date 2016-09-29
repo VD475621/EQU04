@@ -24,9 +24,9 @@ public class Frm_Reservation extends Frm_Base {
 	/**
 	 * 
 	 */
-	
+	private enum State {Consulter, Ajouter, Modifier, Supprimer};
+	private State etat;
 	private Frm_Reservation instance;
-	
 	private static final long serialVersionUID = 1L;
 	private JTextField Tb_IdCli;
 	private JTextField Tb_adresse;
@@ -41,6 +41,7 @@ public class Frm_Reservation extends Frm_Base {
 	private JFormattedTextField Tbf_telephone;
 	private JFormattedTextField Tbf_fax;
 	private JScrollPane ScrP_Reser;
+	private JButton Btn_PkList;
 	
 	private Ctrl_Reservation ct_reser;
 	
@@ -65,21 +66,38 @@ public class Frm_Reservation extends Frm_Base {
 	 */
 	public Frm_Reservation() {
 		super();
+		this.setEtat(State.Consulter);
+		btnAnnuler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Consulter();
+			}
+		});
+		btnSauvegarder.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//Sauvegarder les données ajoutées
+			}
+		});
 		
 		btnConsulter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Consulter();
 			}
 		});
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Modifier();
 			}
 		});
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Supprimer();
 			}
 		});
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Ajouter();
 			}
 		});
 		
@@ -244,7 +262,7 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_reservation.add(Tb_date_fin);
 		Tb_date_fin.setColumns(10);
 		
-		JButton Btn_PkList = new JButton("...");
+		Btn_PkList = new JButton("...");
 		Btn_PkList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ct_reser.ListeReservation(instance);
@@ -270,32 +288,87 @@ public class Frm_Reservation extends Frm_Base {
 	}
 	
 	
+	
+	public State getEtat() {
+		return etat;
+	}
+
+	public void setEtat(State etat) {
+		this.etat = etat;
+	}
+
 	private void Consulter()
 	{
-		Tb_IdReser.setEditable(false);
-		Tb_IdCli.setEditable(false);
-		Tb_adresse.setEditable(false);
-		Tb_Nom.setEditable(false);
-		Tb_IdReser.setEditable(false);
-		Tb_date_reser.setEditable(false);
-		Tb_date_debut.setEditable(false);
-		Tb_date_fin.setEditable(false);
-		Tb_typ_carte.setEditable(false);
+		if(this.etat == State.Ajouter || this.etat == State.Modifier)
+		{
+			Tb_IdReser.setEditable(false);
+			Tb_IdCli.setEditable(false);
+			Tb_adresse.setEditable(false);
+			Tb_Nom.setEditable(false);
+			Tb_IdReser.setEditable(false);
+			Tb_date_reser.setEditable(false);
+			Tb_date_debut.setEditable(false);
+			Tb_date_fin.setEditable(false);
+			Tb_typ_carte.setEditable(false);
+			btnAnnuler.setEnabled(false);
+			btnSauvegarder.setEnabled(false);
+			this.btnConsulter.setEnabled(true);
+			
+			this.Btn_PkList.setEnabled(true);
+			this.btnFin.setEnabled(true);
+			this.btnModifier.setEnabled(true);
+			this.btnNaviguer.setEnabled(true);
+			this.btnNaviguer_1.setEnabled(true);
+			this.btnNaviguerGauche.setEnabled(true);
+			this.btnSupprimer.setEnabled(true);
+			
+			this.etat = State.Consulter;
+			this.ct_reser.Assign(instance, 0);
+		}
+		
 	}
 	
 	private void Ajouter()
 	{
-		
+		if(this.etat == State.Consulter)
+		{
+			Tb_IdReser.setEditable(false);
+			Tb_IdCli.setEditable(false);
+			Tb_adresse.setEditable(false);
+			Tb_Nom.setEditable(false);
+			Tb_date_reser.setEditable(false);
+			Tb_date_debut.setEditable(true);
+			Tb_date_fin.setEditable(true);
+			Tb_typ_carte.setEditable(false);
+			btnAnnuler.setEnabled(true);
+			btnSauvegarder.setEnabled(true);
+			
+			this.Btn_PkList.setEnabled(false);
+			this.btnFin.setEnabled(false);
+			this.btnModifier.setEnabled(false);
+			this.btnNaviguer.setEnabled(false);
+			this.btnNaviguer_1.setEnabled(false);
+			this.btnNaviguerGauche.setEnabled(false);
+			this.btnSupprimer.setEnabled(false);
+			this.btnConsulter.setEnabled(false);
+			
+			
+			this.ct_reser.ViderChamps(instance);
+			
+			this.etat = State.Ajouter;
+		}
 	}
 	
 	private void Modifier()
 	{
-		
+		this.etat = State.Modifier;
+		this.Btn_PkList.setEnabled(true);
 	}
 	
 	private void Supprimer()
 	{
-		
+		this.etat = State.Supprimer;
+		this.Btn_PkList.setEnabled(true);
 	}
 	
 	public void setjScrollPane(JTable UneTable)

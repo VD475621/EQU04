@@ -47,12 +47,27 @@ public class Ctrl_Reservation {
 		
 		//affichage des chambres
 		
-		mod_reser_cham = new Mod_Reservation_cham((int)mod_reser.Get_courant());
+		mod_reser_cham = new Mod_Reservation_cham(mod_reser.Get_courant());
 		jt = new JTable(mod_reser_cham);
 		jt.removeColumn(jt.getColumnModel().getColumn(0));
 		frm.setjScrollPane(jt);
-		
-		
+	}
+	
+	public void ViderChamps(Frm_Reservation f)
+	{
+		f.getTb_adresse().setText(" ");
+		f.getTb_date_debut().setText(" ");
+		f.getTb_date_fin().setText(" ");
+		f.getTb_date_reser().setText(mod_reser.getDatDuJour().toString());
+		f.getTb_IdCli().setText(" ");
+		int value =(int)mod_reser.getValueAt(mod_reser.getRowCount()-1, 8) +1;
+		f.getTb_IdReser().setText(Integer.toString(value));
+		f.getTb_Nom().setText(" ");
+		f.getTb_typ_carte().setText(" ");
+		f.getTbf_exp().setText(" ");
+		f.getTbf_fax().setText(" ");
+		f.getTbf_solde_du().setText(" ");
+		f.getTbf_telephone().setText(" ");
 	}
 	
 	public void Premier(Frm_Reservation f)
@@ -87,7 +102,8 @@ public class Ctrl_Reservation {
 	
 	public void ListeReservation(Frm_Reservation f)
 	{
-		this.position = Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des R�servations");
+		this.Assign(f, position);
+		this.position = Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des Reservations");
 		this.Assign(f, position);
 	}
 	
@@ -129,11 +145,5 @@ public class Ctrl_Reservation {
 
 	public void setPosition(int position) {
 		this.position = position;
-	}
-
-
-	
-	
-	
-	
+	}	
 }

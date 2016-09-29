@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -257,6 +258,19 @@ public class Mod_Reservation extends AbstractTableModel{
 		if(columnIndex == 11) return reser.GetDateFin();
 		
 		return null;
+	}
+	
+	public java.sql.Date getDatDuJour() {
+	    Calendar calendar = Calendar.getInstance();
+	    java.util.Date laDate = calendar.getTime();
+	    return new java.sql.Date(laDate.getTime());
+	}
+	public java.sql.Date getDatRequise()
+	{
+		 Calendar calendar = Calendar.getInstance();
+		 calendar.add(Calendar.DATE, 10);
+		 java.util.Date laDate = calendar.getTime();
+		 return new java.sql.Date(laDate.getTime());
 	}
 	
 	
