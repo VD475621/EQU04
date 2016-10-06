@@ -104,15 +104,30 @@ public class Ctrl_Reservation {
 	
 	public void ListeReservation(Frm_Reservation f)
 	{
-		this.position = Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des Reservations");
+		int value = (int)Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des Reservations");
+		for(int i=0; i<mod_reser.getLes_resers().size(); i++)
+			if(value==(int)mod_reser.getValueAt(i, 8)){
+				position = i; break;
+			}
 		this.Assign(f, position);
 	}
 	
 	public void ListeClient(Frm_Reservation f)
 	{
-		int position_temp = position;
-		Pk_List.pickFromTable(new Mod_Pk_Client(), "Listes des Clients");
-		
+		int value = (int)Pk_List.pickFromTable(new Mod_Pk_Client(), "Listes des Clients");
+		for(int i=0; i<mod_reser.getLes_resers().size(); i++)
+			if(value==(int)mod_reser.getValueAt(i, 0))
+			{
+				f.getTb_IdCli().setText(mod_reser.getValueAt(i, 0).toString());
+				f.getTb_Nom().setText(mod_reser.getValueAt(i, 1).toString());
+				f.getTb_adresse().setText(mod_reser.getValueAt(i, 2).toString());
+				f.getTbf_telephone().setText(mod_reser.getValueAt(i, 3).toString());
+				f.getTbf_fax().setText(mod_reser.getValueAt(i, 4).toString());
+				f.getTb_typ_carte().setText(mod_reser.getValueAt(i, 5).toString());
+				f.getTbf_exp().setText(mod_reser.getValueAt(i, 6).toString());
+				f.getTbf_solde_du().setText(mod_reser.getValueAt(i, 7).toString());
+				return;
+			}
 	}
 	
 
