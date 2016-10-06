@@ -12,16 +12,26 @@ drop table DEPART cascade constraints;
 drop table TYPECHAM cascade constraints;
 drop table LOCALISATION cascade constraints; 
 
-drop sequence SEQ;
+
+drop sequence SEQ_Reservation;
+drop sequence SEQ_Client;
+drop sequence SEQ_Arrive;
+drop sequence SEQ_Depart;
+drop sequence SEQ_Trx;
 
 
-/*--------------------------CREATION------------------------------------------*/
-create sequence SEQ;
+create sequence SEQ_Reservation START WITH 1;
+create sequence SEQ_Client START WITH 1;
+create sequence SEQ_Arrive START WITH 1;
+create sequence SEQ_Depart START WITH 1;
+create sequence SEQ_Trx START WITH 1;
+
+/*****************CREATION*****************************************************/
 
 create table TYPECHAM
 (
     CodTypCha varchar2(2) not null,
-    DescTyp varchar2(25),
+    DescType varchar2(25),
     NbDispo number(3,0),
     constraint PK_CodTypCha primary Key(CodTypCha)
 );

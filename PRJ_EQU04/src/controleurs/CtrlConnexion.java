@@ -21,13 +21,11 @@ public class CtrlConnexion {
 	       
 	  	    ModConnexion.getInstance().connexion(nomUsager,mdp);   	
 	       	
-	       	//testConnexion();
+	       	testConnexion();
 	       	
 	       	fenetre.dispose();
 	        Frm_Menu fenetrer = new Frm_Menu();
 	        fenetrer.show();
-	    //   	WinPrincipal fendebut = new WinPrincipal();
-	    	//WinBon fendebut = new WinBon();
 	       	
 	       	
 	      

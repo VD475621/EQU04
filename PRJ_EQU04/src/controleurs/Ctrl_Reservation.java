@@ -6,32 +6,68 @@ import javax.swing.JTable;
 
 import View.Frm_Chambre;
 import View.Frm_Reservation;
+import View.Pk_List;
+import modeles.Mod_Pk_Reservation;
 import modeles.Mod_Reservation;
 import modeles.Mod_Reservation_cham;
 
 public class Ctrl_Reservation {
-	public Mod_Reservation mod_reser = null;
-	public Mod_Reservation_cham mod_reser_cham = null;
-	private ArrayList<Mod_Reservation> Ls_reser = null;
+	public Mod_Reservation mod_reser;
+	public Mod_Reservation_cham mod_reser_cham;
+	private ArrayList<Mod_Reservation> Ls_reser;
 	private int position = 0;
-	
+	private JTable jt;
 	
 	public Ctrl_Reservation(Frm_Reservation frm_cham)
 	{
 		mod_reser = new Mod_Reservation(); 
 		Ls_reser = mod_reser.getLes_resers();
-		
+		Assign(frm_cham, position);
 	}
 	
 	
-	public void Assign(Frm_Reservation frm_cham, int position)
+	public void Assign(Frm_Reservation frm, int position)
 	{
-		mod_reser_cham = new Mod_Reservation_cham((int) mod_reser.Get_courant());
+		mod_reser.setCourant((int) mod_reser.getValueAt(position, 8));
 		
-		//Faire un set de la table
+		//affichage de la reservation et du client
+		frm.getTb_IdCli().setText(mod_reser.getValueAt(position, 0).toString());
+		frm.getTb_Nom().setText(mod_reser.getValueAt(position, 1).toString());
+		frm.getTb_adresse().setText(mod_reser.getValueAt(position, 2).toString());
+		frm.getTbf_telephone().setText(mod_reser.getValueAt(position, 3).toString());
+		frm.getTbf_fax().setText(mod_reser.getValueAt(position, 4).toString());
+		frm.getTb_typ_carte().setText(mod_reser.getValueAt(position, 5).toString());
+		frm.getTbf_exp().setText(mod_reser.getValueAt(position, 6).toString());
+		frm.getTbf_solde_du().setText(mod_reser.getValueAt(position, 7).toString());
+		frm.getTb_IdReser().setText(mod_reser.getValueAt(position, 8).toString());
+		frm.getTb_date_reser().setText(mod_reser.getValueAt(position, 9).toString());
+		frm.getTb_date_debut().setText(mod_reser.getValueAt(position, 10).toString());
+		frm.getTb_date_fin().setText(mod_reser.getValueAt(position, 11).toString());
 		
 		
+		//affichage des chambres
 		
+		mod_reser_cham = new Mod_Reservation_cham(mod_reser.Get_courant());
+		jt = new JTable(mod_reser_cham);
+		jt.removeColumn(jt.getColumnModel().getColumn(0));
+		frm.setjScrollPane(jt);
+	}
+	
+	public void ViderChamps(Frm_Reservation f)
+	{
+		f.getTb_adresse().setText(" ");
+		f.getTb_date_debut().setText(" ");
+		f.getTb_date_fin().setText(" ");
+		f.getTb_date_reser().setText(mod_reser.getDatDuJour().toString());
+		f.getTb_IdCli().setText(" ");
+		int value =(int)mod_reser.getValueAt(mod_reser.getRowCount()-1, 8) +1;
+		f.getTb_IdReser().setText(Integer.toString(value));
+		f.getTb_Nom().setText(" ");
+		f.getTb_typ_carte().setText(" ");
+		f.getTbf_exp().setText(" ");
+		f.getTbf_fax().setText(" ");
+		f.getTbf_solde_du().setText(" ");
+		f.getTbf_telephone().setText(" ");
 	}
 	
 	public void Premier(Frm_Reservation f)
@@ -43,9 +79,9 @@ public class Ctrl_Reservation {
 	public void Suivant(Frm_Reservation f)
 	{
 		if (position<mod_reser.getLes_resers().size()-1)
-			position--;
+			position++;
 		else position= 0;
-		 mod_reser.setCourant((int)mod_reser.getValueAt(position, 0));
+		 	mod_reser.setCourant((int)mod_reser.getValueAt(position, 8));
 		Assign(f, position);	
 	}
 	
@@ -54,7 +90,7 @@ public class Ctrl_Reservation {
 		if (position> 0)
 			position--;
 		else position= 0;
-		 mod_reser.setCourant((int)mod_reser.getValueAt(position, 0));
+		 	mod_reser.setCourant((int)mod_reser.getValueAt(position, 8));
 		Assign(f,position);	
 	}
 	
@@ -64,47 +100,12 @@ public class Ctrl_Reservation {
 		Assign(f, position);
 	}
 	
-	
-/*
-	//GESTION DES LISTES DE SÉLECTION (PICKLISTS)
-		//Liste des bons à partir du modèle ModBonAcheteur (vue principale)
-		//voir CtrlListBons et WinListBons
-		public void ListeBons (WinBon winBon)
-		{   WinListBons pkListBon = new WinListBons();
-		    pkListBon.setVisible(true);
-			AffecteValeurs(winBon,pkListBon.getNoLigneSel());	
-		}
-		
-		//Liste des acheteurs voir WinListAcheteurs, ModListAcheteur et CtrlListAcheteurs
-		public void ListeAch (WinBon winBon)
-		{   WinListAcheteurs pkListAch = new WinListAcheteurs();
-		    pkListAch.setLocationRelativeTo(winBon.getbtnPkAch());
-		    pkListAch.setVisible(true);
-		    pkListAch.setEnabled(true);
-			AfficheAcheteur(winBon,pkListAch);	
-		}
-		
-		//Liste des produits voir WinListProduits, ModListProduits et CtrlListProduits
-		public void ListeProduits (WinBon winBon)
-		{   WinListProduits pkListProd = new WinListProduits();
-		    ModContientProduit unProduit;
-		    pkListProd.setLocationRelativeTo(winBon.getBtnAjtProduit());
-		    pkListProd.setVisible(true);
-		    pkListProd.setEnabled(true);
-		    
-		    //récupération des informations de la liste de sélection via son controleur
-		    int noProd = pkListProd.getCtrl().getNoProduit();
-			String descProd = pkListProd.getCtrl().getDesProd();
-			Double prixProd = pkListProd.getCtrl().getPrixProd();
-			int Qte = 0;
-			Double prixVente = 0.0;
-			
-			// Création d'un produit selon le modèle contient produit
-			unProduit = new ModContientProduit(noProd,descProd,Qte,prixProd,prixVente);
-			modeleProduit.AjouteProduit(unProduit);
-			winBon.setjScrollPane(new JTable(modeleProduit)); 
-		}
-		*/
+	public void ListeReservation(Frm_Reservation f)
+	{
+		this.Assign(f, position);
+		this.position = Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des Reservations");
+		this.Assign(f, position);
+	}
 	
 
 	public Mod_Reservation getMod_reser() {
@@ -144,11 +145,5 @@ public class Ctrl_Reservation {
 
 	public void setPosition(int position) {
 		this.position = position;
-	}
-
-
-	
-	
-	
-	
+	}	
 }

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -57,11 +58,12 @@ public class Mod_Reservation extends AbstractTableModel{
 		SetDateFin(dateFin);
 	}
 	
-	//incomplet
 	public void Lire_Enre()
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("");	
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT c.IdCli, c.Nom, c.Adresse, c.Telephone, c.fax, c.TypeCarte, c.DateExp, "+
+																											"c.Solde_Du, r.IdReser, r.dateReser, r.dateDebut, r.dateFin " + 
+																											"FROM CLIENT c, RESERVATION r WHERE r.FKIdCli=c.IdCli order by r.IdReser");	
 			ResultSet rs = state.executeQuery();
 			
 			
@@ -70,24 +72,26 @@ public class Mod_Reservation extends AbstractTableModel{
 				String nom = rs.getString("Nom");
 				String adresse = rs.getString("Adresse");
 				String tel = rs.getString("Telephone");
-				String fax = rs.getString("Fax");
-				String carte = rs.getString("TypCarte");
-				java.sql.Date exp = rs.getDate("Exp");
-				double solde = rs.getDouble("solde_du");
+				String fax = rs.getString("fax");
+				String carte = rs.getString("TypeCarte");
+				java.sql.Date exp = rs.getDate("DateExp");
+				double solde = rs.getDouble("Solde_Du");
 				int idreser = rs.getInt("IdReser");
 				java.sql.Date datreser = rs.getDate("dateReser");
 				java.sql.Date datdebut = rs.getDate("dateDebut");
 				java.sql.Date datfin = rs.getDate("dateFin");
-				
-				
+
+				System.out.println(idcli + " " + nom + " " + adresse + " " + tel +" " + fax + " " + carte +  " " + exp + " " + solde + " " + idreser + " " + datreser + " " + datdebut + " " + datfin);
 				
 				les_resers.add(new Mod_Reservation(idcli, nom, adresse, tel, fax, carte, exp, solde, idreser, datreser, datdebut, datfin)); 
-				this.setCourant(idreser);
-			}		
+				//this.setCourant(idreser);
+			}
+			rs.close();
 		} 
 		catch (SQLException e) 
 		{
-			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java", "ALERTE", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
 		}
 	}
 
@@ -220,7 +224,6 @@ public class Mod_Reservation extends AbstractTableModel{
 
 	public void setCourant(int valueAt) {
 		// TODO Auto-generated method stub
-		
 		this.courant = valueAt;
 	}
 
@@ -240,6 +243,7 @@ public class Mod_Reservation extends AbstractTableModel{
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
 		Mod_Reservation reser = (Mod_Reservation)les_resers.get(rowIndex);
+		
 		if(columnIndex == 0) return reser.GetIdCli();
 		if(columnIndex == 1) return reser.GetNom();
 		if(columnIndex == 2) return reser.GetAdresse();
@@ -254,6 +258,19 @@ public class Mod_Reservation extends AbstractTableModel{
 		if(columnIndex == 11) return reser.GetDateFin();
 		
 		return null;
+	}
+	
+	public java.sql.Date getDatDuJour() {
+	    Calendar calendar = Calendar.getInstance();
+	    java.util.Date laDate = calendar.getTime();
+	    return new java.sql.Date(laDate.getTime());
+	}
+	public java.sql.Date getDatRequise()
+	{
+		 Calendar calendar = Calendar.getInstance();
+		 calendar.add(Calendar.DATE, 10);
+		 java.util.Date laDate = calendar.getTime();
+		 return new java.sql.Date(laDate.getTime());
 	}
 	
 	

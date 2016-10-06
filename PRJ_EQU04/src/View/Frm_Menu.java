@@ -47,7 +47,7 @@ public class Frm_Menu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				win= new Frm_Chambre();
-				win.show();
+				win.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(83, 44, 105, 23);
@@ -57,8 +57,8 @@ public class Frm_Menu extends JFrame {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				win= new Frm_Chambre();
-				win.show();
+				win= new Frm_Reservation();
+				win.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(83, 78, 105, 23);
@@ -98,7 +98,7 @@ public class Frm_Menu extends JFrame {
 		btnArrive.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				win= new Frm_Chambre();win.show();
+				win= new Frm_Arrive();win.setVisible(true);
 			}
 		});
 		btnArrive.setBounds(222, 78, 105, 23);
@@ -119,20 +119,10 @@ public class Frm_Menu extends JFrame {
 		btnQuitter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				try {
-					this.finalize();
-				} catch (Throwable e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				System.exit(0);
 			}
 		});
 		btnQuitter.setBounds(222, 146, 105, 23);
 		contentPane.add(btnQuitter);
-	}
-	
-	public void finalize()
-	{
-		this.dispose();
 	}
 }
