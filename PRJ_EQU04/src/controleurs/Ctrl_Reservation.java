@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import View.Frm_Chambre;
 import View.Frm_Reservation;
 import View.Pk_List;
+import modeles.Mod_Pk_Client;
 import modeles.Mod_Pk_Reservation;
 import modeles.Mod_Reservation;
 import modeles.Mod_Reservation_cham;
@@ -68,6 +69,7 @@ public class Ctrl_Reservation {
 		f.getTbf_fax().setText(" ");
 		f.getTbf_solde_du().setText(" ");
 		f.getTbf_telephone().setText(" ");
+		f.getScrP_Reser().setViewportView(new JTable());
 	}
 	
 	public void Premier(Frm_Reservation f)
@@ -102,9 +104,15 @@ public class Ctrl_Reservation {
 	
 	public void ListeReservation(Frm_Reservation f)
 	{
-		this.Assign(f, position);
 		this.position = Pk_List.pickFromTable(new Mod_Pk_Reservation(), "Listes des Reservations");
 		this.Assign(f, position);
+	}
+	
+	public void ListeClient(Frm_Reservation f)
+	{
+		int position_temp = position;
+		Pk_List.pickFromTable(new Mod_Pk_Client(), "Listes des Clients");
+		
 	}
 	
 
@@ -147,3 +155,4 @@ public class Ctrl_Reservation {
 		this.position = position;
 	}	
 }
+ 

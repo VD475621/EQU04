@@ -19,13 +19,11 @@ import javax.swing.JButton;
 
 public class Frm_Reservation extends Frm_Base {
 
-	
-	
 	/**
 	 * 
 	 */
 	private enum State {Consulter, Ajouter, Modifier, Supprimer};
-	private State etat;
+	private State etat = null;
 	private Frm_Reservation instance;
 	private static final long serialVersionUID = 1L;
 	private JTextField Tb_IdCli;
@@ -42,6 +40,7 @@ public class Frm_Reservation extends Frm_Base {
 	private JFormattedTextField Tbf_fax;
 	private JScrollPane ScrP_Reser;
 	private JButton Btn_PkList;
+	private JButton Btn_PkList_client;
 	
 	private Ctrl_Reservation ct_reser;
 	
@@ -147,7 +146,7 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_client.add(Lb_telephone);
 		
 		JLabel Lb_nom = new JLabel("Nom");
-		Lb_nom.setBounds(212, 6, 61, 16);
+		Lb_nom.setBounds(256, 6, 39, 16);
 		Pn_client.add(Lb_nom);
 		
 		JLabel lb_fax = new JLabel("Fax");
@@ -168,7 +167,7 @@ public class Frm_Reservation extends Frm_Base {
 		
 		Tb_Nom = new JTextField();
 		Tb_Nom.setEditable(false);
-		Tb_Nom.setBounds(247, 1, 130, 26);
+		Tb_Nom.setBounds(294, 1, 130, 26);
 		Pn_client.add(Tb_Nom);
 		Tb_Nom.setColumns(10);
 		
@@ -213,6 +212,15 @@ public class Frm_Reservation extends Frm_Base {
 		Tbf_solde_du.setText("0,00 $");
 		Tbf_solde_du.setBounds(273, 174, 104, 26);
 		Pn_client.add(Tbf_solde_du);
+		
+		Btn_PkList_client = new JButton("...");
+		Btn_PkList_client.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ct_reser.ListeClient(instance);
+			}
+		});
+		Btn_PkList_client.setBounds(212, 6, 31, 16);
+		Pn_client.add(Btn_PkList_client);
 		
 		JPanel Pn_reservation = new JPanel();
 		Pn_reservation.setBounds(603, 63, 424, 225);
@@ -301,8 +309,6 @@ public class Frm_Reservation extends Frm_Base {
 
 	private void Consulter()
 	{
-		if(this.etat == State.Ajouter || this.etat == State.Modifier)
-		{
 			Tb_IdReser.setEditable(false);
 			Tb_IdCli.setEditable(false);
 			Tb_adresse.setEditable(false);
@@ -312,10 +318,11 @@ public class Frm_Reservation extends Frm_Base {
 			Tb_date_debut.setEditable(false);
 			Tb_date_fin.setEditable(false);
 			Tb_typ_carte.setEditable(false);
+			
+			
 			btnAnnuler.setEnabled(false);
 			btnSauvegarder.setEnabled(false);
 			this.btnConsulter.setEnabled(true);
-			
 			this.Btn_PkList.setEnabled(true);
 			this.btnFin.setEnabled(true);
 			this.btnModifier.setEnabled(true);
@@ -323,10 +330,9 @@ public class Frm_Reservation extends Frm_Base {
 			this.btnNaviguer_1.setEnabled(true);
 			this.btnNaviguerGauche.setEnabled(true);
 			this.btnSupprimer.setEnabled(true);
-			
+			this.Btn_PkList_client.setEnabled(false);
 			this.etat = State.Consulter;
 			this.ct_reser.Assign(instance, 0);
-		}
 		
 	}
 	
@@ -344,7 +350,8 @@ public class Frm_Reservation extends Frm_Base {
 			Tb_typ_carte.setEditable(false);
 			btnAnnuler.setEnabled(true);
 			btnSauvegarder.setEnabled(true);
-			
+
+			this.Btn_PkList_client.setEnabled(true);
 			this.Btn_PkList.setEnabled(false);
 			this.btnFin.setEnabled(false);
 			this.btnModifier.setEnabled(false);
@@ -364,13 +371,13 @@ public class Frm_Reservation extends Frm_Base {
 	private void Modifier()
 	{
 		this.etat = State.Modifier;
-		this.Btn_PkList.setEnabled(true);
+		//this.Btn_PkList.setEnabled(true);
 	}
 	
 	private void Supprimer()
 	{
 		this.etat = State.Supprimer;
-		this.Btn_PkList.setEnabled(true);
+		//this.Btn_PkList.setEnabled(true);
 	}
 	
 	public void setjScrollPane(JTable UneTable)
