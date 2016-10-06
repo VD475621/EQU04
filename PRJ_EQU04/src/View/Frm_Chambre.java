@@ -4,10 +4,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import controleurs.Ctrl_Chambre;
 
 
 public class Frm_Chambre extends Frm_Base{
@@ -22,6 +25,9 @@ public class Frm_Chambre extends Frm_Base{
 	private JTextField Tb_DescLoc;
 	private JTextField Tb_Prix;
 	private JTextField Tb_Memo;
+	private JScrollPane Jpn_Chambre;
+	
+	private static Ctrl_Chambre controlleur;
 	
 
 
@@ -56,6 +62,10 @@ public class Frm_Chambre extends Frm_Base{
 		Initialiser_ObjetGraph();
 		Initialiser_Listener();
 		
+		controlleur = new Ctrl_Chambre(this);
+		controlleur.Assign();
+		
+		setConsultationMode();
 		
 	}
 	
@@ -64,54 +74,73 @@ public class Frm_Chambre extends Frm_Base{
 		btnNaviguerGauche.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
 		btnNaviguer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				controlleur.next1();
 			}
 		});
 		
 		btnAjouter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
 		btnSupprimer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
 		btnModifier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
 		btnConsulter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				setConsultationMode();
 			}
 		});
 		
 		btnNaviguer_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				controlleur.next();
 			}
 		});
 		
 		btnFin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 	}
 
 
-	
+	private void setConsultationMode(){
+		Tb_NoCham.setEditable(false);
+		Tb_Etage.setEditable(false);
+		Tb_Etat.setEditable(false);
+		Tb_CodType.setEditable(false);
+		Tb_Localisation.setEditable(false);
+		Tb_DescType.setEditable(false);
+		Tb_DescLoc.setEditable(false);
+		Tb_Prix.setEditable(false);
+		Tb_Memo.setEditable(false);
+		
+	}
 	
 	
 	private void Initialiser_ObjetGraph()
@@ -156,6 +185,8 @@ public class Frm_Chambre extends Frm_Base{
 		Pn_Chambre.add(Lb_DescType);
 		
 		Tb_DescType = new JTextField();
+		Tb_DescType.setEnabled(false);
+		Tb_DescType.setEditable(false);
 		Tb_DescType.setBounds(349, 95, 130, 26);
 		Pn_Chambre.add(Tb_DescType);
 		Tb_DescType.setColumns(10);
@@ -165,6 +196,8 @@ public class Frm_Chambre extends Frm_Base{
 		Pn_Chambre.add(Lb_DescLoc);
 		
 		Tb_DescLoc = new JTextField();
+		Tb_DescLoc.setEnabled(false);
+		Tb_DescLoc.setEditable(false);
 		Tb_DescLoc.setBounds(349, 155, 130, 26);
 		Pn_Chambre.add(Tb_DescLoc);
 		Tb_DescLoc.setColumns(10);
@@ -176,6 +209,7 @@ public class Frm_Chambre extends Frm_Base{
 		
 		
 		 Tb_Memo = new JTextField();
+		 Tb_Memo.setEditable(false);
 		Tb_Memo.setBounds(24, 359, 440, 109);
 		Pn_Chambre.add(Tb_Memo);
 		
@@ -199,7 +233,7 @@ public class Frm_Chambre extends Frm_Base{
 		lblDescription.setBounds(875, 162, 73, 16);
 		getContentPane().add(lblDescription);
 		
-		JScrollPane Jpn_Chambre = new JScrollPane();
+		Jpn_Chambre = new JScrollPane();
 		Jpn_Chambre.setBounds(558, 203, 502, 319);
 		getContentPane().add(Jpn_Chambre);
 		
@@ -207,8 +241,8 @@ public class Frm_Chambre extends Frm_Base{
 		Jpn_Chambre.setViewportView(Tbl_Chambre_1);
 		
 		Tb_NoCham = new JTextField();
-		Tb_NoCham.setBounds(80, 32, 130, 26);
 		Tb_NoCham.setEditable(false);
+		Tb_NoCham.setBounds(80, 32, 130, 26);
 		Tb_NoCham.setEnabled(false);
 		Pn_Chambre.add(Tb_NoCham);
 		Tb_NoCham.setColumns(10);
@@ -254,6 +288,11 @@ public class Frm_Chambre extends Frm_Base{
 	
 	
 	//-------------------------------------
+	public JScrollPane get_DataGrid()
+	{
+		return Jpn_Chambre;
+	}
+	
 	public JTextField getTb_Memo() {
 		return Tb_Memo;
 	}

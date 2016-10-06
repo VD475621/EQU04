@@ -1,13 +1,16 @@
 package controleurs;
 
+import javax.swing.JTable;
+
 import View.Frm_Base;
 import View.Frm_Chambre;
 import modeles.Mod_Chambre;
+import modeles.Mod_ChambreTable;
 
 public class Ctrl_Chambre {
 	
 
-	private int position = 0;
+	private int position;
 	
 	private Frm_Chambre frm_Cham = null;
 	
@@ -18,6 +21,8 @@ public class Ctrl_Chambre {
 		this.frm_Cham = frm_cham;
 		
 		Mod_Chambre.Lire();
+		
+		position= 0;
 	}
 	
 	
@@ -32,6 +37,8 @@ public class Ctrl_Chambre {
 		frm_Cham.getTb_DescLoc().setText(Mod_Chambre.getPosition(position, 6).toString());
 		frm_Cham.getTb_Prix().setText(Mod_Chambre.getPosition(position, 7).toString());
 		frm_Cham.getTb_Memo().setText(Mod_Chambre.getPosition(position, 8).toString());
+		
+		frm_Cham.get_DataGrid().setViewportView(new JTable(new Mod_ChambreTable(Mod_Chambre.getPosition(position, 0).toString())));
 		//table
 		
 	}
@@ -66,5 +73,12 @@ public class Ctrl_Chambre {
 		frm_Cham.dispose();
 		
     }
+	
+	public void ListeChambres (){   
+		
+		    //position = Pk_Base2.pickFromTable(new ModPLChambreChambre(),"listes des chambres");
+			Assign();	
+		
+	}
 
 }

@@ -14,6 +14,9 @@ public class Pk_Base extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable Tbl_list;
+	
+	
+	
 
 	/**
 	 * Launch the application.
