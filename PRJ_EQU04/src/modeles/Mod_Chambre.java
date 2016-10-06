@@ -35,7 +35,7 @@ public final class Mod_Chambre{
 	
 	public Mod_Chambre()
 	{
-		super();
+	
 		Titre_Tab.add("noCham");
 		Titre_Tab.add("etage");
 		Titre_Tab.add("etat");
@@ -47,21 +47,7 @@ public final class Mod_Chambre{
 		Titre_Tab.add("memo");
 	}
 	
-	public Mod_Chambre(int No_Cham, int etage, double prix, boolean etat, String memo, String codtypcha,String codloc, String desctyp, String descloc)
-	{
-		super();
-		
-		this.Set_Nocham(No_Cham);
-		this.Set_Etage(etage);
-		this.Set_Prix(prix);
-		this.Set_Etat(etat);
-		this.Set_Memo(memo);
-		this.Set_CodTypCham(codtypcha);
-		this.Set_CodLoc(codloc);
-		this.Set_DescTyp(desctyp);
-		this.Set_DescLoc(descloc);
-		
-	}
+
 	
 	
 	public static void Lire()
@@ -69,7 +55,7 @@ public final class Mod_Chambre{
 		try {    
 			
 			
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT CHAMBRE.noCham, CHAMBRE.etage, CHAMBRE.etat,CHAMBRE.codTypCha, TYPECHAM.descType,CHAMBRE.codLoc,LOCALISATION.descLoc, CHAMBRE.prix ,CHAMBRE.memo FROM   CHAMBRE , TYPECHAM  , LOCALISATION where CHAMBRE.codTypCha = TYPECHAM.codTYPCHA and CHAMBRE.CodLoc = LOCALISATION.CodLoc ORDER BY CHAMBRE.NOCHAM ASC") ;
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT CHAMBRE.noCham, CHAMBRE.etage, CHAMBRE.etat,CHAMBRE.FKCodTypCha, TYPECHAM.descType, CHAMBRE.FKCodLoc,LOCALISATION.descLoc, CHAMBRE.prix ,CHAMBRE.memo FROM CHAMBRE ,TYPECHAM  ,LOCALISATION where CHAMBRE.FKCodTypCha = TYPECHAM.CodTypCha and CHAMBRE.FKCodLoc = LOCALISATION.CodLoc ORDER BY CHAMBRE.noCham ASC") ;//ORDER BY CHAMBRE.NOCHAM ASC
 			
 			
 			ResultSet rs = state.executeQuery();
@@ -78,8 +64,8 @@ public final class Mod_Chambre{
 				row.add(rs.getString("noCham"));
 				row.add(rs.getString("etage"));
 				row.add(rs.getBoolean("etat"));
-				row.add(rs.getString("codTypCha"));
-				row.add(rs.getString("codLoc"));
+				row.add(rs.getString("FKCodTypCha"));
+				row.add(rs.getString("FKCodLoc"));
 				row.add(rs.getString("descType"));
 				row.add(rs.getString("descLoc"));
 				row.add(rs.getDouble("prix"));
@@ -88,6 +74,7 @@ public final class Mod_Chambre{
 				Ls_Chambre.add(row);   
 				}		
 		} catch (SQLException e) {
+			System.out.print(e);
 			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_Chambre.java",
 					"ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
@@ -102,7 +89,8 @@ public final class Mod_Chambre{
 	
 	public static Object getPosition(int rowIndex, int columnIndex) {return Ls_Chambre.get(rowIndex).get(columnIndex);}
 	
-	public static ArrayList<ArrayList<?>> getLs_Chambre() {
+	public static ArrayList<ArrayList<?>> getLs_Chambre() 
+	{
 		return Ls_Chambre;
 	}
 	

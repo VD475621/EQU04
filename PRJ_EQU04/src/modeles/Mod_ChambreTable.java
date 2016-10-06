@@ -15,7 +15,9 @@ public class Mod_ChambreTable extends AbstractTableModel{
 	private int CodCom;
 	private String DescCom;
 	
-	private ArrayList<Mod_ChambreTable> Ls_ChambreTable = new ArrayList<Mod_ChambreTable>();
+	
+	public ArrayList<ArrayList<?>> Ls_codCom= new ArrayList<ArrayList<?>>();
+	public ArrayList<String> titres = new ArrayList<String>();
 	
 	
 	
@@ -24,9 +26,11 @@ public class Mod_ChambreTable extends AbstractTableModel{
 		super();
 	}
 	
-	public Mod_ChambreTable(int position)
+	public Mod_ChambreTable(String NoCham)
 	{
-		super();
+		titres.add("CodCom");
+		titres.add("Desc");
+		this.Lire(NoCham);
 	}
 	
 	public Mod_ChambreTable(int codtyp, String desccom)
@@ -35,22 +39,28 @@ public class Mod_ChambreTable extends AbstractTableModel{
 	}
 	
 	
-	public void Lire(int position)
+	public void Lire(String NoCham)
 	{
 		try {    
 			
 		
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT ");
-				state.setInt(1,position);
-			
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select COMMODITE.CodCom , COMMODITE.DescCom FROM COMMODITE , AYANT where COMMODITE.CodCom = AYANT.FKCodCom and AYANT.FKnoCham = "+ NoCham);
 			ResultSet rs = state.executeQuery();
+			
 			while (rs.next()) {
-			   int codtype = rs.getInt("CodCom");
-			   String desccom = rs.getString("DescCom");
 				
-				Ls_ChambreTable.add(new Mod_ChambreTable(codtype, desccom));  
-				}		
+				
+				while (rs.next()) {
+					ArrayList<Object> row = new ArrayList<Object>();
+					row.add(rs.getString("CodCom"));
+					row.add(rs.getString("DescCom"));
+					
+					System.out.println(row.get(0));
+					Ls_codCom.add(row); 
+				}	
+			}
 		} catch (SQLException e) {
+			System.out.print(e);
 			JOptionPane.showMessageDialog(null, "Probleme rencontré dans Mod_ChambreTable.java",
 					"ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
@@ -81,26 +91,12 @@ public class Mod_ChambreTable extends AbstractTableModel{
 	
 	
 	
+	public Object getValueAt(int rowIndex, int columnIndex) {return Ls_codCom.get(rowIndex).get(columnIndex);}
+	public int getRowCount() {return Ls_codCom.size();}
+	public int getColumnCount() {return titres.size();}
 	
+
 	
+
 	
-
-	@Override
-	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
