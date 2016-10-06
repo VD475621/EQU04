@@ -279,6 +279,8 @@ public class Frm_Reservation extends Frm_Base {
 		Lb_information_client.setBounds(187, 35, 234, 16);
 		getContentPane().add(Lb_information_client);
 		
+		ScrP_Reser = new JScrollPane();
+		ScrP_Reser.setBounds(63, 332, 964, 191);
 		
 		instance = this;
 		ct_reser = new Ctrl_Reservation(instance);
@@ -372,9 +374,7 @@ public class Frm_Reservation extends Frm_Base {
 	}
 	
 	public void setjScrollPane(JTable UneTable)
-	{
-		ScrP_Reser = new JScrollPane(UneTable);
-		ScrP_Reser.setBounds(63, 332, 964, 191);
+	{		
 		ScrP_Reser.setViewportView(UneTable);
 		getContentPane().add(ScrP_Reser);
 	}
