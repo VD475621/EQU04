@@ -81,7 +81,7 @@ public class Mod_Reservation extends AbstractTableModel{
 				java.sql.Date datdebut = rs.getDate("dateDebut");
 				java.sql.Date datfin = rs.getDate("dateFin");
 
-				System.out.println(idcli + " " + nom + " " + adresse + " " + tel +" " + fax + " " + carte +  " " + exp + " " + solde + " " + idreser + " " + datreser + " " + datdebut + " " + datfin);
+				//System.out.println(idcli + " " + nom + " " + adresse + " " + tel +" " + fax + " " + carte +  " " + exp + " " + solde + " " + idreser + " " + datreser + " " + datdebut + " " + datfin);
 				
 				les_resers.add(new Mod_Reservation(idcli, nom, adresse, tel, fax, carte, exp, solde, idreser, datreser, datdebut, datfin)); 
 				//this.setCourant(idreser);

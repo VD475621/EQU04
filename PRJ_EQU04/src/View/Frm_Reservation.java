@@ -13,6 +13,9 @@ import controleurs.Ctrl_Reservation;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
@@ -41,6 +44,8 @@ public class Frm_Reservation extends Frm_Base {
 	private JScrollPane ScrP_Reser;
 	private JButton Btn_PkList;
 	private JButton Btn_PkList_client;
+	private JButton btn_addChambre;
+	private JButton btn_removeChambre;
 	
 	private Ctrl_Reservation ct_reser;
 	
@@ -287,6 +292,47 @@ public class Frm_Reservation extends Frm_Base {
 		Lb_information_client.setBounds(187, 35, 234, 16);
 		getContentPane().add(Lb_information_client);
 		
+		btn_addChambre = new JButton("+");
+		btn_addChambre.setEnabled(false);
+		btn_addChambre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(etat == State.Ajouter)
+				{
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				    Date parsed=new Date();
+					try {
+						parsed = sdf.parse(Tb_date_debut.getText());
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				    java.sql.Date datadeb = new java.sql.Date(parsed.getTime());
+				    try {
+						parsed = sdf.parse(Tb_date_fin.getText());
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				    java.sql.Date datafin = new java.sql.Date(parsed.getTime());
+				    
+					ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
+				}
+			}
+		});
+		btn_addChambre.setBounds(508, 585, 32, 29);
+		getContentPane().add(btn_addChambre);
+		
+		btn_removeChambre = new JButton("-");
+		btn_removeChambre.setEnabled(false);
+		btn_removeChambre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btn_removeChambre.setBounds(553, 585, 32, 29);
+		getContentPane().add(btn_removeChambre);
+		
 		ScrP_Reser = new JScrollPane();
 		ScrP_Reser.setBounds(63, 332, 964, 191);
 		
@@ -322,6 +368,8 @@ public class Frm_Reservation extends Frm_Base {
 			
 			btnAnnuler.setEnabled(false);
 			btnSauvegarder.setEnabled(false);
+			this.btn_addChambre.setEnabled(false);
+			this.btn_removeChambre.setEnabled(false);
 			this.btnConsulter.setEnabled(true);
 			this.Btn_PkList.setEnabled(true);
 			this.btnFin.setEnabled(true);
@@ -351,6 +399,9 @@ public class Frm_Reservation extends Frm_Base {
 			btnAnnuler.setEnabled(true);
 			btnSauvegarder.setEnabled(true);
 
+
+			this.btn_addChambre.setEnabled(true);
+			this.btn_removeChambre.setEnabled(true);
 			this.Btn_PkList_client.setEnabled(true);
 			this.Btn_PkList.setEnabled(false);
 			this.btnFin.setEnabled(false);

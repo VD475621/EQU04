@@ -131,7 +131,7 @@ insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) v
 
 INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('01', 'Prix de la chambre', 'DB');
 INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('02', 'Lit additionnel', 'DB');
-INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('10', 'T�l�phone interurbain', 'DB' );
+INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('10', 'Telephone interurbain', 'DB' );
 INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('21', 'Photocopie', 'DB');
 INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('22', 'Internet', 'DB');
 INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('30', 'Restaurant', 'DB');

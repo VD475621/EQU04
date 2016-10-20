@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import View.Frm_Chambre;
 import View.Frm_Reservation;
 import View.Pk_List;
+import modeles.Mod_Pk_Chambre;
 import modeles.Mod_Pk_Client;
 import modeles.Mod_Pk_Reservation;
 import modeles.Mod_Reservation;
@@ -56,19 +57,19 @@ public class Ctrl_Reservation {
 	
 	public void ViderChamps(Frm_Reservation f)
 	{
-		f.getTb_adresse().setText(" ");
-		f.getTb_date_debut().setText(" ");
-		f.getTb_date_fin().setText(" ");
+		f.getTb_adresse().setText("");
+		f.getTb_date_debut().setText("");
+		f.getTb_date_fin().setText("");
 		f.getTb_date_reser().setText(mod_reser.getDatDuJour().toString());
-		f.getTb_IdCli().setText(" ");
+		f.getTb_IdCli().setText("");
 		int value =(int)mod_reser.getValueAt(mod_reser.getRowCount()-1, 8) +1;
 		f.getTb_IdReser().setText(Integer.toString(value));
-		f.getTb_Nom().setText(" ");
-		f.getTb_typ_carte().setText(" ");
-		f.getTbf_exp().setText(" ");
-		f.getTbf_fax().setText(" ");
-		f.getTbf_solde_du().setText(" ");
-		f.getTbf_telephone().setText(" ");
+		f.getTb_Nom().setText("");
+		f.getTb_typ_carte().setText("");
+		f.getTbf_exp().setText("");
+		f.getTbf_fax().setText("");
+		f.getTbf_solde_du().setText("");
+		f.getTbf_telephone().setText("");
 		f.getScrP_Reser().setViewportView(new JTable());
 	}
 	
@@ -130,6 +131,10 @@ public class Ctrl_Reservation {
 			}
 	}
 	
+	public void ListeChambreFiltrer(Frm_Reservation f, java.sql.Date DateDeb, java.sql.Date DateFin){
+		Pk_List.pickFromTable(new Mod_Pk_Chambre(DateDeb, DateFin), "Listes des Chambres");
+	}
+	
 
 	public Mod_Reservation getMod_reser() {
 		return mod_reser;
@@ -170,4 +175,3 @@ public class Ctrl_Reservation {
 		this.position = position;
 	}	
 }
- 
