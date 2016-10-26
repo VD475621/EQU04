@@ -269,6 +269,13 @@ public class Frm_Reservation extends Frm_Base {
 		Tb_date_reser.setColumns(10);
 		
 		Tb_date_debut = new JTextField();
+		Tb_date_debut.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				ct_reser.GetDate(instance, Tb_date_debut);
+				
+			}
+		});
 		Tb_date_debut.setEditable(false);
 		Tb_date_debut.setText("jj/mm/aaaa");
 		Tb_date_debut.setBounds(128, 79, 130, 26);
@@ -276,6 +283,12 @@ public class Frm_Reservation extends Frm_Base {
 		Tb_date_debut.setColumns(10);
 		
 		Tb_date_fin = new JTextField();
+		Tb_date_fin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ct_reser.GetDate(instance, Tb_date_fin);
+			}
+		});
 		Tb_date_fin.setEditable(false);
 		Tb_date_fin.setText("jj/mm/aaaa");
 		Tb_date_fin.setBounds(128, 117, 130, 26);
