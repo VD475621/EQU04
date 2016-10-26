@@ -328,6 +328,7 @@ public class Frm_Reservation extends Frm_Base {
 		btn_removeChambre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				ct_reser.RetirerChambre(instance);
 			}
 		});
 		btn_removeChambre.setBounds(553, 585, 32, 29);

@@ -3,6 +3,7 @@ package controleurs;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import View.Frm_Chambre;
 import View.Frm_Reservation;
@@ -58,8 +59,8 @@ public class Ctrl_Reservation {
 	public void ViderChamps(Frm_Reservation f)
 	{
 		f.getTb_adresse().setText("");
-		f.getTb_date_debut().setText("");
-		f.getTb_date_fin().setText("");
+		f.getTb_date_debut().setText(mod_reser.getDatDuJour().toString());
+		f.getTb_date_fin().setText(mod_reser.getDateRequise().toString());
 		f.getTb_date_reser().setText(mod_reser.getDatDuJour().toString());
 		f.getTb_IdCli().setText("");
 		int value =(int)mod_reser.getValueAt(mod_reser.getRowCount()-1, 8) +1;
@@ -70,7 +71,10 @@ public class Ctrl_Reservation {
 		f.getTbf_fax().setText("");
 		f.getTbf_solde_du().setText("");
 		f.getTbf_telephone().setText("");
-		f.getScrP_Reser().setViewportView(new JTable());
+		
+		mod_reser_cham = new Mod_Reservation_cham();
+		jt = new JTable(new DefaultTableModel(new Object[]{"No chambre", "Type", "Prix", "Occupee"}, 0));
+		f.getScrP_Reser().setViewportView(jt);
 	}
 	
 	public void Premier(Frm_Reservation f)
@@ -132,7 +136,25 @@ public class Ctrl_Reservation {
 	}
 	
 	public void ListeChambreFiltrer(Frm_Reservation f, java.sql.Date DateDeb, java.sql.Date DateFin){
-		Pk_List.pickFromTable(new Mod_Pk_Chambre(DateDeb, DateFin), "Listes des Chambres");
+		ArrayList<Object> row = Pk_List.pickFromTableRow(new Mod_Pk_Chambre(DateDeb, DateFin), "Listes des Chambres");
+		
+		//this.mod_reser_cham.setNoCham(row.get(0).toString());
+		//this.mod_reser_cham.setType(row.get(3).toString());
+		//this.mod_reser_cham.setPrix(Double.parseDouble(row.get(2).toString()));
+		//this.mod_reser_cham.setOccupee(false);
+		
+		
+		DefaultTableModel model = (DefaultTableModel) jt.getModel();
+		model.addRow(new Object[]{row.get(0).toString(), row.get(3).toString(), Double.parseDouble(row.get(2).toString()), false});
+		
+		//jt.removeColumn(jt.getColumnModel().getColumn(0));
+		f.setjScrollPane(jt);
+	}
+	
+	public void RetirerChambre(Frm_Reservation f){
+		DefaultTableModel model = (DefaultTableModel) jt.getModel();
+		model.removeRow(jt.getSelectedRow());
+		f.setjScrollPane(jt);
 	}
 	
 

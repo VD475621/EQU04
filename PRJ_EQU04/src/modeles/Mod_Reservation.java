@@ -265,7 +265,7 @@ public class Mod_Reservation extends AbstractTableModel{
 	    java.util.Date laDate = calendar.getTime();
 	    return new java.sql.Date(laDate.getTime());
 	}
-	public java.sql.Date getDatRequise()
+	public java.sql.Date getDateRequise()
 	{
 		 Calendar calendar = Calendar.getInstance();
 		 calendar.add(Calendar.DATE, 10);

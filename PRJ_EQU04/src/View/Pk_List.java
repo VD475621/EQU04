@@ -3,6 +3,7 @@ package View;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JDialog;
 import javax.swing.JScrollPane;
@@ -16,7 +17,7 @@ public final class Pk_List extends JDialog {
 	private static JTable jt;
 	private static Object No_ligne = null;
 
-	private Pk_List(AbstractTableModel m, String t)
+	private Pk_List(AbstractTableModel m, String t, int state)
 	{
 
         jt = new JTable(m);
@@ -31,8 +32,17 @@ public final class Pk_List extends JDialog {
 	  			@Override
 	  			public void mousePressed(MouseEvent e)
 	  			{
-				  	//No_ligne = jt.getSelectedRow();
-	  				No_ligne = jt.getValueAt(jt.getSelectedRow(), 0);
+	  				if(state == 0){
+		  				No_ligne = jt.getValueAt(jt.getSelectedRow(), 0);
+	  				}
+	  				else if (state == 1){
+	  					ArrayList<Object> row = new ArrayList<Object>();
+	  					for(int i =0;i<jt.getColumnCount();i++){
+	  						row.add(jt.getValueAt(jt.getSelectedRow(), i));
+	  					}
+	  					//System.out.println(row);
+	  					No_ligne = row;
+	  				}
 				  	dispose();
 				   	e.setSource(null);
 	  			}
@@ -49,7 +59,11 @@ public final class Pk_List extends JDialog {
 	 * @return the row selected or 0 if clause without selection
 	 */
 	public final static Object pickFromTable(AbstractTableModel m,String t){
-		new Pk_List(m, t);
+		new Pk_List(m, t, 0);
 		return No_ligne;
+	}
+	public final static ArrayList<Object> pickFromTableRow(AbstractTableModel m,String t){
+		new Pk_List(m, t, 1);
+		return ((ArrayList<Object>) No_ligne);
 	}
 }

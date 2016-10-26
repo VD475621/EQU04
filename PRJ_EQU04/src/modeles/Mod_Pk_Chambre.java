@@ -25,10 +25,12 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 	public void Lire_Enre(java.sql.Date DateDeb, java.sql.Date DateFin)
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select c.NOCHAM, c.ETAGE,c.PRIX,c.FKCODTYPCHA,c.FKCODLOC " +
-																											" from Chambre c, Reservation r, De d " + 
-																											" where c.Nocham=d.FKNOCHAM and d.FKIDRESER=r.IDRESER " + 
-																											" and not(?>r.DATEDEBUT and ?<r.DATEFIN) and not(?<r.DATEFIN and ?>r.DATEDEBUT)");	
+			PreparedStatement state = ModConnexion.getInstance()
+									.getLaConnectionStatique()
+									.prepareStatement("select c.NOCHAM, c.ETAGE,c.PRIX,c.FKCODTYPCHA,c.FKCODLOC " +
+													" from Chambre c, Reservation r, De d " + 
+												    " where c.Nocham=d.FKNOCHAM and d.FKIDRESER=r.IDRESER " + 
+													" and not(?>r.DATEDEBUT and ?<r.DATEFIN) and not(?<r.DATEFIN and ?>r.DATEDEBUT)");	
 			state.setDate(1, DateDeb);
 			state.setDate(2, DateDeb);
 			state.setDate(3, DateFin);
