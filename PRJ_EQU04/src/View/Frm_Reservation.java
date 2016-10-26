@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -80,7 +81,13 @@ public class Frm_Reservation extends Frm_Base {
 		btnSauvegarder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				//---------------------------------------
 				//Sauvegarder les données ajoutées
+				//Valider les Champs
+				ct_reser.SauvegarderReservation(instance);
+				
+				
+				//---------------------------------------
 			}
 		});
 		
@@ -299,24 +306,34 @@ public class Frm_Reservation extends Frm_Base {
 			public void mouseClicked(MouseEvent e) {
 				if(etat == State.Ajouter)
 				{
+					boolean flag = false;
+				    java.sql.Date datadeb;
+				    java.sql.Date datafin;
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				    Date parsed=new Date();
 					try {
 						parsed = sdf.parse(Tb_date_debut.getText());
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
+						flag = true;
 						e1.printStackTrace();
 					}
-				    java.sql.Date datadeb = new java.sql.Date(parsed.getTime());
 				    try {
 						parsed = sdf.parse(Tb_date_fin.getText());
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
+						flag = true;
 						e1.printStackTrace();
 					}
-				    java.sql.Date datafin = new java.sql.Date(parsed.getTime());
 				    
-					ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
+				    if(!flag){
+					    datadeb = new java.sql.Date(parsed.getTime());
+					    datafin = new java.sql.Date(parsed.getTime());
+						ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
+				    }else{
+				    	JOptionPane.showMessageDialog(null, "Erreur dans les dates\n(YYYY-MM-DD)");
+				    }
+				    
 				}
 			}
 		});
@@ -354,7 +371,7 @@ public class Frm_Reservation extends Frm_Base {
 		this.etat = etat;
 	}
 
-	private void Consulter()
+	public void Consulter()
 	{
 			Tb_IdReser.setEditable(false);
 			Tb_IdCli.setEditable(false);

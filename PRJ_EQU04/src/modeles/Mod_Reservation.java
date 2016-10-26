@@ -58,6 +58,15 @@ public class Mod_Reservation extends AbstractTableModel{
 		SetDateFin(dateFin);
 	}
 	
+	public Mod_Reservation(int Idreser, int Idcli, java.sql.Date date_reser, java.sql.Date date_debut, java.sql.Date date_fin)
+	{
+		SetIdCli(Idcli);
+		SetIdReser(Idreser);
+		SetDateReser(date_reser);
+		SetDateDebut(date_debut);
+		SetDateFin(date_fin);
+	}
+	
 	public void Lire_Enre()
 	{
 		try {
@@ -265,12 +274,56 @@ public class Mod_Reservation extends AbstractTableModel{
 	    java.util.Date laDate = calendar.getTime();
 	    return new java.sql.Date(laDate.getTime());
 	}
-	public java.sql.Date getDateRequise()
-	{
+	
+	public java.sql.Date getDateRequise(){
 		 Calendar calendar = Calendar.getInstance();
 		 calendar.add(Calendar.DATE, 10);
 		 java.util.Date laDate = calendar.getTime();
 		 return new java.sql.Date(laDate.getTime());
+	}
+	
+	public void SauvegarderReservation(Mod_Reservation m, ArrayList<String> c){
+		try {    
+			PreparedStatement state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement("INSERT INTO RESERVATION VALUES ( "
+					+ m.IdReser + " , "
+					+ m.IdCli + " , "
+					+ "TO_DATE('" + m.dateReser + "' , 'YY-MM-DD'), "
+					+ "TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
+					+ "TO_DATE('" + m.dateFin + "' , 'YY-MM-DD')"
+					+ " )");
+
+			state.executeUpdate();
+			 
+			state.execute("commit");
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans ajout de la reservation\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		try {
+			for(int i=0;i<c.size();i++){
+				System.out.println(c.get(i));
+				PreparedStatement state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement("INSERT INTO DE VALUES ( "
+					+ m.IdReser + " , '"
+					+ c.get(i) + "' , "
+					+ 0
+					+ " )");
+
+			state.executeUpdate();
+			 
+			state.execute("commit");
+			}
+			
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans ajout des DE\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	

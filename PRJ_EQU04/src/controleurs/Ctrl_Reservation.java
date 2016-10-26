@@ -1,5 +1,6 @@
 package controleurs;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
@@ -155,6 +156,36 @@ public class Ctrl_Reservation {
 		DefaultTableModel model = (DefaultTableModel) jt.getModel();
 		model.removeRow(jt.getSelectedRow());
 		f.setjScrollPane(jt);
+	}
+	
+	public void SauvegarderReservation(Frm_Reservation f){
+		Mod_Reservation mod;
+		ArrayList<String> c = new ArrayList<String>();
+		
+		int idreser = Integer.parseInt(f.getTb_IdReser().getText());
+		int idcli = Integer.parseInt(f.getTb_IdCli().getText());
+		java.sql.Date datereser = Date.valueOf(f.getTb_date_reser().getText());
+		java.sql.Date datedebut = Date.valueOf(f.getTb_date_debut().getText());
+		java.sql.Date datefin = Date.valueOf(f.getTb_date_fin().getText());
+		
+		mod = new Mod_Reservation(idreser, idcli, datereser, datedebut, datefin);
+		System.out.println(idreser + " " + idcli + " " + datereser + " " + datedebut + " " + datefin);
+		int n = jt.getRowCount();
+		for(int i=0;i<n;i++){
+			c.add(jt.getValueAt(i, 0).toString());
+		}
+		System.out.println(c);
+		mod_reser.SauvegarderReservation(mod, c);
+		
+		
+		mod_reser = new Mod_Reservation(); 
+		Ls_reser = mod_reser.getLes_resers();
+		Assign(f, position);
+		f.Consulter();
+	}
+	
+	public boolean Validation(Frm_Reservation f){
+		return true;
 	}
 	
 
