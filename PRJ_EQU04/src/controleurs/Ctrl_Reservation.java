@@ -1,10 +1,14 @@
 package controleurs;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JViewport;
 import javax.swing.table.DefaultTableModel;
 
 import View.DateTimePicker;
@@ -138,6 +142,7 @@ public class Ctrl_Reservation {
 			}
 	}
 	
+	
 	public void ListeChambreFiltrer(Frm_Reservation f, java.sql.Date DateDeb, java.sql.Date DateFin){
 		ArrayList<Object> row = Pk_List.pickFromTableRow(new Mod_Pk_Chambre(DateDeb, DateFin), "Listes des Chambres");
 		
@@ -190,7 +195,34 @@ public class Ctrl_Reservation {
 	}
 	
 	public boolean Validation(Frm_Reservation f){
-		return true;
+		boolean flag = true;
+		String erreur = "";
+		JViewport viewport = f.getScrP_Reser().getViewport(); 
+		JTable jt = (JTable)viewport.getView();
+		if(f.getTb_IdCli().getText().isEmpty()){
+			flag = false;
+			erreur += "Un client doit être sélectionné!\n";
+		}
+		if(jt.getRowCount()==0){
+			flag = false;
+			erreur += "Au moins une chambre doit être sélectionnée!\n";
+		}
+		Date reser = Date.valueOf(f.getTb_date_reser().getText());
+		Date debut = Date.valueOf(f.getTb_date_debut().getText());
+		Date fin = Date.valueOf(f.getTb_date_fin().getText());
+		if(reser.compareTo(debut)>0){
+			flag = false;
+			erreur += "La date de debut doit être égale ou supérieur à la date de réservaton!\n";
+		}
+		if(debut.compareTo(fin)>0){
+			flag = false;
+			erreur += "La date de fin doit être supérieur à la date de debut!";
+		}
+		if(!flag){
+			JOptionPane.showMessageDialog(f, erreur);
+		}
+		
+		return flag;
 	}
 	
 	
