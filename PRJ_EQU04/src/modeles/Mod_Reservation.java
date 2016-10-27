@@ -70,8 +70,9 @@ public class Mod_Reservation extends AbstractTableModel{
 	public void Lire_Enre()
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT *" + 
-																											"FROM SELECT_RESERVATION");	
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT c.IdCli, c.Nom, c.Adresse, c.Telephone, c.fax, c.TypeCarte, c.DateExp, "+
+																											"c.Solde_Du, r.IdReser, r.dateReser, r.dateDebut, r.dateFin " + 
+																											"FROM CLIENT c, RESERVATION r WHERE r.FKIdCli=c.IdCli order by r.IdReser");	
 			ResultSet rs = state.executeQuery();
 			
 			

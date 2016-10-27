@@ -27,7 +27,7 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
-									.prepareStatement("select * from SELECT_CHAMBRE_FILTRE");	
+									.prepareStatement("select c.NOCHAM, c.ETAGE,c.PRIX,c.FKCODTYPCHA,c.FKCODLOC from Chambre c where c.NoCham not in (select * from TEMP_CHAMBRE) order by c.NoCham");	
 			//state.setDate(1, DateDeb);
 			//state.setDate(2, DateDeb);
 			//state.setDate(3, DateFin);
@@ -61,7 +61,7 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 									.prepareStatement("INSERT INTO TEMP_CHAMBRE VALUES ('" + c + "')");
 			
 			state.executeUpdate();
-			state.execute("commit");
+			state.execute("commmit");
 		} 
 		catch (SQLException e) 
 		{
