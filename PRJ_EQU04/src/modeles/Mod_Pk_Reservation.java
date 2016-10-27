@@ -31,9 +31,7 @@ public class Mod_Pk_Reservation extends AbstractTableModel{
 	public void Lire_Enre()
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select r.IdReser, c.IdCli, nom, dateReser, dateDebut, DateFin "
-												+ " from RESERVATION r, CLIENT c "
-												+ " where r.FKIdCli=c.IdCli order by r.IdReser");	
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select *  from SELECT_RESERVATION_RESER");	
 			ResultSet rs = state.executeQuery();
 			
 			while (rs.next()) {
