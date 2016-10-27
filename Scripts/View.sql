@@ -18,7 +18,7 @@ where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham;
 
 CREATE OR REPLACE VIEW SELECT_CHAMBRE_FILTRE (NOCHAM, ETAGE, PRIX, FKCODTYPCHA, FKCODLOC)
 as
-select c.NOCHAM, c.ETAGE, c.PRIX, c.FKCODTYPCHA, c.FKCODLOC from Chambre c where c.etat=1 and c.NoCham not in (select * from TEMP_CHAMBRE) order by c.NoCham;
+select c.NOCHAM, c.ETAGE, c.PRIX, c.FKCODTYPCHA, c.FKCODLOC from Chambre c where c.NoCham not in (select * from TEMP_CHAMBRE);
 
 /*
 CREATE OR REPLACE VIEW SELECT_DE_RESER ()

@@ -26,7 +26,7 @@ public class Frm_Reservation extends Frm_Base {
 	/**
 	 * 
 	 */
-	private enum State {Consulter, Ajouter, Modifier, Supprimer};
+	public enum State {Consulter, Ajouter, Modifier, Supprimer};
 	private State etat = null;
 	private Frm_Reservation instance;
 	private static final long serialVersionUID = 1L;
@@ -321,6 +321,7 @@ public class Frm_Reservation extends Frm_Base {
 					
 				    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				    Date parsed=new Date();
+				    Date parsed2=new Date();
 				    
 					try {
 						parsed = sdf.parse(Tb_date_debut.getText());
@@ -331,7 +332,7 @@ public class Frm_Reservation extends Frm_Base {
 					}
 					
 				    try {
-						parsed = sdf.parse(Tb_date_fin.getText());
+						parsed2 = sdf.parse(Tb_date_fin.getText());
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
 						flag = true;
@@ -339,8 +340,8 @@ public class Frm_Reservation extends Frm_Base {
 					}
 				    
 				    if(!flag){
-					    //datadeb = new java.sql.Date(parsed.getTime());
-					    //datafin = new java.sql.Date(parsed.getTime());
+					    datadeb = new java.sql.Date(parsed.getTime());
+					    datafin = new java.sql.Date(parsed2.getTime());
 						ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
 				    }else{
 				    	JOptionPane.showMessageDialog(null, "Erreur dans les dates\n(YYYY-MM-DD)");

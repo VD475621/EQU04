@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import View.DateTimePicker;
 import View.Frm_Chambre;
 import View.Frm_Reservation;
+import View.Frm_Reservation.State;
 import View.Pk_List;
 import modeles.Mod_Pk_Chambre;
 import modeles.Mod_Pk_Client;
@@ -145,20 +146,21 @@ public class Ctrl_Reservation {
 	
 	public void ListeChambreFiltrer(Frm_Reservation f, java.sql.Date DateDeb, java.sql.Date DateFin){
 		ArrayList<Object> row = Pk_List.pickFromTableRow(new Mod_Pk_Chambre(DateDeb, DateFin), "Listes des Chambres");
-		
-		DefaultTableModel model = (DefaultTableModel) jt.getModel();
-		model.addRow(new Object[]{row.get(0).toString(), row.get(3).toString(), Double.parseDouble(row.get(2).toString()), false});
-		Mod_Pk_Chambre.AjouterChambreTemp((String) row.get(0));
-		
-		//jt.removeColumn(jt.getColumnModel().getColumn(0));
-		f.setjScrollPane(jt);
+		if(!row.isEmpty()){
+			DefaultTableModel model = (DefaultTableModel) jt.getModel();
+			model.addRow(new Object[]{row.get(0).toString(), row.get(3).toString(), Double.parseDouble(row.get(2).toString()), false});
+			Mod_Pk_Chambre.AjouterChambreTemp((String) row.get(0));
+			f.setjScrollPane(jt);
+		}
 	}
 	
 	public void RetirerChambre(Frm_Reservation f){
-		Mod_Pk_Chambre.RetirerChambreTemp((String) jt.getValueAt(jt.getSelectedRow(), 0));
-		DefaultTableModel model = (DefaultTableModel) jt.getModel();
-		model.removeRow(jt.getSelectedRow());
-		f.setjScrollPane(jt);
+		if(f.getEtat() != State.Consulter && jt.getSelectedRow() != -1){
+			Mod_Pk_Chambre.RetirerChambreTemp((String) jt.getValueAt(jt.getSelectedRow(), 0));
+			DefaultTableModel model = (DefaultTableModel) jt.getModel();
+			model.removeRow(jt.getSelectedRow());
+			f.setjScrollPane(jt);
+		}
 	}
 	
 	public void SauvegarderReservation(Frm_Reservation f){
@@ -198,22 +200,22 @@ public class Ctrl_Reservation {
 		JTable jt = (JTable)viewport.getView();
 		if(f.getTb_IdCli().getText().isEmpty()){
 			flag = false;
-			erreur += "Un client doit être sélectionné!\n";
+			erreur += "Un client doit ï¿½tre sï¿½lectionnï¿½!\n";
 		}
 		if(jt.getRowCount()==0){
 			flag = false;
-			erreur += "Au moins une chambre doit être sélectionnée!\n";
+			erreur += "Au moins une chambre doit ï¿½tre sï¿½lectionnï¿½e!\n";
 		}
 		Date reser = Date.valueOf(f.getTb_date_reser().getText());
 		Date debut = Date.valueOf(f.getTb_date_debut().getText());
 		Date fin = Date.valueOf(f.getTb_date_fin().getText());
 		if(reser.compareTo(debut)>0){
 			flag = false;
-			erreur += "La date de debut doit être égale ou supérieur à la date de réservaton!\n";
+			erreur += "La date de debut doit ï¿½tre ï¿½gale ou supï¿½rieur ï¿½ la date de rï¿½servaton!\n";
 		}
 		if(debut.compareTo(fin)>0){
 			flag = false;
-			erreur += "La date de fin doit être supérieur à la date de debut!";
+			erreur += "La date de fin doit ï¿½tre supï¿½rieur ï¿½ la date de debut!";
 		}
 		if(!flag){
 			JOptionPane.showMessageDialog(f, erreur);
@@ -227,7 +229,8 @@ public class Ctrl_Reservation {
 	}
 	
 	public void GetDate(Frm_Reservation f, JTextField TBox){
-		DateTimePicker.pickDate(f, TBox);
+		if(f.getEtat() != State.Consulter)
+			DateTimePicker.pickDate(f, TBox);
 	}
 	
 
