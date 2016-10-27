@@ -27,7 +27,7 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
-									.prepareStatement("select c.NOCHAM, c.ETAGE,c.PRIX,c.FKCODTYPCHA,c.FKCODLOC from Chambre c");	
+									.prepareStatement("select c.NOCHAM, c.ETAGE,c.PRIX,c.FKCODTYPCHA,c.FKCODLOC from Chambre c where c.NoCham not in (select * from TEMP_CHAMBRE) order by c.NoCham");	
 			//state.setDate(1, DateDeb);
 			//state.setDate(2, DateDeb);
 			//state.setDate(3, DateFin);
@@ -49,7 +49,54 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		} 
 		catch (SQLException e) 
 		{
-			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_PkList_Client.java " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_PkList_Client.java Lire_Enre" + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
+		}
+	}
+	
+	public static void AjouterChambreTemp(String c){
+		try {
+			PreparedStatement state = ModConnexion.getInstance()
+									.getLaConnectionStatique()
+									.prepareStatement("INSERT INTO TEMP_CHAMBRE VALUES ('" + c + "')");
+			
+			state.executeUpdate();
+			state.execute("commmit");
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_PkList_Client.java AjouterChambreTemp " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
+		}
+	}
+	
+	public static void RetirerChambreTemp(String c){
+		try {
+			PreparedStatement state = ModConnexion.getInstance()
+									.getLaConnectionStatique()
+									.prepareStatement("DELETE FROM TEMP_CHAMBRE WHERE NoCham=?");	
+			state.setString(1, c);
+			state.executeUpdate();
+			state.execute("commit");
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_PkList_Client.java RetirerChambreTemp " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
+		}
+	}
+	
+	public static void ViderChambreTemp(){
+		try {
+			PreparedStatement state = ModConnexion.getInstance()
+									.getLaConnectionStatique()
+									.prepareStatement("DELETE FROM TEMP_CHAMBRE");
+			state.executeUpdate();
+			state.execute("commit");
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_PkList_Client.java ViderChambreTemp " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
 			System.out.println(e);
 		}
 	}

@@ -76,17 +76,14 @@ public class Frm_Reservation extends Frm_Base {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Consulter();
+				ct_reser.ViderTableTemp();
 			}
 		});
 		btnSauvegarder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//---------------------------------------
-				//Sauvegarder les données ajoutées
-				//Valider les Champs
 				ct_reser.SauvegarderReservation(instance);
-				
-				
 				//---------------------------------------
 			}
 		});
@@ -273,7 +270,6 @@ public class Frm_Reservation extends Frm_Base {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				ct_reser.GetDate(instance, Tb_date_debut);
-				
 			}
 		});
 		Tb_date_debut.setEditable(false);

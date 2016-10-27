@@ -146,20 +146,16 @@ public class Ctrl_Reservation {
 	public void ListeChambreFiltrer(Frm_Reservation f, java.sql.Date DateDeb, java.sql.Date DateFin){
 		ArrayList<Object> row = Pk_List.pickFromTableRow(new Mod_Pk_Chambre(DateDeb, DateFin), "Listes des Chambres");
 		
-		//this.mod_reser_cham.setNoCham(row.get(0).toString());
-		//this.mod_reser_cham.setType(row.get(3).toString());
-		//this.mod_reser_cham.setPrix(Double.parseDouble(row.get(2).toString()));
-		//this.mod_reser_cham.setOccupee(false);
-		
-		
 		DefaultTableModel model = (DefaultTableModel) jt.getModel();
 		model.addRow(new Object[]{row.get(0).toString(), row.get(3).toString(), Double.parseDouble(row.get(2).toString()), false});
+		Mod_Pk_Chambre.AjouterChambreTemp((String) row.get(0));
 		
 		//jt.removeColumn(jt.getColumnModel().getColumn(0));
 		f.setjScrollPane(jt);
 	}
 	
 	public void RetirerChambre(Frm_Reservation f){
+		Mod_Pk_Chambre.RetirerChambreTemp((String) jt.getValueAt(jt.getSelectedRow(), 0));
 		DefaultTableModel model = (DefaultTableModel) jt.getModel();
 		model.removeRow(jt.getSelectedRow());
 		f.setjScrollPane(jt);
@@ -190,6 +186,7 @@ public class Ctrl_Reservation {
 			Ls_reser = mod_reser.getLes_resers();
 			Assign(f, position);
 			f.Consulter();
+			Mod_Pk_Chambre.ViderChambreTemp();
 		}
 		
 	}
@@ -225,6 +222,9 @@ public class Ctrl_Reservation {
 		return flag;
 	}
 	
+	public void ViderTableTemp(){
+		Mod_Pk_Chambre.ViderChambreTemp();
+	}
 	
 	public void GetDate(Frm_Reservation f, JTextField TBox){
 		DateTimePicker.pickDate(f, TBox);
