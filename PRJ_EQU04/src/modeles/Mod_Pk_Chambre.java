@@ -29,11 +29,11 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
-									.prepareStatement("Select * from SELECT_CHAMBRE_FILTRE where NoCham in (select c.NoCham from chambre c, de d, reservation r " + 
-									" where c.nocham=d.FKNoCham AND d.FKIdReser=r.idreser AND "
-									+ " (c.etat=1 OR NOT(?>=r.dateFin OR ?<=r.dateDebut))) order by NoCham");	
-			state.setDate(1, DateDeb);
-			state.setDate(2, DateFin);
+									.prepareStatement("Select * from SELECT_CHAMBRE_FILTRE where NoCham not in (select c.NoCham from chambre c, de d, reservation r " + 
+														" where c.nocham=d.FKNoCham AND d.FKIdReser=r.idreser AND " + 
+														" (c.etat=0 OR not (TO_DATE('" + DateDeb + "', 'YY-MM-DD')>=r.dateFin OR TO_DATE('"+DateFin+"','YY-MM-DD')<=r.dateDebut))) order by NoCham");
+			//state.setDate(1, DateDeb);
+			//state.setDate(2, DateFin);
 			//state.setDate(3, DateFin);
 			//state.setDate(4, DateFin);
 			
