@@ -146,7 +146,7 @@ public class Ctrl_Reservation {
 	
 	public void ListeChambreFiltrer(Frm_Reservation f, java.sql.Date DateDeb, java.sql.Date DateFin){
 		ArrayList<Object> row = Pk_List.pickFromTableRow(new Mod_Pk_Chambre(DateDeb, DateFin), "Listes des Chambres");
-		if(!row.isEmpty()){
+		if(row != null){
 			DefaultTableModel model = (DefaultTableModel) jt.getModel();
 			model.addRow(new Object[]{row.get(0).toString(), row.get(3).toString(), Double.parseDouble(row.get(2).toString()), false});
 			Mod_Pk_Chambre.AjouterChambreTemp((String) row.get(0));

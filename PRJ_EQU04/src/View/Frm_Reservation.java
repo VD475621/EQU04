@@ -342,7 +342,11 @@ public class Frm_Reservation extends Frm_Base {
 				    if(!flag){
 					    datadeb = new java.sql.Date(parsed.getTime());
 					    datafin = new java.sql.Date(parsed2.getTime());
-						ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
+					    if(datadeb.compareTo(datafin)<0)
+					    	ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
+					    else{
+					    	JOptionPane.showMessageDialog(null, "La date de debut doit être avant la date de fin");
+					    }
 				    }else{
 				    	JOptionPane.showMessageDialog(null, "Erreur dans les dates\n(YYYY-MM-DD)");
 				    }

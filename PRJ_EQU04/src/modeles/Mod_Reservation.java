@@ -312,10 +312,10 @@ public class Mod_Reservation extends AbstractTableModel{
 					+ c.get(i) + "' , "
 					+ 0
 					+ " )");
-
-			state.executeUpdate();
-			 
-			state.execute("commit");
+	
+				state.executeUpdate();
+				 
+				state.execute("commit");
 			}
 			
 			
@@ -325,5 +325,27 @@ public class Mod_Reservation extends AbstractTableModel{
 		}
 	}
 	
+	public void SupprimerReservation(int Idreser, ArrayList<String> Nochams){
+		try {    
+			PreparedStatement state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement("Delete from RESERVATION");
+
+			state.executeUpdate();
+			
+			//boucle
+			state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement("Delete from DE");
+
+			state.executeUpdate();
+			 
+			state.execute("commit");
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans suppression de la reservation\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	
 }
