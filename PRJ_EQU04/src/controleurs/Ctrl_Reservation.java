@@ -176,13 +176,11 @@ public class Ctrl_Reservation {
 			
 			mod = new Mod_Reservation(idreser, idcli, datereser, datedebut, datefin);
 			//System.out.println(idreser + " " + idcli + " " + datereser + " " + datedebut + " " + datefin);
-			int n = jt.getRowCount();
-			for(int i=0;i<n;i++){
+			for(int i=0;i<jt.getRowCount();i++){
 				c.add(jt.getValueAt(i, 0).toString());
 			}
 			//System.out.println(c);
 			mod_reser.SauvegarderReservation(mod, c);
-			
 			
 			mod_reser = new Mod_Reservation(); 
 			Ls_reser = mod_reser.getLes_resers();
@@ -222,6 +220,25 @@ public class Ctrl_Reservation {
 		}
 		
 		return flag;
+	}
+	
+	public void SupprimerReservation(Frm_Reservation f){
+		int idreser = Integer.parseInt(f.getTb_IdReser().getText());
+		ArrayList<String> c = new ArrayList<String>();
+		for(int i=0;i<jt.getRowCount();i++){
+			c.add(jt.getValueAt(i, 0).toString());
+		}
+		
+	}
+	
+	public void Modification(Frm_Reservation f){
+		
+	}
+	
+	public void SauvegarderModificationReservation(Frm_Reservation f){
+		if(Validation(f)){
+			
+		}
 	}
 	
 	public void ViderTableTemp(){
