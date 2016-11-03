@@ -304,7 +304,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		
 		try {
 			for(int i=0;i<c.size();i++){
-				System.out.println(c.get(i));
+				//System.out.println(c.get(i));
 				PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
 					.prepareStatement("INSERT INTO DE VALUES ( "
@@ -325,20 +325,18 @@ public class Mod_Reservation extends AbstractTableModel{
 		}
 	}
 	
+	public void ModifierReservation(){
+		
+	}
+	
 	public void SupprimerReservation(int Idreser, ArrayList<String> Nochams){
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement("Delete from RESERVATION");
+					.prepareStatement("");
 
 			state.executeUpdate();
 			
-			//boucle
-			state = ModConnexion.getInstance()
-					.getLaConnectionStatique()
-					.prepareStatement("Delete from DE");
-
-			state.executeUpdate();
 			 
 			state.execute("commit");
 			

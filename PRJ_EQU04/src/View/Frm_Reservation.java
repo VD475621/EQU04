@@ -1,7 +1,12 @@
 package View;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,15 +16,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import controleurs.Ctrl_Reservation;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
 
 public class Frm_Reservation extends Frm_Base {
 
@@ -269,7 +265,12 @@ public class Frm_Reservation extends Frm_Base {
 		Tb_date_debut.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ct_reser.GetDate(instance, Tb_date_debut);
+				ct_reser.GetDate(instance, Tb_date_debut, true);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ct_reser.DateInModif(instance, Tb_date_debut, true);
+				System.out.println(Tb_date_debut.getText());
 			}
 		});
 		Tb_date_debut.setEditable(false);
@@ -282,7 +283,11 @@ public class Frm_Reservation extends Frm_Base {
 		Tb_date_fin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ct_reser.GetDate(instance, Tb_date_fin);
+				ct_reser.GetDate(instance, Tb_date_fin, false);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ct_reser.DateInModif(instance, Tb_date_fin, false);
 			}
 		});
 		Tb_date_fin.setEditable(false);
@@ -313,43 +318,18 @@ public class Frm_Reservation extends Frm_Base {
 		btn_addChambre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(etat == State.Ajouter)
+				if(etat == State.Ajouter || etat == State.Modifier)
 				{
-					boolean flag = false;
-				    java.sql.Date datadeb = null;// = ct_reser.GetDateFrom(Tb_date_debut.getText());
-				    java.sql.Date datafin = null;// = ct_reser.GetDateFrom(Tb_date_fin.getText());;
-					
-				    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				    Date parsed=new Date();
-				    Date parsed2=new Date();
-				    
-					try {
-						parsed = sdf.parse(Tb_date_debut.getText());
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						flag = true;
-						e1.printStackTrace();
-					}
-					
-				    try {
-						parsed2 = sdf.parse(Tb_date_fin.getText());
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						flag = true;
-						e1.printStackTrace();
-					}
-				    
-				    if(!flag){
-					    datadeb = new java.sql.Date(parsed.getTime());
-					    datafin = new java.sql.Date(parsed2.getTime());
+				    java.sql.Date datadeb = null; // = ct_reser.GetDateFrom(Tb_date_debut.getText());
+				    java.sql.Date datafin = null; // = ct_reser.GetDateFrom(Tb_date_fin.getText());;
+								
+					    datadeb = java.sql.Date.valueOf(Tb_date_debut.getText());
+					    datafin = java.sql.Date.valueOf(Tb_date_fin.getText());
 					    if(datadeb.compareTo(datafin)<0)
 					    	ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
 					    else{
-					    	JOptionPane.showMessageDialog(null, "La date de debut doit être avant la date de fin");
+					    	JOptionPane.showMessageDialog(null, "La date de debut doit etre avant la date de fin");
 					    }
-				    }else{
-				    	JOptionPane.showMessageDialog(null, "Erreur dans les dates\n(YYYY-MM-DD)");
-				    }
 				    
 				}
 			}
@@ -456,8 +436,36 @@ public class Frm_Reservation extends Frm_Base {
 	
 	private void Modifier()
 	{
-		this.etat = State.Modifier;
-		//this.Btn_PkList.setEnabled(true);
+		if(this.etat == State.Consulter)
+		{
+			Tb_IdReser.setEditable(false);
+			Tb_IdCli.setEditable(false);
+			Tb_adresse.setEditable(false);
+			Tb_Nom.setEditable(false);
+			Tb_date_reser.setEditable(false);
+			Tb_date_debut.setEditable(true);
+			Tb_date_fin.setEditable(true);
+			Tb_typ_carte.setEditable(false);
+			btnAnnuler.setEnabled(true);
+			btnSauvegarder.setEnabled(true);
+
+
+			this.btn_addChambre.setEnabled(true);
+			this.btn_removeChambre.setEnabled(true);
+			this.Btn_PkList_client.setEnabled(true);
+			this.Btn_PkList.setEnabled(false);
+			this.btnFin.setEnabled(false);
+			this.btnModifier.setEnabled(false);
+			this.btnNaviguer.setEnabled(false);
+			this.btnNaviguer_1.setEnabled(false);
+			this.btnNaviguerGauche.setEnabled(false);
+			this.btnSupprimer.setEnabled(false);
+			this.btnConsulter.setEnabled(false);
+			this.btnAjouter.setEnabled(false);
+			
+			this.etat = State.Modifier;
+			ct_reser.SetOldDateInModif(instance);
+		}
 	}
 	
 	private void Supprimer()

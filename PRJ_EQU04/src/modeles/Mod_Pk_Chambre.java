@@ -24,8 +24,8 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 	
 	public void Lire_Enre(java.sql.Date DateDeb, java.sql.Date DateFin)
 	{
-		System.out.println(DateDeb);
-		System.out.println(DateFin);
+		//System.out.println(DateDeb);
+		//System.out.println(DateFin);
 		try {
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()

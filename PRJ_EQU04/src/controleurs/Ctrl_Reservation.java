@@ -1,8 +1,5 @@
 package controleurs;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -12,7 +9,6 @@ import javax.swing.JViewport;
 import javax.swing.table.DefaultTableModel;
 
 import View.DateTimePicker;
-import View.Frm_Chambre;
 import View.Frm_Reservation;
 import View.Frm_Reservation.State;
 import View.Pk_List;
@@ -28,6 +24,9 @@ public class Ctrl_Reservation {
 	private ArrayList<Mod_Reservation> Ls_reser;
 	private int position = 0;
 	private JTable jt;
+	
+	private java.sql.Date datedebut_b = null;
+	private java.sql.Date datefin_b = null;
 	
 	public Ctrl_Reservation(Frm_Reservation frm_cham)
 	{
@@ -170,9 +169,9 @@ public class Ctrl_Reservation {
 			
 			int idreser = Integer.parseInt(f.getTb_IdReser().getText());
 			int idcli = Integer.parseInt(f.getTb_IdCli().getText());
-			java.sql.Date datereser = Date.valueOf(f.getTb_date_reser().getText());
-			java.sql.Date datedebut = Date.valueOf(f.getTb_date_debut().getText());
-			java.sql.Date datefin = Date.valueOf(f.getTb_date_fin().getText());
+			java.sql.Date datereser = java.sql.Date.valueOf(f.getTb_date_reser().getText());
+			java.sql.Date datedebut = java.sql.Date.valueOf(f.getTb_date_debut().getText());
+			java.sql.Date datefin = java.sql.Date.valueOf(f.getTb_date_fin().getText());
 			
 			mod = new Mod_Reservation(idreser, idcli, datereser, datedebut, datefin);
 			//System.out.println(idreser + " " + idcli + " " + datereser + " " + datedebut + " " + datefin);
@@ -204,9 +203,10 @@ public class Ctrl_Reservation {
 			flag = false;
 			erreur += "Au moins une chambre doit �tre s�lectionn�e!\n";
 		}
-		Date reser = Date.valueOf(f.getTb_date_reser().getText());
-		Date debut = Date.valueOf(f.getTb_date_debut().getText());
-		Date fin = Date.valueOf(f.getTb_date_fin().getText());
+		
+		java.sql.Date reser = java.sql.Date.valueOf(f.getTb_date_reser().getText());
+		java.sql.Date debut = java.sql.Date.valueOf(f.getTb_date_debut().getText());
+		java.sql.Date fin = java.sql.Date.valueOf(f.getTb_date_fin().getText());
 		if(reser.compareTo(debut)>0){
 			flag = false;
 			erreur += "La date de debut doit �tre �gale ou sup�rieur � la date de r�servaton!\n";
@@ -215,6 +215,7 @@ public class Ctrl_Reservation {
 			flag = false;
 			erreur += "La date de fin doit �tre sup�rieur � la date de debut!";
 		}
+		
 		if(!flag){
 			JOptionPane.showMessageDialog(f, erreur);
 		}
@@ -245,11 +246,37 @@ public class Ctrl_Reservation {
 		Mod_Pk_Chambre.ViderChambreTemp();
 	}
 	
-	public void GetDate(Frm_Reservation f, JTextField TBox){
-		if(f.getEtat() != State.Consulter)
-			DateTimePicker.pickDate(f, TBox);
+	public void GetDate(Frm_Reservation f, JTextField TBox, boolean d){
+		DateTimePicker.pickDate(f, TBox);
 	}
 	
+	public void DateInModif(Frm_Reservation f, JTextField TBox, boolean d){
+		if(f.getEtat() == State.Modifier){
+			java.sql.Date date2 = java.sql.Date.valueOf(TBox.getText());
+			if(d){
+				if(datedebut_b.compareTo(date2)>0){
+					TBox.setText(datedebut_b.toString());
+					JOptionPane.showMessageDialog(null, "Erreur, date de debut ne peut etre changer pour une date anterieur",
+							"ERREUR", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			else{
+				if(datefin_b.compareTo(date2)<0){
+					TBox.setText(datefin_b.toString());
+					JOptionPane.showMessageDialog(null, "Erreur, date de fin ne peut etre changer pour une date ulterieur",
+							"ERREUR", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	}
+	
+	public void SetOldDateInModif(Frm_Reservation f){
+		datedebut_b = java.sql.Date.valueOf(f.getTb_date_debut().getText());
+		datefin_b = java.sql.Date.valueOf(f.getTb_date_fin().getText());
+		
+		System.out.println(datedebut_b + " " + datefin_b);
+	}
+		
 
 	public Mod_Reservation getMod_reser() {
 		return mod_reser;
