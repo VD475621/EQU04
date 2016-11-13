@@ -326,7 +326,20 @@ public class Mod_Reservation extends AbstractTableModel{
 	}
 	
 	public void ModifierReservation(){
-		
+		try {    
+			PreparedStatement state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement("");
+
+			state.executeUpdate();
+			
+			 
+			state.execute("commit");
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans modification de la reservation\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void SupprimerReservation(int Idreser, ArrayList<String> Nochams){
@@ -344,6 +357,99 @@ public class Mod_Reservation extends AbstractTableModel{
 			JOptionPane.showMessageDialog(null, "Erreur dans suppression de la reservation\n" + e.getMessage(),
 					"ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	
+	public boolean IsClient(int reser, int cli){
+		boolean flag = true;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select * from Trx where FKIdCli=" + cli + " and FKIdReser="+reser);
+			
+			ResultSet rs = state.executeQuery();
+			
+			if (!rs.isBeforeFirst() ) {    
+			     flag=false;
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isClient " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
+		}
+		return flag;
+	}
+	
+	public boolean IsArrive(int reser){
+		boolean flag = true;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select * from ARRIVE where FKIdReser="+reser);
+			
+			ResultSet rs = state.executeQuery();
+			
+			if (!rs.isBeforeFirst() ) {    
+			     flag=false;
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isArrive " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
+		}
+		return flag;
+	}
+	
+	public boolean IsDepart(int reser){
+		boolean flag = true;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select * from Depart where FKIdReser="+reser);
+			
+			ResultSet rs = state.executeQuery();
+			
+			if (!rs.isBeforeFirst() ) {    
+			     flag=false;
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isDepart " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
+		}
+		return flag;
+	}
+	
+	public boolean IsArriveInDe(int reser, String cha){
+		boolean flag = true;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select * from Arrive where FKIdReser="+reser+" and FKNoCham="+cha);
+			
+			ResultSet rs = state.executeQuery();
+			
+			if (!rs.isBeforeFirst() ) {    
+			     flag=false;
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isDepart " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			System.out.println(e);
+		}
+		return flag;
 	}
 	
 }

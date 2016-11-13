@@ -14,8 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controleurs.Ctrl_Reservation;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class Frm_Reservation extends Frm_Base {
 
@@ -67,6 +71,9 @@ public class Frm_Reservation extends Frm_Base {
 	 */
 	public Frm_Reservation() {
 		super();
+		
+		instance = this;
+		
 		this.setEtat(State.Consulter);
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
@@ -221,7 +228,11 @@ public class Frm_Reservation extends Frm_Base {
 		Btn_PkList_client = new JButton("...");
 		Btn_PkList_client.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ct_reser.ListeClient(instance);
+				if(etat ==State.Ajouter)
+					ct_reser.ListeClient(instance);
+				else if(etat == State.Modifier){
+					ct_reser.ModifierClient(instance);
+				}
 			}
 		});
 		Btn_PkList_client.setBounds(212, 6, 31, 16);
@@ -265,12 +276,18 @@ public class Frm_Reservation extends Frm_Base {
 		Tb_date_debut.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ct_reser.GetDate(instance, Tb_date_debut, true);
+				if(State.Modifier == etat){
+					System.out.println("mod");
+					ct_reser.ModifDateIsArrive(instance);
+				}
+				else if(State.Ajouter == etat){
+					ct_reser.GetDate(instance, Tb_date_debut, true);
+					System.out.println("add");
+				}
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
 				ct_reser.DateInModif(instance, Tb_date_debut, true);
-				System.out.println(Tb_date_debut.getText());
 			}
 		});
 		Tb_date_debut.setEditable(false);
@@ -279,11 +296,19 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_reservation.add(Tb_date_debut);
 		Tb_date_debut.setColumns(10);
 		
+		
 		Tb_date_fin = new JTextField();
 		Tb_date_fin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ct_reser.GetDate(instance, Tb_date_fin, false);
+				if(State.Modifier == etat){
+					System.out.println("mod");
+					ct_reser.ModifDateIsDepart(instance);
+				}
+				else if(State.Ajouter == etat){
+					ct_reser.GetDate(instance, Tb_date_debut, true);
+					System.out.println("add");
+				}
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -318,19 +343,34 @@ public class Frm_Reservation extends Frm_Base {
 		btn_addChambre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(etat == State.Ajouter || etat == State.Modifier)
+				if(etat == State.Ajouter)
 				{
-				    java.sql.Date datadeb = null; // = ct_reser.GetDateFrom(Tb_date_debut.getText());
-				    java.sql.Date datafin = null; // = ct_reser.GetDateFrom(Tb_date_fin.getText());;
+				    java.sql.Date datadeb = null;
+				    java.sql.Date datafin = null;
 								
-					    datadeb = java.sql.Date.valueOf(Tb_date_debut.getText());
-					    datafin = java.sql.Date.valueOf(Tb_date_fin.getText());
-					    if(datadeb.compareTo(datafin)<0)
-					    	ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
-					    else{
-					    	JOptionPane.showMessageDialog(null, "La date de debut doit etre avant la date de fin");
-					    }
-				    
+					datadeb = java.sql.Date.valueOf(Tb_date_debut.getText());
+					datafin = java.sql.Date.valueOf(Tb_date_fin.getText());
+					if(datadeb.compareTo(datafin)<0)
+					    ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
+					else{
+					    JOptionPane.showMessageDialog(null, "La date de debut doit etre avant la date de fin");
+					}
+				}
+				else if(etat == State.Modifier){
+					if(ct_reser.DateInModif(instance, Tb_date_debut, true) 
+							&& ct_reser.DateInModif(instance, Tb_date_fin, false)){
+						
+						java.sql.Date datadeb = null;
+					    java.sql.Date datafin = null;
+									
+						datadeb = java.sql.Date.valueOf(Tb_date_debut.getText());
+						datafin = java.sql.Date.valueOf(Tb_date_fin.getText());
+						if(datadeb.compareTo(datafin)<0)
+						    ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
+						else{
+						    JOptionPane.showMessageDialog(null, "La date de debut doit etre avant la date de fin");
+						}
+					}
 				}
 			}
 		});
@@ -351,9 +391,7 @@ public class Frm_Reservation extends Frm_Base {
 		ScrP_Reser = new JScrollPane();
 		ScrP_Reser.setBounds(63, 332, 964, 191);
 		
-		instance = this;
 		ct_reser = new Ctrl_Reservation(instance);
-		
 		
 		Consulter();
 	}
@@ -386,6 +424,7 @@ public class Frm_Reservation extends Frm_Base {
 			this.btn_addChambre.setEnabled(false);
 			this.btn_removeChambre.setEnabled(false);
 			this.btnConsulter.setEnabled(true);
+			this.btnAjouter.setEnabled(true);
 			this.Btn_PkList.setEnabled(true);
 			this.btnFin.setEnabled(true);
 			this.btnModifier.setEnabled(true);

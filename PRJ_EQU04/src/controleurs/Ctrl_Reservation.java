@@ -94,8 +94,9 @@ public class Ctrl_Reservation {
 	{
 		if (position<mod_reser.getLes_resers().size()-1)
 			position++;
-		else position= 0;
-		 	mod_reser.setCourant((int)mod_reser.getValueAt(position, 8));
+		else 
+			position= 0;
+		mod_reser.setCourant((int)mod_reser.getValueAt(position, 8));
 		Assign(f, position);	
 	}
 	
@@ -103,8 +104,9 @@ public class Ctrl_Reservation {
 	{
 		if (position> 0)
 			position--;
-		else position= 0;
-		 	mod_reser.setCourant((int)mod_reser.getValueAt(position, 8));
+		else 
+			position= mod_reser.getLes_resers().size()-1;
+		mod_reser.setCourant((int)mod_reser.getValueAt(position, 8));
 		Assign(f,position);	
 	}
 	
@@ -197,11 +199,11 @@ public class Ctrl_Reservation {
 		JTable jt = (JTable)viewport.getView();
 		if(f.getTb_IdCli().getText().isEmpty()){
 			flag = false;
-			erreur += "Un client doit �tre s�lectionn�!\n";
+			erreur += "Un client doit etre selectionne!\n";
 		}
 		if(jt.getRowCount()==0){
 			flag = false;
-			erreur += "Au moins une chambre doit �tre s�lectionn�e!\n";
+			erreur += "Au moins une chambre doit etre selectionnee!\n";
 		}
 		
 		java.sql.Date reser = java.sql.Date.valueOf(f.getTb_date_reser().getText());
@@ -209,11 +211,11 @@ public class Ctrl_Reservation {
 		java.sql.Date fin = java.sql.Date.valueOf(f.getTb_date_fin().getText());
 		if(reser.compareTo(debut)>0){
 			flag = false;
-			erreur += "La date de debut doit �tre �gale ou sup�rieur � la date de r�servaton!\n";
+			erreur += "La date de debut doit etre egale ou superieur a la date de reservaton!\n";
 		}
 		if(debut.compareTo(fin)>0){
 			flag = false;
-			erreur += "La date de fin doit �tre sup�rieur � la date de debut!";
+			erreur += "La date de fin doit etre superieur a la date de debut!";
 		}
 		
 		if(!flag){
@@ -250,14 +252,15 @@ public class Ctrl_Reservation {
 		DateTimePicker.pickDate(f, TBox);
 	}
 	
-	public void DateInModif(Frm_Reservation f, JTextField TBox, boolean d){
-		if(f.getEtat() == State.Modifier){
+	public boolean DateInModif(Frm_Reservation f, JTextField TBox, boolean d){
+		if(f.getEtat() == State.Modifier && datedebut_b != null && datefin_b != null){
 			java.sql.Date date2 = java.sql.Date.valueOf(TBox.getText());
 			if(d){
 				if(datedebut_b.compareTo(date2)>0){
 					TBox.setText(datedebut_b.toString());
 					JOptionPane.showMessageDialog(null, "Erreur, date de debut ne peut etre changer pour une date anterieur",
 							"ERREUR", JOptionPane.ERROR_MESSAGE);
+					return false;
 				}
 			}
 			else{
@@ -265,8 +268,37 @@ public class Ctrl_Reservation {
 					TBox.setText(datefin_b.toString());
 					JOptionPane.showMessageDialog(null, "Erreur, date de fin ne peut etre changer pour une date ulterieur",
 							"ERREUR", JOptionPane.ERROR_MESSAGE);
+					return false;
 				}
 			}
+		}
+		return true;
+	}
+	
+	public void ModifDateIsArrive(Frm_Reservation f){
+		if(mod_reser.IsArrive(Integer.parseInt(f.getTb_IdReser().getText()))){
+			JOptionPane.showMessageDialog(null, "Erreur, date de debut ne peut etre changer, car le client est arrive",
+					"ERREUR", JOptionPane.ERROR_MESSAGE);
+		}
+		else
+			this.GetDate(f, f.getTb_date_debut(), true);
+	}
+	
+	public void ModifDateIsDepart(Frm_Reservation f){
+		if(mod_reser.IsDepart(Integer.parseInt(f.getTb_IdReser().getText()))){
+			JOptionPane.showMessageDialog(null, "Erreur, date de fin ne peut etre changer, car le client est partit",
+					"ERREUR", JOptionPane.ERROR_MESSAGE);
+		}
+		else
+			this.GetDate(f, f.getTb_date_debut(), true);
+	}
+	
+	public void ModifierClient(Frm_Reservation f){
+		if(mod_reser.IsClient(Integer.parseInt(f.getTb_IdReser().getText()),Integer.parseInt(f.getTb_IdCli().getText()))){
+			JOptionPane.showMessageDialog(null, "Ce client possede des transactions on ne peut le modifier", "ERREUR", JOptionPane.ERROR_MESSAGE);
+		}
+		else{
+			this.ListeClient(f);
 		}
 	}
 	
@@ -274,7 +306,7 @@ public class Ctrl_Reservation {
 		datedebut_b = java.sql.Date.valueOf(f.getTb_date_debut().getText());
 		datefin_b = java.sql.Date.valueOf(f.getTb_date_fin().getText());
 		
-		System.out.println(datedebut_b + " " + datefin_b);
+		//System.out.println(datedebut_b + " " + datefin_b);
 	}
 		
 
@@ -315,5 +347,6 @@ public class Ctrl_Reservation {
 
 	public void setPosition(int position) {
 		this.position = position;
-	}	
+	}
+	
 }
