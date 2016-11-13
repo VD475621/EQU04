@@ -139,27 +139,27 @@ INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('31', 'Bar terrasse', 
 INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('50', 'Depot argent', 'CR');
 INSERT INTO TYPTRX(CODTYPTRX, DESCTRX, NatureTrx) values ('60', 'Paiement', 'CR');
 
-/*INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(5,5,sysdate-4, 60,'02',0,'070');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(5,5,sysdate-4, 30,'10',1,'070');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(8,8,sysdate-7, 46,'10',1,'100');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(9,9,sysdate-8, 306,'21',1,'110');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(10,10,sysdate-9, 904,'22',1,'120');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(11,1,sysdate-10, 218,'30',1,'130');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(11,1,sysdate-10, 218,'22',1,'130');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(11,1,sysdate-10, 218,'31',1,'130');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(12,2,sysdate-11, 50,'31',1,'140');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(13,3,sysdate-12, -480,'50',1,'150');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(14,4,sysdate-13, -792,'60',1,'160');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(15,5,sysdate-14, 652,'01',1,'170');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(16,6,sysdate-15, 605,'02',1,'180');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(16,6,sysdate-15, -50,'50',1,'180');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(17,7,sysdate-16, -200,'50',1,'190');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(18,8,sysdate-17, -200,'50',1,'010');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(18,12,sysdate-17, -200,'50',1,'020');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(19,9,sysdate-18, -200,'50',1,'030');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(20,10,sysdate-19, -200,'50',1,'040');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(20,10,sysdate-19, 20,'10',1,'040');
-INSERT INTO Trx([IdReser],[IdCli],[DateTrx],[MontantTrx],[CodTypTrx],[Reporte], [NoCham]) VALUES(20,13,sysdate-19, -200,'50',1,'050');*/
+INSERT INTO Trx VALUES(SEQ_Trx.nextval, 5,5,sysdate-4, 60,'02',0,1,sysdate-4,'070');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,5,5,sysdate-4, 30,'10',1,1,sysdate-4,'070');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,8,8,sysdate-7, 46,'10',1,2, sysdate-7,'100');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,9,9,sysdate-8, 306,'21',1,3,sysdate-8,'110');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,10,10,sysdate-9, 904,'22',1,4,sysdate-9,'120');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,11,1,sysdate-10, 218,'30',1,5,sysdate-10,'130');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,11,1,sysdate-10, 218,'22',1,5,sysdate-10,'130');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,11,1,sysdate-10, 218,'31',1,5,sysdate-10,'130');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,12,2,sysdate-11, 50,'31',1,6,sysdate-11,'140');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,13,3,sysdate-12, -480,'50',1,8,sysdate-12,'150');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,14,4,sysdate-13, -792,'60',1,9,sysdate-13,'160');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,15,5,sysdate-14, 652,'01',1,10,sysdate-14,'170');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,16,6,sysdate-15, 605,'02',1,11,sysdate,'180');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,16,6,sysdate-15, -50,'50',1,11,sysdate,'180');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,17,7,sysdate-16, -200,'50',1,12,sysdate,'190');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,18,8,sysdate-17, -200,'50',1,13,sysdate,'010');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,18,8,sysdate-17, -200,'50',1,14,sysdate,'020');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,19,9,sysdate-18, -200,'50',1,15,sysdate,'030');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,20,10,sysdate-19, -200,'50',1,16,sysdate,'040');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,20,10,sysdate-19, 20,'10',1,16,sysdate,'040');
+INSERT INTO Trx VALUES(SEQ_Trx.nextval,20,10,sysdate-19, -200,'50',1,16,sysdate,'050');
 
 
 ----------------------------------------------------------------------------------------------------------------------
