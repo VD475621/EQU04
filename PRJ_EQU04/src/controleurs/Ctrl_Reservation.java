@@ -27,7 +27,6 @@ public class Ctrl_Reservation {
 	
 	private java.sql.Date datedebut_b = null;
 	private java.sql.Date datefin_b = null;
-	private ArrayList<String> NoCham_b=null;
 	
 	public Ctrl_Reservation(Frm_Reservation frm_cham)
 	{
@@ -71,7 +70,9 @@ public class Ctrl_Reservation {
 		f.getTb_date_fin().setText(mod_reser.getDateRequise().toString());
 		f.getTb_date_reser().setText(mod_reser.getDatDuJour().toString());
 		f.getTb_IdCli().setText("");
-		int value =(int)mod_reser.getValueAt(mod_reser.getRowCount()-1, 8) +1;
+		
+		int value =(int)mod_reser.NextValSeqReservation();
+		
 		f.getTb_IdReser().setText(Integer.toString(value));
 		f.getTb_Nom().setText("");
 		f.getTb_typ_carte().setText("");
@@ -221,7 +222,7 @@ public class Ctrl_Reservation {
 				}
 				//System.out.println(c);
 				mod_reser.UpdateReservation(mod);
-				mod_reser_cham.UpdateEnregistrement(mod.GetIdReser(), NoCham_b, c);
+				mod_reser_cham.UpdateEnregistrement(mod.GetIdReser(), c);
 				flag = true;
 			}
 		}
@@ -236,7 +237,6 @@ public class Ctrl_Reservation {
 	}
 	
 	public void SaveChambreInTempChambre(Frm_Reservation f){
-		NoCham_b = new ArrayList<String>();
 		mod_reser_cham = new Mod_Reservation_cham();
 		DefaultTableModel model = new DefaultTableModel(new Object[]{"No chambre", "Type", "Prix", "Occupee"}, 0);
 		for(int i=0;i<jt.getRowCount();i++){
@@ -245,7 +245,6 @@ public class Ctrl_Reservation {
 					jt.getValueAt(i, 1).toString(), 
 					jt.getValueAt(i, 2).toString(),
 					jt.getValueAt(i, 3).toString()});
-			NoCham_b.add(jt.getValueAt(i, 0).toString());
 		}
 
 		jt = new JTable(model);
@@ -294,8 +293,10 @@ public class Ctrl_Reservation {
 		
 	}
 	
-	public void ViderTableTemp(){
+	public void ViderTableTemp(Frm_Reservation f){
 		Mod_Pk_Chambre.ViderChambreTemp();
+		//if(f.getEtat() == State.Ajouter)
+			//mod_reser.BeforeValSeqReservation();
 	}
 	
 	public void GetDate(Frm_Reservation f, JTextField TBox, boolean d){

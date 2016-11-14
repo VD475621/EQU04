@@ -99,7 +99,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		catch (SQLException e) 
 		{
 			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
-			System.out.println(e);
+			//System.out.println(e);
 		}
 	}
 
@@ -285,8 +285,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement("INSERT INTO RESERVATION VALUES ( "
-					+ m.IdReser + " , "
+					.prepareStatement("INSERT INTO RESERVATION VALUES ( SEQ_RESERVATION.CURRVAL, "
 					+ m.IdCli + " , "
 					+ "TO_DATE('" + m.dateReser + "' , 'YY-MM-DD'), "
 					+ "TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
@@ -312,10 +311,7 @@ public class Mod_Reservation extends AbstractTableModel{
 										+ " dateDebut=TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
 										+ " dateFin=TO_DATE('" + m.dateFin + "' , 'YY-MM-DD') "
 										+ " WHERE IdReser=" + m.IdReser );
-
 			state.executeUpdate();
-			
-			 
 			state.execute("commit");
 			
 		} catch (SQLException e) {
@@ -360,7 +356,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		catch (SQLException e) 
 		{
 			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isClient " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
-			System.out.println(e);
+			//System.out.println(e);
 		}
 		return flag;
 	}
@@ -383,7 +379,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		catch (SQLException e) 
 		{
 			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isArrive " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
-			System.out.println(e);
+			//System.out.println(e);
 		}
 		return flag;
 	}
@@ -406,7 +402,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		catch (SQLException e) 
 		{
 			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isDepart " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
-			System.out.println(e);
+			//System.out.println(e);
 		}
 		return flag;
 	}
@@ -429,9 +425,50 @@ public class Mod_Reservation extends AbstractTableModel{
 		catch (SQLException e) 
 		{
 			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isDepart " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
-			System.out.println(e);
+			//System.out.println(e);
 		}
 		return flag;
+	}
+	
+	public long NextValSeqReservation(){
+		long val=0;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select SEQ_Reservation.nextval from dual");
+			
+			ResultSet rs = state.executeQuery();
+			while(rs.next()){
+				val = rs.getLong(1);
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java CurrValSeqReservation "
+									+ e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		return val;
+	}
+	
+	public void BeforeValSeqReservation(){
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("rollback");
+			
+			ResultSet rs = state.executeQuery();
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java CurrValSeqReservation "
+									+ e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
 	}
 	
 }

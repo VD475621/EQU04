@@ -79,7 +79,7 @@ public class Frm_Reservation extends Frm_Base {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Consulter();
-				ct_reser.ViderTableTemp();
+				ct_reser.ViderTableTemp(instance);
 			}
 		});
 		btnSauvegarder.addMouseListener(new MouseAdapter() {
@@ -511,8 +511,10 @@ public class Frm_Reservation extends Frm_Base {
 	
 	private void Supprimer()
 	{
-		this.etat = State.Supprimer;
-		//this.Btn_PkList.setEnabled(true);
+		if(etat == State.Supprimer){
+			this.etat = State.Supprimer;
+			//this.Btn_PkList.setEnabled(true);
+		}
 	}
 	
 	public void setjScrollPane(JTable UneTable)

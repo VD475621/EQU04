@@ -93,18 +93,16 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 		}
 	}
 	
-	public void UpdateEnregistrement(int IdReser, ArrayList<String> before, ArrayList<String> after){
+	public void UpdateEnregistrement(int IdReser, ArrayList<String> after){
 		try {
-			for(int i=0;i<before.size();i++){
 				//System.out.println(c.get(i));
-				PreparedStatement state = ModConnexion.getInstance()
-					.getLaConnectionStatique()
-					.prepareStatement("DELETE FROM DE WHERE "
-										+" FKIdReser="+IdReser+" and FKNoCham="+before.get(i));
-				state.executeUpdate();
+			PreparedStatement state = ModConnexion.getInstance()
+									.getLaConnectionStatique()
+									.prepareStatement("DELETE FROM DE WHERE "
+													+" FKIdReser="+IdReser);
+			state.executeUpdate();
 				 
-				state.execute("commit");
-			}
+			state.execute("commit");
 			
 			InsertEnregistrement(IdReser, after);
 			
