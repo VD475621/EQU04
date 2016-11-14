@@ -281,7 +281,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		 return new java.sql.Date(laDate.getTime());
 	}
 	
-	public void SauvegarderReservation(Mod_Reservation m, ArrayList<String> c){
+	public void InsertReservation(Mod_Reservation m){
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
@@ -301,35 +301,17 @@ public class Mod_Reservation extends AbstractTableModel{
 			JOptionPane.showMessageDialog(null, "Erreur dans ajout de la reservation\n" + e.getMessage(),
 					"ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
-		
-		try {
-			for(int i=0;i<c.size();i++){
-				//System.out.println(c.get(i));
-				PreparedStatement state = ModConnexion.getInstance()
-					.getLaConnectionStatique()
-					.prepareStatement("INSERT INTO DE VALUES ( "
-					+ m.IdReser + " , '"
-					+ c.get(i) + "' , "
-					+ 0
-					+ " )");
-	
-				state.executeUpdate();
-				 
-				state.execute("commit");
-			}
-			
-			
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erreur dans ajout des DE\n" + e.getMessage(),
-					"ALERTE", JOptionPane.ERROR_MESSAGE);
-		}
 	}
 	
-	public void ModifierReservation(){
+	public void UpdateReservation(Mod_Reservation m){
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement("");
+					.prepareStatement( "UPDATE RESERVATION SET "
+										+ " FKIdCli=" + m.IdCli + ", "
+										+ " dateDebut=TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
+										+ " dateFin=TO_DATE('" + m.dateFin + "' , 'YY-MM-DD') "
+										+ " WHERE IdReser=" + m.IdReser );
 
 			state.executeUpdate();
 			
@@ -342,7 +324,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		}
 	}
 	
-	public void SupprimerReservation(int Idreser, ArrayList<String> Nochams){
+	public void DeleteReservation(int Idreser, ArrayList<String> Nochams){
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()

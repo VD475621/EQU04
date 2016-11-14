@@ -27,6 +27,7 @@ public class Ctrl_Reservation {
 	
 	private java.sql.Date datedebut_b = null;
 	private java.sql.Date datefin_b = null;
+	private ArrayList<String> NoCham_b=null;
 	
 	public Ctrl_Reservation(Frm_Reservation frm_cham)
 	{
@@ -156,33 +157,75 @@ public class Ctrl_Reservation {
 	}
 	
 	public void RetirerChambre(Frm_Reservation f){
-		if(f.getEtat() != State.Consulter && jt.getSelectedRow() != -1){
+		if(f.getEtat() == State.Ajouter && jt.getSelectedRow() != -1){
 			Mod_Pk_Chambre.RetirerChambreTemp((String) jt.getValueAt(jt.getSelectedRow(), 0));
 			DefaultTableModel model = (DefaultTableModel) jt.getModel();
 			model.removeRow(jt.getSelectedRow());
 			f.setjScrollPane(jt);
 		}
+		else if(f.getEtat() == State.Modifier && jt.getSelectedRow() != -1){
+			if(mod_reser.IsArriveInDe(Integer.parseInt(f.getTb_IdReser().getText()), (String) jt.getValueAt(jt.getSelectedRow(), 0))){
+				JOptionPane.showMessageDialog(null, "Erreur, la chambre ne peut etre modifier, car le client est arrive dans cette chambre",
+						"ERREUR", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				Mod_Pk_Chambre.RetirerChambreTemp((String) jt.getValueAt(jt.getSelectedRow(), 0));
+				DefaultTableModel model = (DefaultTableModel) jt.getModel();
+				model.removeRow(jt.getSelectedRow());
+				f.setjScrollPane(jt);
+			}
+		}
 	}
 	
 	public void SauvegarderReservation(Frm_Reservation f){
-		if(Validation(f)){
-			Mod_Reservation mod;
-			ArrayList<String> c = new ArrayList<String>();
-			
-			int idreser = Integer.parseInt(f.getTb_IdReser().getText());
-			int idcli = Integer.parseInt(f.getTb_IdCli().getText());
-			java.sql.Date datereser = java.sql.Date.valueOf(f.getTb_date_reser().getText());
-			java.sql.Date datedebut = java.sql.Date.valueOf(f.getTb_date_debut().getText());
-			java.sql.Date datefin = java.sql.Date.valueOf(f.getTb_date_fin().getText());
-			
-			mod = new Mod_Reservation(idreser, idcli, datereser, datedebut, datefin);
-			//System.out.println(idreser + " " + idcli + " " + datereser + " " + datedebut + " " + datefin);
-			for(int i=0;i<jt.getRowCount();i++){
-				c.add(jt.getValueAt(i, 0).toString());
+		boolean flag = false;
+		if(f.getEtat() == State.Ajouter){
+			if(Validation(f)){
+				Mod_Reservation mod;
+				ArrayList<String> c = new ArrayList<String>();
+				
+				int idreser = Integer.parseInt(f.getTb_IdReser().getText());
+				int idcli = Integer.parseInt(f.getTb_IdCli().getText());
+				java.sql.Date datereser = java.sql.Date.valueOf(f.getTb_date_reser().getText());
+				java.sql.Date datedebut = java.sql.Date.valueOf(f.getTb_date_debut().getText());
+				java.sql.Date datefin = java.sql.Date.valueOf(f.getTb_date_fin().getText());
+				
+				mod = new Mod_Reservation(idreser, idcli, datereser, datedebut, datefin);
+				//System.out.println(idreser + " " + idcli + " " + datereser + " " + datedebut + " " + datefin);
+				for(int i=0;i<jt.getRowCount();i++){
+					c.add(jt.getValueAt(i, 0).toString());
+				}
+				//System.out.println(c);
+				mod_reser.InsertReservation(mod);
+				mod_reser_cham.InsertEnregistrement(mod.GetIdReser(), c);
+				flag = true;
 			}
-			//System.out.println(c);
-			mod_reser.SauvegarderReservation(mod, c);
-			
+		}
+		
+		else if(f.getEtat() == State.Modifier){
+			if(Validation(f) && DateInModif(f,f.getTb_date_debut(),true) && DateInModif(f,f.getTb_date_fin(),false)){
+				Mod_Reservation mod;
+				ArrayList<String> c = new ArrayList<String>();
+				
+				int idreser = Integer.parseInt(f.getTb_IdReser().getText());
+				int idcli = Integer.parseInt(f.getTb_IdCli().getText());
+				java.sql.Date datereser = java.sql.Date.valueOf(f.getTb_date_reser().getText());
+				java.sql.Date datedebut = java.sql.Date.valueOf(f.getTb_date_debut().getText());
+				java.sql.Date datefin = java.sql.Date.valueOf(f.getTb_date_fin().getText());
+				
+				mod = new Mod_Reservation(idreser, idcli, datereser, datedebut, datefin);
+				//System.out.println(idreser + " " + idcli + " " + datereser + " " + datedebut + " " + datefin);
+				for(int i=0;i<jt.getRowCount();i++){
+					c.add(jt.getValueAt(i, 0).toString());
+				}
+				//System.out.println(c);
+				mod_reser.UpdateReservation(mod);
+				mod_reser_cham.UpdateEnregistrement(mod.GetIdReser(), NoCham_b, c);
+				flag = true;
+			}
+		}
+		if(flag){
 			mod_reser = new Mod_Reservation(); 
 			Ls_reser = mod_reser.getLes_resers();
 			Assign(f, position);
@@ -190,6 +233,23 @@ public class Ctrl_Reservation {
 			Mod_Pk_Chambre.ViderChambreTemp();
 		}
 		
+	}
+	
+	public void SaveChambreInTempChambre(Frm_Reservation f){
+		NoCham_b = new ArrayList<String>();
+		mod_reser_cham = new Mod_Reservation_cham();
+		DefaultTableModel model = new DefaultTableModel(new Object[]{"No chambre", "Type", "Prix", "Occupee"}, 0);
+		for(int i=0;i<jt.getRowCount();i++){
+			Mod_Pk_Chambre.AjouterChambreTemp((String) jt.getValueAt(i, 0));
+			model.addRow(new Object[]{jt.getValueAt(i, 0).toString(),
+					jt.getValueAt(i, 1).toString(), 
+					jt.getValueAt(i, 2).toString(),
+					jt.getValueAt(i, 3).toString()});
+			NoCham_b.add(jt.getValueAt(i, 0).toString());
+		}
+
+		jt = new JTable(model);
+		f.getScrP_Reser().setViewportView(jt);
 	}
 	
 	public boolean Validation(Frm_Reservation f){
@@ -232,16 +292,6 @@ public class Ctrl_Reservation {
 			c.add(jt.getValueAt(i, 0).toString());
 		}
 		
-	}
-	
-	public void Modification(Frm_Reservation f){
-		
-	}
-	
-	public void SauvegarderModificationReservation(Frm_Reservation f){
-		if(Validation(f)){
-			
-		}
 	}
 	
 	public void ViderTableTemp(){
@@ -290,7 +340,7 @@ public class Ctrl_Reservation {
 					"ERREUR", JOptionPane.ERROR_MESSAGE);
 		}
 		else
-			this.GetDate(f, f.getTb_date_debut(), true);
+			this.GetDate(f, f.getTb_date_fin(), false);
 	}
 	
 	public void ModifierClient(Frm_Reservation f){

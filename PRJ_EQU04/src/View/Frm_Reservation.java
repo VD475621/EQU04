@@ -277,12 +277,12 @@ public class Frm_Reservation extends Frm_Base {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(State.Modifier == etat){
-					System.out.println("mod");
+					//System.out.println("mod");
 					ct_reser.ModifDateIsArrive(instance);
 				}
 				else if(State.Ajouter == etat){
 					ct_reser.GetDate(instance, Tb_date_debut, true);
-					System.out.println("add");
+					//System.out.println("add");
 				}
 			}
 			@Override
@@ -302,12 +302,12 @@ public class Frm_Reservation extends Frm_Base {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(State.Modifier == etat){
-					System.out.println("mod");
+					//System.out.println("mod");
 					ct_reser.ModifDateIsDepart(instance);
 				}
 				else if(State.Ajouter == etat){
-					ct_reser.GetDate(instance, Tb_date_debut, true);
-					System.out.println("add");
+					ct_reser.GetDate(instance, Tb_date_fin, false);
+					//System.out.println("add");
 				}
 			}
 			@Override
@@ -504,6 +504,8 @@ public class Frm_Reservation extends Frm_Base {
 			
 			this.etat = State.Modifier;
 			ct_reser.SetOldDateInModif(instance);
+			//save chambre in tempChambre
+			ct_reser.SaveChambreInTempChambre(instance);
 		}
 	}
 	
