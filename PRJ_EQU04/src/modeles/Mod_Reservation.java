@@ -285,7 +285,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement("INSERT INTO RESERVATION VALUES ( SEQ_RESERVATION.CURRVAL, "
+					.prepareStatement("INSERT INTO RESERVATION VALUES ( "+m.IdReser+" , "
 					+ m.IdCli + " , "
 					+ "TO_DATE('" + m.dateReser + "' , 'YY-MM-DD'), "
 					+ "TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
