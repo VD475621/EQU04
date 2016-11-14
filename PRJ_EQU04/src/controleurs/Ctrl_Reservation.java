@@ -27,6 +27,7 @@ public class Ctrl_Reservation {
 	
 	private java.sql.Date datedebut_b = null;
 	private java.sql.Date datefin_b = null;
+	private int attribue_b[];
 	
 	public Ctrl_Reservation(Frm_Reservation frm_cham)
 	{
@@ -185,6 +186,7 @@ public class Ctrl_Reservation {
 			if(Validation(f)){
 				Mod_Reservation mod;
 				ArrayList<String> c = new ArrayList<String>();
+				int a[] = new int[jt.getRowCount()];
 				
 				int idreser = Integer.parseInt(f.getTb_IdReser().getText());
 				int idcli = Integer.parseInt(f.getTb_IdCli().getText());
@@ -196,10 +198,11 @@ public class Ctrl_Reservation {
 				//System.out.println(idreser + " " + idcli + " " + datereser + " " + datedebut + " " + datefin);
 				for(int i=0;i<jt.getRowCount();i++){
 					c.add(jt.getValueAt(i, 0).toString());
+					a[i] = 0;
 				}
 				//System.out.println(c);
 				mod_reser.InsertReservation(mod);
-				mod_reser_cham.InsertEnregistrement(mod.GetIdReser(), c);
+				mod_reser_cham.InsertEnregistrement(mod.GetIdReser(), c, a);
 				flag = true;
 			}
 		}
@@ -222,7 +225,7 @@ public class Ctrl_Reservation {
 				}
 				//System.out.println(c);
 				mod_reser.UpdateReservation(mod);
-				mod_reser_cham.UpdateEnregistrement(mod.GetIdReser(), c);
+				mod_reser_cham.UpdateEnregistrement(mod.GetIdReser(), c, attribue_b);
 				flag = true;
 			}
 		}
@@ -245,6 +248,7 @@ public class Ctrl_Reservation {
 					jt.getValueAt(i, 1).toString(), 
 					jt.getValueAt(i, 2).toString(),
 					jt.getValueAt(i, 3).toString()});
+			attribue_b[i] = (int)jt.getValueAt(i, 3);
 		}
 
 		jt = new JTable(model);
