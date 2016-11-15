@@ -27,7 +27,7 @@ public class Ctrl_Reservation {
 	
 	private java.sql.Date datedebut_b = null;
 	private java.sql.Date datefin_b = null;
-	private int attribue_b[];
+	private boolean attribue_b[];
 	
 	public Ctrl_Reservation(Frm_Reservation frm_cham)
 	{
@@ -186,7 +186,7 @@ public class Ctrl_Reservation {
 			if(Validation(f)){
 				Mod_Reservation mod;
 				ArrayList<String> c = new ArrayList<String>();
-				int a[] = new int[jt.getRowCount()];
+				boolean a[] = new boolean[jt.getRowCount()];
 				
 				int idreser = Integer.parseInt(f.getTb_IdReser().getText());
 				int idcli = Integer.parseInt(f.getTb_IdCli().getText());
@@ -198,7 +198,7 @@ public class Ctrl_Reservation {
 				//System.out.println(idreser + " " + idcli + " " + datereser + " " + datedebut + " " + datefin);
 				for(int i=0;i<jt.getRowCount();i++){
 					c.add(jt.getValueAt(i, 0).toString());
-					a[i] = 0;
+					a[i] = false;
 				}
 				//System.out.println(c);
 				mod_reser.InsertReservation(mod);
@@ -241,14 +241,17 @@ public class Ctrl_Reservation {
 	
 	public void SaveChambreInTempChambre(Frm_Reservation f){
 		mod_reser_cham = new Mod_Reservation_cham();
+		attribue_b = new boolean[jt.getRowCount()];
 		DefaultTableModel model = new DefaultTableModel(new Object[]{"No chambre", "Type", "Prix", "Occupee"}, 0);
 		for(int i=0;i<jt.getRowCount();i++){
 			Mod_Pk_Chambre.AjouterChambreTemp((String) jt.getValueAt(i, 0));
 			model.addRow(new Object[]{jt.getValueAt(i, 0).toString(),
-					jt.getValueAt(i, 1).toString(), 
-					jt.getValueAt(i, 2).toString(),
-					jt.getValueAt(i, 3).toString()});
-			attribue_b[i] = (int)jt.getValueAt(i, 3);
+										jt.getValueAt(i, 1).toString(), 
+										jt.getValueAt(i, 2).toString(),
+										jt.getValueAt(i, 3).toString()});
+			
+			attribue_b[i] = (boolean)jt.getValueAt(i, 3);
+			//System.out.println(jt.getValueAt(i, 3));
 		}
 
 		jt = new JTable(model);

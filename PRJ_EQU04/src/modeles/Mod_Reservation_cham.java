@@ -69,7 +69,7 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 		}
 	}
 	
-	public void InsertEnregistrement(int IdReser, ArrayList<String> c, int a[]){
+	public void InsertEnregistrement(int IdReser, ArrayList<String> c, boolean a[]){
 		try {
 			for(int i=0;i<c.size();i++){
 				//System.out.println(c.get(i));
@@ -78,7 +78,7 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 					.prepareStatement("INSERT INTO DE VALUES ( "
 					+ IdReser + " , '"
 					+ c.get(i) + "' , "
-					+ a[i]
+					+ (a[i]?1:0)
 					+ " )");
 	
 				state.executeUpdate();
@@ -93,13 +93,13 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 		}
 	}
 	
-	public void UpdateEnregistrement(int IdReser, ArrayList<String> after, int a[]){
+	public void UpdateEnregistrement(int IdReser, ArrayList<String> after, boolean a[]){
 		try {
 				//System.out.println(c.get(i));
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
 									.prepareStatement("DELETE FROM DE WHERE "
-													+" FKIdReser="+IdReser + "attribue=0");
+													+" FKIdReser="+IdReser);
 			state.executeUpdate();
 				 
 			state.execute("commit");
