@@ -104,6 +104,7 @@ public class Frm_Reservation extends Frm_Base {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Supprimer();
+				ct_reser.SupprimerReservation(instance);
 			}
 		});
 		btnAjouter.addActionListener(new ActionListener() {
@@ -435,6 +436,7 @@ public class Frm_Reservation extends Frm_Base {
 			this.Btn_PkList_client.setEnabled(false);
 			this.etat = State.Consulter;
 			this.ct_reser.Assign(instance, 0);
+			ct_reser.setPosition(0);
 		
 	}
 	
@@ -511,7 +513,7 @@ public class Frm_Reservation extends Frm_Base {
 	
 	private void Supprimer()
 	{
-		if(etat == State.Supprimer){
+		if(etat == State.Consulter){
 			this.etat = State.Supprimer;
 			//this.Btn_PkList.setEnabled(true);
 		}

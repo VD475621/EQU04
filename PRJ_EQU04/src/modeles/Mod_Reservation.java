@@ -320,15 +320,12 @@ public class Mod_Reservation extends AbstractTableModel{
 		}
 	}
 	
-	public void DeleteReservation(int Idreser, ArrayList<String> Nochams){
+	public void DeleteReservation(int Idreser){
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement("");
-
+					.prepareStatement("DELETE FROM RESERVATION WHERE IdReser="+Idreser);
 			state.executeUpdate();
-			
-			 
 			state.execute("commit");
 			
 		} catch (SQLException e) {
@@ -453,22 +450,57 @@ public class Mod_Reservation extends AbstractTableModel{
 		return val;
 	}
 	
-	public void BeforeValSeqReservation(){
+	public int CountIdReserForArrive(int id){
+		int count=0;
+		
 		try {
 			PreparedStatement state = ModConnexion.
 					getInstance().
 					getLaConnectionStatique().
-					prepareStatement("rollback");
+					prepareStatement("select count(*) from ARRIVE where FKIdReser="+id+" group by FKIdReser");
 			
 			ResultSet rs = state.executeQuery();
+			if (rs.isBeforeFirst() ) {
+				while(rs.next()){
+					count = rs.getInt(1);
+				}
+			}
 			rs.close();
 		} 
 		catch (SQLException e) 
 		{
-			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java CurrValSeqReservation "
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java CountIdReserForArrive "
 									+ e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
 			//System.out.println(e);
 		}
+		
+		return count;
 	}
 	
+	public int CountIdReserForDepart(int id){
+		int count=0;
+		
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select count(*) from DEPART where FKIdReser="+id+" group by FKIdReser");
+			
+			ResultSet rs = state.executeQuery();
+			if (rs.isBeforeFirst() ) {
+				while(rs.next()){
+					count = rs.getInt(1);
+				}
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java CountIdReserForDepart "
+									+ e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		
+		return count;
+	}
 }

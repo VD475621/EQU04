@@ -1,6 +1,8 @@
 package controleurs;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -292,12 +294,61 @@ public class Ctrl_Reservation {
 	}
 	
 	public void SupprimerReservation(Frm_Reservation f){
-		int idreser = Integer.parseInt(f.getTb_IdReser().getText());
-		ArrayList<String> c = new ArrayList<String>();
-		for(int i=0;i<jt.getRowCount();i++){
-			c.add(jt.getValueAt(i, 0).toString());
+		if(f.getEtat() == State.Supprimer){
+			int idreser = Integer.parseInt(f.getTb_IdReser().getText());
+			boolean flag = true;
+			/*
+			 * si	nb_arrive!=0
+			 * 	alors	on ne peut pas supprimer	
+			 * 	sinon
+			 * 		si	nb_arrive!=nb_depart
+			 * 			on ne peut pas supprimer
+			 * 		sinon
+			 * 			si	datefin+2>=datedujour
+			 * 				on ne peut pas supprimer
+			 * 			fin si
+			 * 		fin si
+			 * fin si
+			 * */
+
+			int nb_arrive = mod_reser.CountIdReserForArrive(idreser);
+			if(nb_arrive!=0){
+				int nb_depart = mod_reser.CountIdReserForDepart(idreser);
+				if(nb_arrive!=nb_depart){
+					//supprime pas
+					//les clients ne sont pas tous partis pour cette reservation : idreser
+					JOptionPane.showMessageDialog(null, "Erreur,les clients arrives ne sont pas tous partis pour cette reservation : "+idreser,
+							"ERREUR", JOptionPane.ERROR_MESSAGE);
+					flag=false;
+				}
+				else
+				{
+					java.sql.Date datefin_plus2;
+					java.sql.Date datedujour = mod_reser.getDatDuJour();
+					Calendar c = Calendar.getInstance();
+					c.setTime(java.sql.Date.valueOf(f.getTb_date_fin().getText()));
+					c.add(Calendar.DATE, 2);
+					datefin_plus2 = new java.sql.Date(c.getTimeInMillis());
+					System.out.println(datefin_plus2 + " >=  " + datedujour + "  =  " + datefin_plus2.compareTo(datedujour));
+					
+					if(datefin_plus2.compareTo(datedujour)>=0){
+						//supprime pas
+						//On ne	peut detruire cette réservation, car cela moins de jours que cette reservation est terminee
+						JOptionPane.showMessageDialog(null, "Erreur,cela fait moins de deux jour que cette reservation " + idreser + " est termine",
+								"ERREUR", JOptionPane.ERROR_MESSAGE);
+						flag=false;
+					}
+				}
+			}
+			if(flag){
+				int result = JOptionPane.showConfirmDialog(null,"Voulez-vous vraiment supprimer cette reservation?",
+											"Comfirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+				if(result == JOptionPane.OK_OPTION){
+					mod_reser.DeleteReservation(idreser);
+				}
+				f.Consulter();
+			}
 		}
-		
 	}
 	
 	public void ViderTableTemp(Frm_Reservation f){
