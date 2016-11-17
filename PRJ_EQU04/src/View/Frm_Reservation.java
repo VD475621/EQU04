@@ -19,6 +19,7 @@ import javax.swing.event.DocumentListener;
 
 import controleurs.Ctrl_Reservation;
 import java.beans.PropertyChangeListener;
+import java.sql.Date;
 import java.beans.PropertyChangeEvent;
 
 public class Frm_Reservation extends Frm_Base {
@@ -346,16 +347,26 @@ public class Frm_Reservation extends Frm_Base {
 			public void mouseClicked(MouseEvent e) {
 				if(etat == State.Ajouter)
 				{
-				    java.sql.Date datadeb = null;
-				    java.sql.Date datafin = null;
-								
-					datadeb = java.sql.Date.valueOf(Tb_date_debut.getText());
-					datafin = java.sql.Date.valueOf(Tb_date_fin.getText());
-					if(datadeb.compareTo(datafin)<0)
-					    ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
-					else{
-					    JOptionPane.showMessageDialog(null, "La date de debut doit etre avant la date de fin");
+					java.sql.Date datereser = null;
+				    java.sql.Date datedeb = null;
+				    java.sql.Date datefin = null;
+					
+				    datereser = java.sql.Date.valueOf(Tb_date_reser.getText());
+					datedeb = java.sql.Date.valueOf(Tb_date_debut.getText());
+					datefin = java.sql.Date.valueOf(Tb_date_fin.getText());
+					
+					if(datedeb.compareTo(datereser)>=0){
+
+						if(datedeb.compareTo(datefin)<0)
+						    ct_reser.ListeChambreFiltrer(instance, datedeb, datefin);
+						else{
+						    JOptionPane.showMessageDialog(null, "La date de debut doit etre superieur la date de fin");
+						}
 					}
+					else{
+						JOptionPane.showMessageDialog(null, "La date de debut doit etre egal ou superieur la date de reservation");
+					}
+					
 				}
 				else if(etat == State.Modifier){
 					if(ct_reser.DateInModif(instance, Tb_date_debut, true) 

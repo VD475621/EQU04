@@ -28,7 +28,6 @@ public final class Pk_List extends JDialog {
 	        setModal(true);
 			setTitle(t);
 		    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		    No_ligne = 0;
 			jt.addMouseListener(new MouseAdapter()
 			{
 		  			@Override
@@ -51,7 +50,7 @@ public final class Pk_List extends JDialog {
 	  		});
 			setVisible(true);
 		}else{
-			JOptionPane.showMessageDialog(null, "Il n'y a pas de valeur a selectionné pour " + t);
+			JOptionPane.showMessageDialog(null, "Il n'y a pas de valeur a selectionnï¿½ pour " + t);
 		}
         
 	}
@@ -70,6 +69,6 @@ public final class Pk_List extends JDialog {
 	}
 	public final static ArrayList<Object> pickFromTableRow(AbstractTableModel m,String t){
 		new Pk_List(m, t, 1);
-		return ((ArrayList<Object>) No_ligne);
+		return (ArrayList<Object>) No_ligne;
 	}
 }

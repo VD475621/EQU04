@@ -84,7 +84,7 @@ INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_
 INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_Reservation.nextval,1,sysdate-20,sysdate-10,sysdate-5);
 INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_Reservation.nextval,2,sysdate-21,sysdate-11,sysdate-6);
 INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_Reservation.nextval,3,sysdate-22,sysdate-12,sysdate-7);
-INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_Reservation.nextval,4,sysdate-23,sysdate-13,sysdate-12);
+INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_Reservation.nextval,4,sysdate-23,sysdate-13,sysdate);
 INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_Reservation.nextval,5,sysdate-24,sysdate-14,sysdate-12);
 INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_Reservation.nextval,6,sysdate-25,sysdate-15,sysdate-13);
 INSERT INTO RESERVATION(IdReser,FKIdCli,dateReser,dateDebut,dateFin) VALUES(SEQ_Reservation.nextval,7,sysdate-26,sysdate-16,sysdate-13);
@@ -118,12 +118,12 @@ insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) v
 insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,11,1,'130',sysdate-5,'CG');
 insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,12,2,'140',sysdate-6,'VD');
 insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,13,3,'150',sysdate-7,'CG');
-insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,14,4,'160',sysdate-12,'MQ');
+insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,14,4,'160',sysdate-1,'MQ');
 --insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,15,5,'170',sysdate-12,'VD');
 --insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,16,6,'180',sysdate-13,'MQ');
 --insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,17,7,'190',sysdate-13,'VD');
---insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,18,8,'010',sysdate-13,'CG');
---insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,18,6,'020',sysdate-13,'CG');
+insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,18,8,'010',sysdate-13,'CG');
+insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,18,6,'020',sysdate-13,'CG');
 --insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,19,9,'030',sysdate-13,'CG');
 --insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,20,10,'040',sysdate-14,'CG');
 --insert into DEPART(NoDepart,FKIdReser,FkIdCli,FKNoCham,dateDepart,ConfirmePar) values(SEQ_Depart.nextval,20,13,'050',sysdate-14,'CG');

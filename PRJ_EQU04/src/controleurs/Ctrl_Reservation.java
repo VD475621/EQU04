@@ -279,7 +279,7 @@ public class Ctrl_Reservation {
 		java.sql.Date fin = java.sql.Date.valueOf(f.getTb_date_fin().getText());
 		if(reser.compareTo(debut)>0){
 			flag = false;
-			erreur += "La date de debut doit etre egale ou superieur a la date de reservaton!\n";
+			erreur += "La date de debut doit etre egale ou superieur a la date de reservation!\n";
 		}
 		if(debut.compareTo(fin)>0){
 			flag = false;
