@@ -21,6 +21,8 @@ import controleurs.Ctrl_Reservation;
 import java.beans.PropertyChangeListener;
 import java.sql.Date;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JMenuItem;
+import javax.swing.JFrame;
 
 public class Frm_Reservation extends Frm_Base {
 
@@ -50,6 +52,7 @@ public class Frm_Reservation extends Frm_Base {
 	private JButton btn_removeChambre;
 	
 	private Ctrl_Reservation ct_reser;
+	private JMenuItem mntmRapportReservation;
 	
 	/**
 	 * Launch the application.
@@ -72,8 +75,15 @@ public class Frm_Reservation extends Frm_Base {
 	 */
 	public Frm_Reservation() {
 		super();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
+		mntmQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				instance.dispose();
+			}
+		});
 		instance = this;
+		
 		
 		this.setEtat(State.Consulter);
 		btnAnnuler.addMouseListener(new MouseAdapter() {
@@ -399,6 +409,15 @@ public class Frm_Reservation extends Frm_Base {
 		});
 		btn_removeChambre.setBounds(553, 585, 32, 29);
 		getContentPane().add(btn_removeChambre);
+		
+		mntmRapportReservation = new JMenuItem("Rapport Reservation");
+		mntmRapportReservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrmRapReser frm = new FrmRapReser();
+				frm.setVisible(true);
+			}
+		});
+		mnRapport.add(mntmRapportReservation);
 		
 		ScrP_Reser = new JScrollPane();
 		ScrP_Reser.setBounds(63, 332, 964, 191);

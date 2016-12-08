@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-12-08T10:52:58 -->
+<!-- 2016-12-08T14:29:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RapReser" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f97b024b-6385-44fd-9eba-dbe14715c659">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="date1" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="date2" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select r.Idreser, r.DATERESER, r.DATEDEBUT, r.DATEFIN, nc.FKNOCHAM, ch.FKCODTYPCHA, nc.FKIDCLI, nc.nom
 from reservation r, chambre ch, (select d.FKIDRESER, d.FKNOCHAM, nb.nom, nb.FKIDCLI 
@@ -12,7 +16,10 @@ from reservation r, chambre ch, (select d.FKIDRESER, d.FKNOCHAM, nb.nom, nb.FKID
                                                   where a.FKIDCLI=c.IDCLI order by a.FKIDRESER
                                                 ) nb
                                 on d.FKIDRESER=nb.FKIDRESER and d.FKNOCHAM=nb.FKNOCHAM) nc
-where r.IDRESER=nc.FKIDRESER and ch.NOCHAM=nc.FKNOCHAM order by r.idreser]]>
+where r.IDRESER=nc.FKIDRESER and ch.NOCHAM=nc.FKNOCHAM 
+and( (r.datedebut between to_date($P{date1},'yy-mm-dd') and to_date($P{date2},'yy-mm-dd'))
+ and (r.datefin between to_date($P{date1},'yy-mm-dd') and to_date($P{date2},'yy-mm-dd')))
+order by r.idreser]]>
 	</queryString>
 	<field name="IDRESER" class="java.math.BigDecimal"/>
 	<field name="DATERESER" class="java.sql.Timestamp"/>
@@ -26,55 +33,23 @@ where r.IDRESER=nc.FKIDRESER and ch.NOCHAM=nc.FKNOCHAM order by r.idreser]]>
 	<group name="IDRESER">
 		<groupExpression><![CDATA[$F{IDRESER}]]></groupExpression>
 		<groupHeader>
-			<band height="159">
+			<band height="64">
 				<textField>
-					<reportElement x="0" y="110" width="100" height="30" uuid="76a3db7a-e500-49ed-a883-615fb4329e75"/>
+					<reportElement x="0" y="20" width="100" height="30" uuid="76a3db7a-e500-49ed-a883-615fb4329e75"/>
 					<textFieldExpression><![CDATA[$F{IDRESER}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="0" y="10" width="100" height="30" uuid="27d8d195-ed0b-4b2a-9ab2-efc6bfe2af9e"/>
-					<text><![CDATA[IdReser]]></text>
-				</staticText>
 				<textField>
-					<reportElement x="120" y="110" width="100" height="30" uuid="851986bb-140f-4180-a949-807373bf617e"/>
+					<reportElement x="120" y="20" width="100" height="30" uuid="851986bb-140f-4180-a949-807373bf617e"/>
 					<textFieldExpression><![CDATA[$F{DATERESER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="240" y="110" width="100" height="30" uuid="f4433925-a536-4bbe-b46c-23b88228c96e"/>
+					<reportElement x="240" y="20" width="100" height="30" uuid="f4433925-a536-4bbe-b46c-23b88228c96e"/>
 					<textFieldExpression><![CDATA[$F{DATEDEBUT}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="370" y="110" width="100" height="30" uuid="9dd18d0f-71f0-4a2b-8c07-7220360e5505"/>
+					<reportElement x="370" y="20" width="100" height="30" uuid="9dd18d0f-71f0-4a2b-8c07-7220360e5505"/>
 					<textFieldExpression><![CDATA[$F{DATEFIN}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="60" y="49" width="100" height="30" uuid="eb22b05c-18c3-43b2-b35e-03aeac3dbd54"/>
-					<text><![CDATA[FKNOCHAM]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="190" y="49" width="100" height="30" uuid="74f4391e-e250-454c-9fb1-564dc9653381"/>
-					<text><![CDATA[FKCODTYPCHA]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="320" y="49" width="100" height="30" uuid="b9976a58-f31b-4414-a727-4295fc960b42"/>
-					<text><![CDATA[FKIDCLI]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="450" y="49" width="100" height="30" uuid="d538c82a-187d-438a-8ad5-8fe6c94b57b1"/>
-					<text><![CDATA[NOM]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="120" y="10" width="100" height="30" uuid="b56dabf9-bf23-4c9b-85da-0b50e0894267"/>
-					<text><![CDATA[Date Reser]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="240" y="10" width="100" height="30" uuid="5f299748-9c4b-49f4-9fe6-4f14bd7ecfaa"/>
-					<text><![CDATA[Date Debut]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="370" y="10" width="100" height="30" uuid="a66aebd0-a055-40d9-ae82-5f20cd934305"/>
-					<text><![CDATA[Date Fin]]></text>
-				</staticText>
 			</band>
 		</groupHeader>
 	</group>
@@ -93,7 +68,7 @@ where r.IDRESER=nc.FKIDRESER and ch.NOCHAM=nc.FKNOCHAM order by r.idreser]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="50" splitType="Stretch">
+		<band height="126" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="10" width="100" height="30" uuid="9f41d8c6-ec7a-49a7-bbf2-812ec72d55cd"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
@@ -102,6 +77,38 @@ where r.IDRESER=nc.FKIDRESER and ch.NOCHAM=nc.FKNOCHAM order by r.idreser]]>
 				<reportElement x="450" y="10" width="100" height="30" uuid="0cedb5b6-26f6-4fc9-b71d-6fbfe82bb57e"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="48" width="100" height="30" uuid="27d8d195-ed0b-4b2a-9ab2-efc6bfe2af9e"/>
+				<text><![CDATA[IdReser]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="87" width="100" height="30" uuid="eb22b05c-18c3-43b2-b35e-03aeac3dbd54"/>
+				<text><![CDATA[FKNOCHAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="87" width="100" height="30" uuid="74f4391e-e250-454c-9fb1-564dc9653381"/>
+				<text><![CDATA[FKCODTYPCHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="87" width="100" height="30" uuid="b9976a58-f31b-4414-a727-4295fc960b42"/>
+				<text><![CDATA[FKIDCLI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="87" width="100" height="30" uuid="d538c82a-187d-438a-8ad5-8fe6c94b57b1"/>
+				<text><![CDATA[NOM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="48" width="100" height="30" uuid="b56dabf9-bf23-4c9b-85da-0b50e0894267"/>
+				<text><![CDATA[Date Reser]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="48" width="100" height="30" uuid="5f299748-9c4b-49f4-9fe6-4f14bd7ecfaa"/>
+				<text><![CDATA[Date Debut]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="48" width="100" height="30" uuid="a66aebd0-a055-40d9-ae82-5f20cd934305"/>
+				<text><![CDATA[Date Fin]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
