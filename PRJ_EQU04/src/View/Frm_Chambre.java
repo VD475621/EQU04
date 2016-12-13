@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;
 
 
 public class Frm_Chambre extends Frm_Base{
@@ -75,6 +76,14 @@ public class Frm_Chambre extends Frm_Base{
 		Initialiser_Listener();
 		
 		controlleur = new Ctrl_Chambre(this);
+		
+		JMenuItem mntmRapportchambre = new JMenuItem("RapportChambre");
+		mntmRapportchambre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlleur.rapport();
+			}
+		});
+		mnRapport.add(mntmRapportchambre);
 		controlleur.AffecteValeurs();
 		
 		controlleur.setConsultationMode();

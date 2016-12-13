@@ -1,12 +1,12 @@
 package modeles;
 
 import java.util.ArrayList;
-import utils.Query;
+import Utils.Query;
 
 public class Procs {
 	private static Query SELECT_RESERVATION = new Query("SELECT * FROM vueReservation");
 	private static Query SELECT_CHAMBRE = new Query("SELECT CHAMBRE.noCham, CHAMBRE.etage, CHAMBRE.etat,CHAMBRE.FKCodTypCha, TYPECHAM.descType, CHAMBRE.FKCodLoc,LOCALISATION.descLoc, CHAMBRE.prix ,CHAMBRE.memo FROM CHAMBRE ,TYPECHAM  ,LOCALISATION where CHAMBRE.FKCodTypCha = TYPECHAM.CodTypCha and CHAMBRE.FKCodLoc = LOCALISATION.CodLoc ORDER BY CHAMBRE.noCham ASC");
-	private static Query SELECT_AYANT = new Query("select COMMODITE.CodCom , COMMODITE.DescCom FROM COMMODITE , AYANT where COMMODITE.CodCom = AYANT.FKCodCom and AYANT.FKnoCham = @noCham");
+	private static Query SELECT_AYANT = new Query("select COMMODITE.CodCom , COMMODITE.DescCom FROM COMMODITE , AYANT where COMMODITE.CodCom = AYANT.FKCodCom and AYANT.FKnoCham = ?");
 	private static Query SELECT_CODCOM = new Query("select COMMODITE.CodCom,  COMMODITE.DescCom from COMMODITE");
 	private static Query SELECT_CODLOC = new Query("select LOCALISATION.CodLoc,  LOCALISATION.DescLoc from LOCALISATION");
 	private static Query SELECT_CODTYP = new Query("select TYPECHAM.CodTypCha,  TYPECHAM.DescType, TYPECHAM.nbdispo from TYPECHAM");
@@ -30,21 +30,21 @@ public class Procs {
 	 * nocham,etage,etat,codtyp,destyp,codloc,descloc,prix,memo
 	 */
 	public static  Mod_AMod SELECT_CHAMBRE(){
-		return SELECT_CHAMBRE.execute(null);
+		return SELECT_CHAMBRE.execute();
 	}
 	/**
 	 * @return le Mod_AMode de formater comme suit:
 	 * idReser,Nocham,Attribuee
 	 */
 	public static  Mod_AMod SELECT_DE(){
-		return SELECT_DE.execute(null);
+		return SELECT_DE.execute();
 	}
 	/**
 	 * @return le Mod_AMode codtyp formater comme suit:
 	 * codtyp, desctype , NbDispo
 	 */
 	public static  Mod_AMod SELECT_CODTYP(){
-		return SELECT_CODTYP.execute(null);
+		return SELECT_CODTYP.execute();
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class Procs {
 	 * codloc,descloc
 	 */
 	public static Mod_AMod SELECT_CODLOC(){
-		return SELECT_CODLOC.execute(null);
+		return SELECT_CODLOC.execute();
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class Procs {
 	 * codcom,descCom
 	 */
 	public static Mod_AMod SELECT_CODCOM(){
-		return SELECT_CODCOM.execute(null);
+		return SELECT_CODCOM.execute();
 	}
 	
 	/**

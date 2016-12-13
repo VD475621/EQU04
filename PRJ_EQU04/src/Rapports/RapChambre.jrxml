@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-12-13T12:22:58 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RapChambre" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6647a6c8-9fe7-4421-b2e9-06269fdc9fb4">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<queryString>
+		<![CDATA[select * from dateRapport, tableRapport order by tableRapport.nocham]]>
+	</queryString>
+	<field name="DATE1" class="java.sql.Timestamp"/>
+	<field name="DATE2" class="java.sql.Timestamp"/>
+	<field name="DATE3" class="java.sql.Timestamp"/>
+	<field name="DATE4" class="java.sql.Timestamp"/>
+	<field name="DATE5" class="java.sql.Timestamp"/>
+	<field name="DATE6" class="java.sql.Timestamp"/>
+	<field name="DATE7" class="java.sql.Timestamp"/>
+	<field name="NOCHAM" class="java.lang.String"/>
+	<field name="CODTYPCHA" class="java.lang.String"/>
+	<field name="DISPO1" class="java.math.BigDecimal"/>
+	<field name="DISPO2" class="java.math.BigDecimal"/>
+	<field name="DISPO3" class="java.math.BigDecimal"/>
+	<field name="DISPO4" class="java.math.BigDecimal"/>
+	<field name="DISPO5" class="java.math.BigDecimal"/>
+	<field name="DISPO6" class="java.math.BigDecimal"/>
+	<field name="DISPO7" class="java.math.BigDecimal"/>
+	<group name="NOCHAM">
+		<groupExpression><![CDATA[$F{NOCHAM}]]></groupExpression>
+	</group>
+	<group name="CODTYPCHA">
+		<groupExpression><![CDATA[$F{CODTYPCHA}]]></groupExpression>
+	</group>
+	<group name="DATE1">
+		<groupExpression><![CDATA[$F{DATE1}]]></groupExpression>
+	</group>
+	<group name="DATE2">
+		<groupExpression><![CDATA[$F{DATE2}]]></groupExpression>
+	</group>
+	<group name="DATE3">
+		<groupExpression><![CDATA[$F{DATE3}]]></groupExpression>
+	</group>
+	<group name="DATE4">
+		<groupExpression><![CDATA[$F{DATE4}]]></groupExpression>
+	</group>
+	<group name="DATE5">
+		<groupExpression><![CDATA[$F{DATE5}]]></groupExpression>
+	</group>
+	<group name="DATE6">
+		<groupExpression><![CDATA[$F{DATE6}]]></groupExpression>
+	</group>
+	<group name="DATE7">
+		<groupExpression><![CDATA[$F{DATE7}]]></groupExpression>
+	</group>
+	<group name="DISPO1">
+		<groupExpression><![CDATA[$F{DISPO1}]]></groupExpression>
+	</group>
+	<group name="DISPO2">
+		<groupExpression><![CDATA[$F{DISPO2}]]></groupExpression>
+	</group>
+	<group name="DISPO3">
+		<groupExpression><![CDATA[$F{DISPO3}]]></groupExpression>
+	</group>
+	<group name="DISPO4">
+		<groupExpression><![CDATA[$F{DISPO4}]]></groupExpression>
+	</group>
+	<group name="DISPO5">
+		<groupExpression><![CDATA[$F{DISPO5}]]></groupExpression>
+	</group>
+	<group name="DISPO6">
+		<groupExpression><![CDATA[$F{DISPO6}]]></groupExpression>
+	</group>
+	<group name="DISPO7">
+		<groupExpression><![CDATA[$F{DISPO7}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="70" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="60" height="30" uuid="b35fb7cb-0a28-4878-ac5d-2691fc5fc3b6"/>
+				<textFieldExpression><![CDATA[$F{DATE1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="60" height="30" uuid="8d6a03c7-f232-49bc-8f39-69f58be41e6a"/>
+				<textFieldExpression><![CDATA[$F{DATE2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="60" height="30" uuid="fc64d0b5-40ec-452c-91b1-b24423863548"/>
+				<textFieldExpression><![CDATA[$F{DATE3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="60" height="30" uuid="776eb0d9-1bf1-4c8e-a146-b437db105246"/>
+				<textFieldExpression><![CDATA[$F{DATE4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="60" height="30" uuid="a396c44e-81a2-4973-a07a-990a7d927bdf"/>
+				<textFieldExpression><![CDATA[$F{DATE5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="70" height="30" uuid="16e0cd78-54ec-4390-8d95-c37dca334e53"/>
+				<textFieldExpression><![CDATA[$F{DATE7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="70" height="30" uuid="dc0d5631-7baa-4749-8ce6-eccbad82da85"/>
+				<textFieldExpression><![CDATA[$F{DATE6}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="-11" y="4" width="81" height="30" uuid="4ca53aaf-8766-46b1-9bc2-524b0a64a8ec"/>
+				<textFieldExpression><![CDATA[$F{NOCHAM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-11" y="40" width="80" height="30" uuid="2abe5139-6da8-42e5-b28b-4afadfef9126"/>
+				<textFieldExpression><![CDATA[$F{CODTYPCHA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="60" height="30" uuid="468a6f48-1d4d-4932-933e-f98fdca4fd74"/>
+				<textFieldExpression><![CDATA[$F{DISPO1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="60" height="30" uuid="fb645ea1-9d96-4cd2-8607-d7dbdf656258"/>
+				<textFieldExpression><![CDATA[$F{DISPO2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="60" height="30" uuid="465ee4a1-0d9a-4565-85be-29d29de3f8d9"/>
+				<textFieldExpression><![CDATA[$F{DISPO3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="60" height="30" uuid="db6cb9c1-d3ba-4603-acfc-5a9646aaa7cb"/>
+				<textFieldExpression><![CDATA[$F{DISPO4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="60" height="30" uuid="96d7bf91-6170-406d-835b-d5a0b67ce571"/>
+				<textFieldExpression><![CDATA[$F{DISPO5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="70" height="30" uuid="262c266a-7bce-44db-ba5e-31528088546d"/>
+				<textFieldExpression><![CDATA[$F{DISPO6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="70" height="30" uuid="bf3bf68e-e87a-413b-95d1-8a216ee6f892"/>
+				<textFieldExpression><![CDATA[$F{DISPO7}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

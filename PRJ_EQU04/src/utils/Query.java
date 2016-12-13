@@ -1,67 +1,33 @@
-package utils;
+package Utils;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modeles.ModConnexion;
 import modeles.Mod_AMod;
 
 public class Query {
+	private final DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 	private String query;
-    private int paramAmount;
 	public Query(String statement){
 		this.query = statement;
-		paramAmount = 0;
-		for(int i = 0 ; i < statement.length();i++)
-			if(statement.charAt(i) == '@')
-				paramAmount++;
 	}
 
-	private String formatQuery(Object sqlParameters){
-		ArrayList<Object> sqlParametersList = new ArrayList<Object>();
-		if(sqlParameters instanceof ArrayList)
-			sqlParametersList = (ArrayList<Object>)sqlParameters;		
-		else if(sqlParameters != null)
-			sqlParametersList.add(sqlParameters);
-		
-		if(sqlParametersList.size() == paramAmount){
-			String formatedQuery = "";
-			char car;
-			boolean paramFound = false;
-			int paramIndex = 0;
-			for(int i = 0 ; i < query.length(); i++){
-				car = query.charAt(i);
-				if(car == '@'){
-					paramFound = true;
-					formatedQuery += sqlParametersList.get(paramIndex).toString();
-					paramIndex++;
-				}
-				else if(car == ' ' || car ==','){
-					if(paramFound)
-						paramFound = false;	
-				
-					formatedQuery += car;
-				}
-				else{
-					if(!paramFound)
-						formatedQuery += car;
-				}
-			}
-			return formatedQuery;
-		}
-		else{
-			System.out.println("Nombre de parametre incorrect dans la query "  + paramAmount + " attendu " + sqlParametersList.size() + " envoye" );
-			return null;
-		}
-	}
-	
-	public Mod_AMod execute(Object sqlParameters){
+	public Mod_AMod execute(Object... params){
 		try {    
 			Mod_AMod model = new Mod_AMod();
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement(this.formatQuery(sqlParameters));
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement(query);
+			int paramIndex = 1;
+			for(Object param:params){
+				state.setObject(paramIndex , param);
+				paramIndex++;
+			}
+
 			ResultSet rs = state.executeQuery();
 
 			ResultSetMetaData rsmd = rs.getMetaData();
@@ -71,8 +37,13 @@ public class Query {
 	
 			while (rs.next()) {
 				ArrayList<Object> row = new ArrayList<Object>();
-				for(int i = 0 ; i < columnCount; i++)
-					row.add(rs.getObject(i+1));
+				for(int i = 0 ; i < columnCount; i++){
+					Object object = rs.getObject(i+1);
+					if(object.getClass() == java.sql.Timestamp.class){
+						object = formatDate.format(object);
+					}
+					row.add(object);
+				}
 				model.data().add(row); 
 			} 
 			return model;
