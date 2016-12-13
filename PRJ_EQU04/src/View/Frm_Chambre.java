@@ -12,6 +12,11 @@ import javax.swing.JTextField;
 
 import controleurs.Ctrl_Chambre;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 public class Frm_Chambre extends Frm_Base{
 	
@@ -26,7 +31,11 @@ public class Frm_Chambre extends Frm_Base{
 	private JTextField Tb_Prix;
 	private JTextField Tb_Memo;
 	private JScrollPane Jpn_Chambre;
+	private JCheckBox Cb_Etat;
+	private JButton BT_AjouterCodeCommoditer;
+	private JButton BT_SupprimerCod;
 	
+
 	private static Ctrl_Chambre controlleur;
 	
 
@@ -59,13 +68,16 @@ public class Frm_Chambre extends Frm_Base{
 	public Frm_Chambre() {
 		super();
 		
+		
+		
+		
 		Initialiser_ObjetGraph();
 		Initialiser_Listener();
 		
 		controlleur = new Ctrl_Chambre(this);
-		controlleur.Assign();
+		controlleur.AffecteValeurs();
 		
-		setConsultationMode();
+		controlleur.setConsultationMode();
 		
 	}
 	
@@ -74,73 +86,110 @@ public class Frm_Chambre extends Frm_Base{
 		btnNaviguerGauche.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				controlleur.premier();
 			}
 		});
 		
 		btnNaviguer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlleur.next1();
+				controlleur.suivant();
 			}
 		});
 		
 		btnAjouter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				controlleur.setAjoutMode();
 			}
 		});
 		
 		btnSupprimer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				controlleur.supprimer();
 			}
 		});
 		
 		btnModifier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				controlleur.modifier();
 			}
 		});
 		
 		btnConsulter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setConsultationMode();
+				controlleur.setConsultationMode();
+			}
+		});
+		
+		btnSauvegarder.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlleur.sauvegarder();
 			}
 		});
 		
 		btnNaviguer_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				controlleur.next();
+				controlleur.precedent();
 			}
 		});
 		
 		btnFin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				controlleur.dernier();
+			}
+		});
+		
+		Tb_NoCham.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlleur.ListeChambres();
+			}
+		});
+		
+		Tb_CodType.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlleur.listeCodTyp();
+			}
+		});
+		
+		Tb_Localisation.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlleur.listeCodLoc();
+			}
+		});
+		
+		BT_AjouterCodeCommoditer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlleur.addCodCom();
+			}
+		});
+		
+		BT_SupprimerCod.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlleur.removeCodCom();
+			}
+		});
+		btnAnnuler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controlleur.annuler();
 			}
 		});
 	}
 
 
-	private void setConsultationMode(){
-		Tb_NoCham.setEditable(false);
-		Tb_Etage.setEditable(false);
-		Tb_Etat.setEditable(false);
-		Tb_CodType.setEditable(false);
-		Tb_Localisation.setEditable(false);
-		Tb_DescType.setEditable(false);
-		Tb_DescLoc.setEditable(false);
-		Tb_Prix.setEditable(false);
-		Tb_Memo.setEditable(false);
-		
-	}
+	
 	
 	
 	private void Initialiser_ObjetGraph()
@@ -241,6 +290,7 @@ public class Frm_Chambre extends Frm_Base{
 		Jpn_Chambre.setViewportView(Tbl_Chambre_1);
 		
 		Tb_NoCham = new JTextField();
+		
 		Tb_NoCham.setEditable(false);
 		Tb_NoCham.setBounds(80, 32, 130, 26);
 		Tb_NoCham.setEnabled(false);
@@ -263,6 +313,7 @@ public class Frm_Chambre extends Frm_Base{
 		
 		
 		Tb_CodType = new JTextField();
+		
 		Tb_CodType.setBounds(80, 220, 130, 26);
 		Tb_CodType.setEditable(false);
 		Tb_CodType.setEnabled(false);
@@ -271,6 +322,7 @@ public class Frm_Chambre extends Frm_Base{
 		
 		
 		Tb_Localisation = new JTextField();
+		
 		Tb_Localisation.setBounds(349, 32, 130, 26);
 		Tb_Localisation.setEditable(false);
 		Tb_Localisation.setEnabled(false);
@@ -283,6 +335,20 @@ public class Frm_Chambre extends Frm_Base{
 		Tb_Prix.setEnabled(false);
 		Pn_Chambre.add(Tb_Prix);
 		Tb_Prix.setColumns(10);
+		
+		Cb_Etat = new JCheckBox("Etat");
+		Cb_Etat.setBounds(36, 605, 200, 50);
+		getContentPane().add(Cb_Etat);
+		
+		 BT_AjouterCodeCommoditer = new JButton("Ajouter Code Commoditer");
+		
+		BT_AjouterCodeCommoditer.setBounds(682, 534, 117, 29);
+		getContentPane().add(BT_AjouterCodeCommoditer);
+		
+		BT_SupprimerCod = new JButton("Supprimer Cod");
+		
+		BT_SupprimerCod.setBounds(811, 534, 117, 29);
+		getContentPane().add(BT_SupprimerCod);
 	}
 	
 	
@@ -291,6 +357,21 @@ public class Frm_Chambre extends Frm_Base{
 	public JScrollPane get_DataGrid()
 	{
 		return Jpn_Chambre;
+	}
+	
+	public JCheckBox get_CBEtat()
+	{
+		return Cb_Etat;
+	}
+	
+	public JButton get_AddCodCom()
+	{
+		return BT_AjouterCodeCommoditer;
+	}
+	
+	public JButton get_SuppCodCom()
+	{
+		return BT_SupprimerCod;
 	}
 	
 	public JTextField getTb_Memo() {
@@ -396,7 +477,57 @@ public class Frm_Chambre extends Frm_Base{
 		Tbl_Chambre_1 = tbl_Chambre_1;
 	}
 	
+	public JCheckBox getCb_Etat() {
+		return Cb_Etat;
+	}
+
+
+	public void setCb_Etat(JCheckBox cb_Etat) {
+		Cb_Etat = cb_Etat;
+	}
 	
+	public JButton getBt_Ajout()
+	{
+		return btnAjouter;
+	}
 	
+	public JButton getBt_Debut()
+	{
+		return btnNaviguerGauche;
+	}
 	
+	public JButton getBt_Fin()
+	{
+		return btnFin;
+	}
+	
+	public JButton getBt_Suivant()
+	{
+		return btnNaviguer_1;
+	}
+	
+	public JButton getBt_Precedent()
+	{
+		return btnNaviguer;
+	}
+	
+	public JButton getBt_Supprimer()
+	{
+		return btnSupprimer;
+	}
+	
+	public JButton getBt_Modifier()
+	{
+		return btnModifier;
+	}
+	
+	public JButton getBt_Sauvegarder()
+	{
+		return btnSauvegarder;
+	}
+	
+	public JButton getBt_Annuler()
+	{
+		return btnAnnuler;
+	}
 }
