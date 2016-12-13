@@ -44,6 +44,9 @@ public final class Pk_List extends JDialog {
 		  					//System.out.println(row);
 		  					No_ligne = row;
 		  				}
+		  				else if(state == 2){
+		  					No_ligne = jt.getSelectedRow();
+		  				}
 					  	dispose();
 					   	e.setSource(null);
 		  			}
@@ -70,5 +73,9 @@ public final class Pk_List extends JDialog {
 	public final static ArrayList<Object> pickFromTableRow(AbstractTableModel m,String t){
 		new Pk_List(m, t, 1);
 		return (ArrayList<Object>) No_ligne;
+	}
+	public final static Object pickPositionFromTable(AbstractTableModel m,String t){
+		new Pk_List(m, t, 2);
+		return No_ligne;
 	}
 }

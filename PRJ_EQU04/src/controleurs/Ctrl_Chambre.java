@@ -284,7 +284,7 @@ public class Ctrl_Chambre {
 	public void addCodCom(){
 		Mod_AMod modele = Procs.SELECT_CODCOM();
 		modele.substractModele(newChambreCodCom);
-		int index = (int) Pk_List.pickFromTable(modele,"listes des commodite");
+		int index = (int) Pk_List.pickPositionFromTable(modele,"listes des commodite");
 		newChambreCodCom.addRow(new ArrayList<Object>(Arrays.asList((String)modele.getValueAt(index, 0) , (String)modele.getValueAt(index, 1))));
 		Frm_Chambre.get_DataGrid().setViewportView(new JTable(newChambreCodCom));
 	}
@@ -298,14 +298,14 @@ public class Ctrl_Chambre {
 			Mod_AMod chambres = Procs.SELECT_CHAMBRE();
 			chambres.removeColumn(6);
 			chambres.removeColumn(4);
-		    position = (int) Pk_List.pickFromTable(chambres,"listes des chambres");
+		    position = (int) Pk_List.pickPositionFromTable(chambres,"listes des chambres");
 			AffecteValeurs();	
 		}
 	}
 	public void listeCodTyp(){
 		if(mode == Mode.AJOUT || mode == Mode.MODIFICATION ){
 			Mod_AMod modele = Procs.SELECT_CODTYP();
-			int index = (int) Pk_List.pickFromTable(modele,"listes des type de chambre");
+			int index = (int) Pk_List.pickPositionFromTable(modele,"listes des type de chambre");
 			Frm_Chambre.getTb_CodType().setText(modele.getValueAt(index, 0).toString());
 			Frm_Chambre.getTb_DescType().setText(modele.getValueAt(index, 1).toString());
 		}
@@ -313,7 +313,7 @@ public class Ctrl_Chambre {
 	public void listeCodLoc(){
 		if(mode == Mode.AJOUT || mode == Mode.MODIFICATION ){
 			Mod_AMod modele = Procs.SELECT_CODLOC();
-			int index = (int) Pk_List.pickFromTable(modele,"listes des Localisation");
+			int index = (int) Pk_List.pickPositionFromTable(modele,"listes des Localisation");
 			Frm_Chambre.getTb_Localisation().setText(modele.getValueAt(index, 0).toString());
 			Frm_Chambre.getTb_DescLoc().setText(modele.getValueAt(index, 1).toString());
 		}
