@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-12-13T12:22:58 -->
+<!-- 2016-12-13T12:38:14 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RapChambre" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6647a6c8-9fe7-4421-b2e9-06269fdc9fb4">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
@@ -75,45 +75,62 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="10" width="400" height="50" uuid="aceb4af6-c1fb-472f-97c3-b713297cb561"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Rapport des Chambres]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="50" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="460" y="0" width="100" height="30" uuid="9d2f1161-76bc-4261-ac40-2622339d6051"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="dc35200c-879b-447c-98e5-e16bc21b71b8"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="70" splitType="Stretch">
-			<textField>
-				<reportElement x="80" y="0" width="60" height="30" uuid="b35fb7cb-0a28-4878-ac5d-2691fc5fc3b6"/>
+			<textField pattern="d/M">
+				<reportElement x="80" y="0" width="60" height="20" uuid="b35fb7cb-0a28-4878-ac5d-2691fc5fc3b6"/>
 				<textFieldExpression><![CDATA[$F{DATE1}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="140" y="0" width="60" height="30" uuid="8d6a03c7-f232-49bc-8f39-69f58be41e6a"/>
+			<textField pattern="d/M">
+				<reportElement x="140" y="0" width="60" height="20" uuid="8d6a03c7-f232-49bc-8f39-69f58be41e6a"/>
 				<textFieldExpression><![CDATA[$F{DATE2}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="200" y="0" width="60" height="30" uuid="fc64d0b5-40ec-452c-91b1-b24423863548"/>
+			<textField pattern="d/M">
+				<reportElement x="200" y="0" width="60" height="20" uuid="fc64d0b5-40ec-452c-91b1-b24423863548"/>
 				<textFieldExpression><![CDATA[$F{DATE3}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="260" y="0" width="60" height="30" uuid="776eb0d9-1bf1-4c8e-a146-b437db105246"/>
+			<textField pattern="d/M">
+				<reportElement x="260" y="0" width="60" height="20" uuid="776eb0d9-1bf1-4c8e-a146-b437db105246"/>
 				<textFieldExpression><![CDATA[$F{DATE4}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="320" y="0" width="60" height="30" uuid="a396c44e-81a2-4973-a07a-990a7d927bdf"/>
+			<textField pattern="d/M">
+				<reportElement x="320" y="0" width="60" height="20" uuid="a396c44e-81a2-4973-a07a-990a7d927bdf"/>
 				<textFieldExpression><![CDATA[$F{DATE5}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="450" y="0" width="70" height="30" uuid="16e0cd78-54ec-4390-8d95-c37dca334e53"/>
+			<textField pattern="d/M">
+				<reportElement x="440" y="0" width="60" height="20" uuid="16e0cd78-54ec-4390-8d95-c37dca334e53"/>
 				<textFieldExpression><![CDATA[$F{DATE7}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="380" y="0" width="70" height="30" uuid="dc0d5631-7baa-4749-8ce6-eccbad82da85"/>
+			<textField pattern="d/M">
+				<reportElement x="380" y="0" width="60" height="20" uuid="dc0d5631-7baa-4749-8ce6-eccbad82da85"/>
 				<textFieldExpression><![CDATA[$F{DATE6}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="78" splitType="Stretch">
 			<textField>
 				<reportElement x="-11" y="4" width="81" height="30" uuid="4ca53aaf-8766-46b1-9bc2-524b0a64a8ec"/>
 				<textFieldExpression><![CDATA[$F{NOCHAM}]]></textFieldExpression>
@@ -143,11 +160,11 @@
 				<textFieldExpression><![CDATA[$F{DISPO5}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="70" height="30" uuid="262c266a-7bce-44db-ba5e-31528088546d"/>
+				<reportElement x="380" y="0" width="60" height="30" uuid="262c266a-7bce-44db-ba5e-31528088546d"/>
 				<textFieldExpression><![CDATA[$F{DISPO6}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="450" y="0" width="70" height="30" uuid="bf3bf68e-e87a-413b-95d1-8a216ee6f892"/>
+				<reportElement x="440" y="0" width="60" height="30" uuid="bf3bf68e-e87a-413b-95d1-8a216ee6f892"/>
 				<textFieldExpression><![CDATA[$F{DISPO7}]]></textFieldExpression>
 			</textField>
 		</band>
