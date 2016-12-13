@@ -10,7 +10,8 @@ drop table AYANT cascade constraints;
 drop table CHAMBRE cascade constraints;
 drop table DEPART cascade constraints;
 drop table TYPECHAM cascade constraints;
-drop table LOCALISATION cascade constraints; 
+drop table LOCALISATION cascade constraints;
+drop table TEMP_CHAMBRE;
 
 
 drop sequence SEQ_Reservation;
@@ -187,6 +188,11 @@ create table DEPART
       references RESERVATION (IdReser),
     constraint FK_DEPART_CHAMBRE_NoCham foreign key (FKNoCham)
       references CHAMBRE (NoCham)
+);
+
+create table TEMP_CHAMBRE
+(
+  NoCham varchar2(3)
 );
 
 

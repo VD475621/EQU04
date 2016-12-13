@@ -1,31 +1,36 @@
 package View;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controleurs.Ctrl_Reservation;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
+import java.beans.PropertyChangeListener;
+import java.sql.Date;
+import java.beans.PropertyChangeEvent;
+import javax.swing.JMenuItem;
+import javax.swing.JFrame;
 
 public class Frm_Reservation extends Frm_Base {
 
-	
-	
 	/**
 	 * 
 	 */
-	private enum State {Consulter, Ajouter, Modifier, Supprimer};
-	private State etat;
+	public enum State {Consulter, Ajouter, Modifier, Supprimer};
+	private State etat = null;
 	private Frm_Reservation instance;
 	private static final long serialVersionUID = 1L;
 	private JTextField Tb_IdCli;
@@ -42,8 +47,12 @@ public class Frm_Reservation extends Frm_Base {
 	private JFormattedTextField Tbf_fax;
 	private JScrollPane ScrP_Reser;
 	private JButton Btn_PkList;
+	private JButton Btn_PkList_client;
+	private JButton btn_addChambre;
+	private JButton btn_removeChambre;
 	
 	private Ctrl_Reservation ct_reser;
+	private JMenuItem mntmRapportReservation;
 	
 	/**
 	 * Launch the application.
@@ -66,17 +75,30 @@ public class Frm_Reservation extends Frm_Base {
 	 */
 	public Frm_Reservation() {
 		super();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		mntmQuitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				instance.dispose();
+			}
+		});
+		instance = this;
+		
+		
 		this.setEtat(State.Consulter);
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Consulter();
+				ct_reser.ViderTableTemp(instance);
 			}
 		});
 		btnSauvegarder.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//Sauvegarder les données ajoutées
+				//---------------------------------------
+				ct_reser.SauvegarderReservation(instance);
+				//---------------------------------------
 			}
 		});
 		
@@ -93,6 +115,7 @@ public class Frm_Reservation extends Frm_Base {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Supprimer();
+				ct_reser.SupprimerReservation(instance);
 			}
 		});
 		btnAjouter.addActionListener(new ActionListener() {
@@ -147,7 +170,7 @@ public class Frm_Reservation extends Frm_Base {
 		Pn_client.add(Lb_telephone);
 		
 		JLabel Lb_nom = new JLabel("Nom");
-		Lb_nom.setBounds(212, 6, 61, 16);
+		Lb_nom.setBounds(256, 6, 39, 16);
 		Pn_client.add(Lb_nom);
 		
 		JLabel lb_fax = new JLabel("Fax");
@@ -168,7 +191,7 @@ public class Frm_Reservation extends Frm_Base {
 		
 		Tb_Nom = new JTextField();
 		Tb_Nom.setEditable(false);
-		Tb_Nom.setBounds(247, 1, 130, 26);
+		Tb_Nom.setBounds(294, 1, 130, 26);
 		Pn_client.add(Tb_Nom);
 		Tb_Nom.setColumns(10);
 		
@@ -214,6 +237,19 @@ public class Frm_Reservation extends Frm_Base {
 		Tbf_solde_du.setBounds(273, 174, 104, 26);
 		Pn_client.add(Tbf_solde_du);
 		
+		Btn_PkList_client = new JButton("...");
+		Btn_PkList_client.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(etat ==State.Ajouter)
+					ct_reser.ListeClient(instance);
+				else if(etat == State.Modifier){
+					ct_reser.ModifierClient(instance);
+				}
+			}
+		});
+		Btn_PkList_client.setBounds(212, 6, 31, 16);
+		Pn_client.add(Btn_PkList_client);
+		
 		JPanel Pn_reservation = new JPanel();
 		Pn_reservation.setBounds(603, 63, 424, 225);
 		getContentPane().add(Pn_reservation);
@@ -249,13 +285,48 @@ public class Frm_Reservation extends Frm_Base {
 		Tb_date_reser.setColumns(10);
 		
 		Tb_date_debut = new JTextField();
+		Tb_date_debut.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(State.Modifier == etat){
+					//System.out.println("mod");
+					ct_reser.ModifDateIsArrive(instance);
+				}
+				else if(State.Ajouter == etat){
+					ct_reser.GetDate(instance, Tb_date_debut, true);
+					//System.out.println("add");
+				}
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ct_reser.DateInModif(instance, Tb_date_debut, true);
+			}
+		});
 		Tb_date_debut.setEditable(false);
 		Tb_date_debut.setText("jj/mm/aaaa");
 		Tb_date_debut.setBounds(128, 79, 130, 26);
 		Pn_reservation.add(Tb_date_debut);
 		Tb_date_debut.setColumns(10);
 		
+		
 		Tb_date_fin = new JTextField();
+		Tb_date_fin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(State.Modifier == etat){
+					//System.out.println("mod");
+					ct_reser.ModifDateIsDepart(instance);
+				}
+				else if(State.Ajouter == etat){
+					ct_reser.GetDate(instance, Tb_date_fin, false);
+					//System.out.println("add");
+				}
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ct_reser.DateInModif(instance, Tb_date_fin, false);
+			}
+		});
 		Tb_date_fin.setEditable(false);
 		Tb_date_fin.setText("jj/mm/aaaa");
 		Tb_date_fin.setBounds(128, 117, 130, 26);
@@ -279,12 +350,79 @@ public class Frm_Reservation extends Frm_Base {
 		Lb_information_client.setBounds(187, 35, 234, 16);
 		getContentPane().add(Lb_information_client);
 		
+		btn_addChambre = new JButton("+");
+		btn_addChambre.setEnabled(false);
+		btn_addChambre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(etat == State.Ajouter)
+				{
+					java.sql.Date datereser = null;
+				    java.sql.Date datedeb = null;
+				    java.sql.Date datefin = null;
+					
+				    datereser = java.sql.Date.valueOf(Tb_date_reser.getText());
+					datedeb = java.sql.Date.valueOf(Tb_date_debut.getText());
+					datefin = java.sql.Date.valueOf(Tb_date_fin.getText());
+					
+					if(datedeb.compareTo(datereser)>=0){
+
+						if(datedeb.compareTo(datefin)<0)
+						    ct_reser.ListeChambreFiltrer(instance, datedeb, datefin);
+						else{
+						    JOptionPane.showMessageDialog(null, "La date de debut doit etre superieur la date de fin");
+						}
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "La date de debut doit etre egal ou superieur la date de reservation");
+					}
+					
+				}
+				else if(etat == State.Modifier){
+					if(ct_reser.DateInModif(instance, Tb_date_debut, true) 
+							&& ct_reser.DateInModif(instance, Tb_date_fin, false)){
+						
+						java.sql.Date datadeb = null;
+					    java.sql.Date datafin = null;
+									
+						datadeb = java.sql.Date.valueOf(Tb_date_debut.getText());
+						datafin = java.sql.Date.valueOf(Tb_date_fin.getText());
+						if(datadeb.compareTo(datafin)<0)
+						    ct_reser.ListeChambreFiltrer(instance, datadeb, datafin);
+						else{
+						    JOptionPane.showMessageDialog(null, "La date de debut doit etre avant la date de fin");
+						}
+					}
+				}
+			}
+		});
+		btn_addChambre.setBounds(508, 585, 32, 29);
+		getContentPane().add(btn_addChambre);
+		
+		btn_removeChambre = new JButton("-");
+		btn_removeChambre.setEnabled(false);
+		btn_removeChambre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ct_reser.RetirerChambre(instance);
+			}
+		});
+		btn_removeChambre.setBounds(553, 585, 32, 29);
+		getContentPane().add(btn_removeChambre);
+		
+		mntmRapportReservation = new JMenuItem("Rapport Reservation");
+		mntmRapportReservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FrmRapReser frm = new FrmRapReser();
+				frm.setVisible(true);
+			}
+		});
+		mnRapport.add(mntmRapportReservation);
+		
 		ScrP_Reser = new JScrollPane();
 		ScrP_Reser.setBounds(63, 332, 964, 191);
 		
-		instance = this;
 		ct_reser = new Ctrl_Reservation(instance);
-		
 		
 		Consulter();
 	}
@@ -299,10 +437,8 @@ public class Frm_Reservation extends Frm_Base {
 		this.etat = etat;
 	}
 
-	private void Consulter()
+	public void Consulter()
 	{
-		if(this.etat == State.Ajouter || this.etat == State.Modifier)
-		{
 			Tb_IdReser.setEditable(false);
 			Tb_IdCli.setEditable(false);
 			Tb_adresse.setEditable(false);
@@ -312,10 +448,14 @@ public class Frm_Reservation extends Frm_Base {
 			Tb_date_debut.setEditable(false);
 			Tb_date_fin.setEditable(false);
 			Tb_typ_carte.setEditable(false);
+			
+			
 			btnAnnuler.setEnabled(false);
 			btnSauvegarder.setEnabled(false);
+			this.btn_addChambre.setEnabled(false);
+			this.btn_removeChambre.setEnabled(false);
 			this.btnConsulter.setEnabled(true);
-			
+			this.btnAjouter.setEnabled(true);
 			this.Btn_PkList.setEnabled(true);
 			this.btnFin.setEnabled(true);
 			this.btnModifier.setEnabled(true);
@@ -323,10 +463,10 @@ public class Frm_Reservation extends Frm_Base {
 			this.btnNaviguer_1.setEnabled(true);
 			this.btnNaviguerGauche.setEnabled(true);
 			this.btnSupprimer.setEnabled(true);
-			
+			this.Btn_PkList_client.setEnabled(false);
 			this.etat = State.Consulter;
 			this.ct_reser.Assign(instance, 0);
-		}
+			ct_reser.setPosition(0);
 		
 	}
 	
@@ -344,7 +484,11 @@ public class Frm_Reservation extends Frm_Base {
 			Tb_typ_carte.setEditable(false);
 			btnAnnuler.setEnabled(true);
 			btnSauvegarder.setEnabled(true);
-			
+
+
+			this.btn_addChambre.setEnabled(true);
+			this.btn_removeChambre.setEnabled(true);
+			this.Btn_PkList_client.setEnabled(true);
 			this.Btn_PkList.setEnabled(false);
 			this.btnFin.setEnabled(false);
 			this.btnModifier.setEnabled(false);
@@ -363,14 +507,46 @@ public class Frm_Reservation extends Frm_Base {
 	
 	private void Modifier()
 	{
-		this.etat = State.Modifier;
-		this.Btn_PkList.setEnabled(true);
+		if(this.etat == State.Consulter)
+		{
+			Tb_IdReser.setEditable(false);
+			Tb_IdCli.setEditable(false);
+			Tb_adresse.setEditable(false);
+			Tb_Nom.setEditable(false);
+			Tb_date_reser.setEditable(false);
+			Tb_date_debut.setEditable(true);
+			Tb_date_fin.setEditable(true);
+			Tb_typ_carte.setEditable(false);
+			btnAnnuler.setEnabled(true);
+			btnSauvegarder.setEnabled(true);
+
+
+			this.btn_addChambre.setEnabled(true);
+			this.btn_removeChambre.setEnabled(true);
+			this.Btn_PkList_client.setEnabled(true);
+			this.Btn_PkList.setEnabled(false);
+			this.btnFin.setEnabled(false);
+			this.btnModifier.setEnabled(false);
+			this.btnNaviguer.setEnabled(false);
+			this.btnNaviguer_1.setEnabled(false);
+			this.btnNaviguerGauche.setEnabled(false);
+			this.btnSupprimer.setEnabled(false);
+			this.btnConsulter.setEnabled(false);
+			this.btnAjouter.setEnabled(false);
+			
+			this.etat = State.Modifier;
+			ct_reser.SetOldDateInModif(instance);
+			//save chambre in tempChambre
+			ct_reser.SaveChambreInTempChambre(instance);
+		}
 	}
 	
 	private void Supprimer()
 	{
-		this.etat = State.Supprimer;
-		this.Btn_PkList.setEnabled(true);
+		if(etat == State.Consulter){
+			this.etat = State.Supprimer;
+			//this.Btn_PkList.setEnabled(true);
+		}
 	}
 	
 	public void setjScrollPane(JTable UneTable)

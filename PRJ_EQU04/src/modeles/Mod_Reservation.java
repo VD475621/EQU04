@@ -58,12 +58,20 @@ public class Mod_Reservation extends AbstractTableModel{
 		SetDateFin(dateFin);
 	}
 	
+	public Mod_Reservation(int Idreser, int Idcli, java.sql.Date date_reser, java.sql.Date date_debut, java.sql.Date date_fin)
+	{
+		SetIdCli(Idcli);
+		SetIdReser(Idreser);
+		SetDateReser(date_reser);
+		SetDateDebut(date_debut);
+		SetDateFin(date_fin);
+	}
+	
 	public void Lire_Enre()
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT c.IdCli, c.Nom, c.Adresse, c.Telephone, c.fax, c.TypeCarte, c.DateExp, "+
-																											"c.Solde_Du, r.IdReser, r.dateReser, r.dateDebut, r.dateFin " + 
-																											"FROM CLIENT c, RESERVATION r WHERE r.FKIdCli=c.IdCli order by r.IdReser");	
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT *" + 
+																											"FROM SELECT_RESERVATION");	
 			ResultSet rs = state.executeQuery();
 			
 			
@@ -81,7 +89,7 @@ public class Mod_Reservation extends AbstractTableModel{
 				java.sql.Date datdebut = rs.getDate("dateDebut");
 				java.sql.Date datfin = rs.getDate("dateFin");
 
-				System.out.println(idcli + " " + nom + " " + adresse + " " + tel +" " + fax + " " + carte +  " " + exp + " " + solde + " " + idreser + " " + datreser + " " + datdebut + " " + datfin);
+				//System.out.println(idcli + " " + nom + " " + adresse + " " + tel +" " + fax + " " + carte +  " " + exp + " " + solde + " " + idreser + " " + datreser + " " + datdebut + " " + datfin);
 				
 				les_resers.add(new Mod_Reservation(idcli, nom, adresse, tel, fax, carte, exp, solde, idreser, datreser, datdebut, datfin)); 
 				//this.setCourant(idreser);
@@ -91,7 +99,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		catch (SQLException e) 
 		{
 			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
-			System.out.println(e);
+			//System.out.println(e);
 		}
 	}
 
@@ -265,13 +273,234 @@ public class Mod_Reservation extends AbstractTableModel{
 	    java.util.Date laDate = calendar.getTime();
 	    return new java.sql.Date(laDate.getTime());
 	}
-	public java.sql.Date getDatRequise()
-	{
+	
+	public java.sql.Date getDateRequise(){
 		 Calendar calendar = Calendar.getInstance();
 		 calendar.add(Calendar.DATE, 10);
 		 java.util.Date laDate = calendar.getTime();
 		 return new java.sql.Date(laDate.getTime());
 	}
 	
+	public void InsertReservation(Mod_Reservation m){
+		try {    
+			PreparedStatement state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement("INSERT INTO RESERVATION VALUES ( "+m.IdReser+" , "
+					+ m.IdCli + " , "
+					+ "TO_DATE('" + m.dateReser + "' , 'YY-MM-DD'), "
+					+ "TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
+					+ "TO_DATE('" + m.dateFin + "' , 'YY-MM-DD')"
+					+ " )");
+
+			state.executeUpdate();
+			 
+			state.execute("commit");
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans ajout de la reservation\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 	
+	public void UpdateReservation(Mod_Reservation m){
+		try {    
+			PreparedStatement state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement( "UPDATE RESERVATION SET "
+										+ " FKIdCli=" + m.IdCli + ", "
+										+ " dateDebut=TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
+										+ " dateFin=TO_DATE('" + m.dateFin + "' , 'YY-MM-DD') "
+										+ " WHERE IdReser=" + m.IdReser );
+			state.executeUpdate();
+			state.execute("commit");
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans modification de la reservation\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void DeleteReservation(int Idreser){
+		try {    
+			PreparedStatement state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement("DELETE FROM RESERVATION WHERE IdReser="+Idreser);
+			state.executeUpdate();
+			state.execute("commit");
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans suppression de la reservation\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	
+	public boolean IsClient(int reser, int cli){
+		boolean flag = true;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select * from Trx where FKIdCli=" + cli + " and FKIdReser="+reser);
+			
+			ResultSet rs = state.executeQuery();
+			
+			if (!rs.isBeforeFirst() ) {    
+			     flag=false;
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isClient " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		return flag;
+	}
+	
+	public boolean IsArrive(int reser){
+		boolean flag = true;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select * from ARRIVE where FKIdReser="+reser);
+			
+			ResultSet rs = state.executeQuery();
+			
+			if (!rs.isBeforeFirst() ) {    
+			     flag=false;
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isArrive " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		return flag;
+	}
+	
+	public boolean IsDepart(int reser){
+		boolean flag = true;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select * from Depart where FKIdReser="+reser);
+			
+			ResultSet rs = state.executeQuery();
+			
+			if (!rs.isBeforeFirst() ) {    
+			     flag=false;
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isDepart " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		return flag;
+	}
+	
+	public boolean IsArriveInDe(int reser, String cha){
+		boolean flag = true;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select * from Arrive where FKIdReser="+reser+" and FKNoCham="+cha);
+			
+			ResultSet rs = state.executeQuery();
+			
+			if (!rs.isBeforeFirst() ) {    
+			     flag=false;
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java isDepart " + e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		return flag;
+	}
+	
+	public long NextValSeqReservation(){
+		long val=0;
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select SEQ_Reservation.nextval from dual");
+			
+			ResultSet rs = state.executeQuery();
+			while(rs.next()){
+				val = rs.getLong(1);
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java CurrValSeqReservation "
+									+ e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		return val;
+	}
+	
+	public int CountIdReserForArrive(int id){
+		int count=0;
+		
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select count(*) from ARRIVE where FKIdReser="+id+" group by FKIdReser");
+			
+			ResultSet rs = state.executeQuery();
+			if (rs.isBeforeFirst() ) {
+				while(rs.next()){
+					count = rs.getInt(1);
+				}
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java CountIdReserForArrive "
+									+ e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		
+		return count;
+	}
+	
+	public int CountIdReserForDepart(int id){
+		int count=0;
+		
+		try {
+			PreparedStatement state = ModConnexion.
+					getInstance().
+					getLaConnectionStatique().
+					prepareStatement("select count(*) from DEPART where FKIdReser="+id+" group by FKIdReser");
+			
+			ResultSet rs = state.executeQuery();
+			if (rs.isBeforeFirst() ) {
+				while(rs.next()){
+					count = rs.getInt(1);
+				}
+			}
+			rs.close();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation.java CountIdReserForDepart "
+									+ e.toString(), "ALERTE", JOptionPane.ERROR_MESSAGE);
+			//System.out.println(e);
+		}
+		
+		return count;
+	}
 }
