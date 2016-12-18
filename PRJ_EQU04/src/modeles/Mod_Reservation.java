@@ -71,7 +71,7 @@ public class Mod_Reservation extends AbstractTableModel{
 	{
 		try {
 			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("SELECT *" + 
-																											"FROM SELECT_RESERVATION");	
+																											"FROM EQU04PRG01.SELECT_RESERVATION");	
 			ResultSet rs = state.executeQuery();
 			
 			
@@ -285,7 +285,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement("INSERT INTO RESERVATION VALUES ( "+m.IdReser+" , "
+					.prepareStatement("INSERT INTO EQU04PRG01.RESERVATION VALUES ( "+m.IdReser+" , "
 					+ m.IdCli + " , "
 					+ "TO_DATE('" + m.dateReser + "' , 'YY-MM-DD'), "
 					+ "TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
@@ -306,7 +306,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement( "UPDATE RESERVATION SET "
+					.prepareStatement( "UPDATE EQU04PRG01.RESERVATION SET "
 										+ " FKIdCli=" + m.IdCli + ", "
 										+ " dateDebut=TO_DATE('" + m.dateDebut + "' , 'YY-MM-DD'), "
 										+ " dateFin=TO_DATE('" + m.dateFin + "' , 'YY-MM-DD') "
@@ -324,7 +324,7 @@ public class Mod_Reservation extends AbstractTableModel{
 		try {    
 			PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement("DELETE FROM RESERVATION WHERE IdReser="+Idreser);
+					.prepareStatement("DELETE FROM EQU04PRG01.RESERVATION WHERE IdReser="+Idreser);
 			state.executeUpdate();
 			state.execute("commit");
 			
@@ -341,7 +341,7 @@ public class Mod_Reservation extends AbstractTableModel{
 			PreparedStatement state = ModConnexion.
 					getInstance().
 					getLaConnectionStatique().
-					prepareStatement("select * from Trx where FKIdCli=" + cli + " and FKIdReser="+reser);
+					prepareStatement("select * from EQU04PRG01.Trx where FKIdCli=" + cli + " and FKIdReser="+reser);
 			
 			ResultSet rs = state.executeQuery();
 			
@@ -364,7 +364,7 @@ public class Mod_Reservation extends AbstractTableModel{
 			PreparedStatement state = ModConnexion.
 					getInstance().
 					getLaConnectionStatique().
-					prepareStatement("select * from ARRIVE where FKIdReser="+reser);
+					prepareStatement("select * from EQU04PRG01.ARRIVE where FKIdReser="+reser);
 			
 			ResultSet rs = state.executeQuery();
 			
@@ -387,7 +387,7 @@ public class Mod_Reservation extends AbstractTableModel{
 			PreparedStatement state = ModConnexion.
 					getInstance().
 					getLaConnectionStatique().
-					prepareStatement("select * from Depart where FKIdReser="+reser);
+					prepareStatement("select * from EQU04PRG01.Depart where FKIdReser="+reser);
 			
 			ResultSet rs = state.executeQuery();
 			
@@ -410,7 +410,7 @@ public class Mod_Reservation extends AbstractTableModel{
 			PreparedStatement state = ModConnexion.
 					getInstance().
 					getLaConnectionStatique().
-					prepareStatement("select * from Arrive where FKIdReser="+reser+" and FKNoCham="+cha);
+					prepareStatement("select * from EQU04PRG01.Arrive where FKIdReser="+reser+" and FKNoCham="+cha);
 			
 			ResultSet rs = state.executeQuery();
 			
@@ -433,7 +433,7 @@ public class Mod_Reservation extends AbstractTableModel{
 			PreparedStatement state = ModConnexion.
 					getInstance().
 					getLaConnectionStatique().
-					prepareStatement("select SEQ_Reservation.nextval from dual");
+					prepareStatement("select EQU04PRG01.SEQ_Reservation.nextval from dual");
 			
 			ResultSet rs = state.executeQuery();
 			while(rs.next()){
@@ -457,7 +457,7 @@ public class Mod_Reservation extends AbstractTableModel{
 			PreparedStatement state = ModConnexion.
 					getInstance().
 					getLaConnectionStatique().
-					prepareStatement("select count(*) from ARRIVE where FKIdReser="+id+" group by FKIdReser");
+					prepareStatement("select count(*) from EQU04PRG01.ARRIVE where FKIdReser="+id+" group by FKIdReser");
 			
 			ResultSet rs = state.executeQuery();
 			if (rs.isBeforeFirst() ) {
@@ -484,7 +484,7 @@ public class Mod_Reservation extends AbstractTableModel{
 			PreparedStatement state = ModConnexion.
 					getInstance().
 					getLaConnectionStatique().
-					prepareStatement("select count(*) from DEPART where FKIdReser="+id+" group by FKIdReser");
+					prepareStatement("select count(*) from EQU04PRG01.DEPART where FKIdReser="+id+" group by FKIdReser");
 			
 			ResultSet rs = state.executeQuery();
 			if (rs.isBeforeFirst() ) {

@@ -31,7 +31,7 @@ public class Mod_Pk_Reservation extends AbstractTableModel{
 	public void Lire_Enre()
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select *  from SELECT_RESERVATION_RESER");	
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select *  from EQU04PRG01.SELECT_RESERVATION_RESER");	
 			ResultSet rs = state.executeQuery();
 			
 			while (rs.next()) {

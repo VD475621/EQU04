@@ -29,13 +29,9 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
-									.prepareStatement("Select * from SELECT_CHAMBRE_FILTRE where NoCham not in (select c.NoCham from chambre c, de d, reservation r " + 
+									.prepareStatement("Select * from EQU04PRG01.SELECT_CHAMBRE_FILTRE where NoCham not in (select c.NoCham from EQU04PRG01.chambre c, EQU04PRG01.de d, EQU04PRG01.reservation r " + 
 														" where c.nocham=d.FKNoCham AND d.FKIdReser=r.idreser AND " + 
 														" (c.etat=0 OR not (TO_DATE('" + DateDeb + "', 'YY-MM-DD')>=r.dateFin OR TO_DATE('"+DateFin+"','YY-MM-DD')<=r.dateDebut))) order by NoCham");
-			//state.setDate(1, DateDeb);
-			//state.setDate(2, DateFin);
-			//state.setDate(3, DateFin);
-			//state.setDate(4, DateFin);
 			
 			ResultSet rs = state.executeQuery();
 			
@@ -62,7 +58,7 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
-									.prepareStatement("INSERT INTO TEMP_CHAMBRE VALUES ('" + c + "')");
+									.prepareStatement("INSERT INTO EQU04PRG01.TEMP_CHAMBRE VALUES ('" + c + "')");
 			
 			state.executeUpdate();
 			state.execute("commit");
@@ -78,7 +74,7 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
-									.prepareStatement("DELETE FROM TEMP_CHAMBRE WHERE NoCham=?");	
+									.prepareStatement("DELETE FROM EQU04PRG01.TEMP_CHAMBRE WHERE NoCham=?");	
 			state.setString(1, c);
 			state.executeUpdate();
 			state.execute("commit");
@@ -94,7 +90,7 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
-									.prepareStatement("DELETE FROM TEMP_CHAMBRE");
+									.prepareStatement("DELETE FROM EQU04PRG01.TEMP_CHAMBRE");
 			state.executeUpdate();
 			state.execute("commit");
 		} 

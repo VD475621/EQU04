@@ -25,7 +25,7 @@ public class Mod_Pk_Client extends AbstractTableModel{
 	public void Lire_Enre()
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select IdCli, Nom, Adresse, Telephone from Client");	
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select IdCli, Nom, Adresse, Telephone from EQU04PRG01.Client");	
 			ResultSet rs = state.executeQuery();
 			
 			while (rs.next()) {

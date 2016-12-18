@@ -3,6 +3,7 @@
 @View.sql;
 @trigger_reservation_delete.sql;
 
+Grant all privileges on dual to EQU04COMMIS;
 Grant all privileges on DE to EQU04COMMIS;
 Grant all privileges on ARRIVE to EQU04COMMIS;
 Grant all privileges on AYANT to EQU04COMMIS;
@@ -16,7 +17,18 @@ Grant all privileges on TEMP_CHAMBRE to EQU04COMMIS;
 Grant all privileges on TRX to EQU04COMMIS;
 Grant all privileges on TYPECHAM to EQU04COMMIS;
 Grant all privileges on TYPTRX to EQU04COMMIS;
+--Grant all privileges on DELETE_RESERVATION to EQU04COMMIS;
+Grant all privileges on SELECT_RESERVATION_RESER to EQU04COMMIS;
+Grant all privileges on SELECT_RESERVATION to EQU04COMMIS;
+Grant all privileges on SELECT_RESERVATION_CHAMBRE to EQU04COMMIS;
+Grant all privileges on SELECT_CHAMBRE_FILTRE to EQU04COMMIS;
+Grant all privileges on SEQ_Reservation to EQU04COMMIS;
+Grant all privileges on SEQ_Client to EQU04COMMIS;
+Grant all privileges on SEQ_Arrive to EQU04COMMIS;
+Grant all privileges on SEQ_Depart to EQU04COMMIS;
+Grant all privileges on SEQ_Trx to EQU04COMMIS;
 
+Grant all privileges on dual to EQU04GERANT ;
 Grant all privileges on DE to EQU04GERANT;
 Grant all privileges on ARRIVE to EQU04GERANT;
 Grant all privileges on AYANT to EQU04GERANT;
@@ -30,5 +42,15 @@ Grant all privileges on TEMP_CHAMBRE to EQU04GERANT;
 Grant all privileges on TRX to EQU04GERANT;
 Grant all privileges on TYPECHAM to EQU04GERANT;
 Grant all privileges on TYPTRX to EQU04GERANT;
+--Grant all privileges on DELETE_RESERVATION to EQU04GERANT;
+Grant all privileges on SELECT_RESERVATION_RESER to EQU04GERANT;
+Grant all privileges on SELECT_RESERVATION to EQU04GERANT;
+Grant all privileges on SELECT_RESERVATION_CHAMBRE to EQU04GERANT;
+Grant all privileges on SELECT_CHAMBRE_FILTRE to EQU04GERANT;
+Grant all privileges on SEQ_Reservation to EQU04GERANT;
+Grant all privileges on SEQ_Client to EQU04GERANT;
+Grant all privileges on SEQ_Arrive to EQU04GERANT;
+Grant all privileges on SEQ_Depart to EQU04GERANT;
+Grant all privileges on SEQ_Trx to EQU04GERANT;
 
 commit;

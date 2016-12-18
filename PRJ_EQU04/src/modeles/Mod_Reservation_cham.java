@@ -46,7 +46,7 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	{
 		try {
 			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select * " +
-																											"from SELECT_RESERVATION_CHAMBRE " + 
+																											"from EQU04PRG01.SELECT_RESERVATION_CHAMBRE " + 
 																											"where FKIdReser = ?");
 			state.setInt(1, p);
 			
@@ -75,7 +75,7 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 				//System.out.println(c.get(i));
 				PreparedStatement state = ModConnexion.getInstance()
 					.getLaConnectionStatique()
-					.prepareStatement("INSERT INTO DE VALUES ( "
+					.prepareStatement("INSERT INTO EQU04PRG01.DE VALUES ( "
 					+ IdReser + " , '"
 					+ c.get(i) + "' , "
 					+ (a[i]?1:0)
@@ -98,7 +98,7 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 				//System.out.println(c.get(i));
 			PreparedStatement state = ModConnexion.getInstance()
 									.getLaConnectionStatique()
-									.prepareStatement("DELETE FROM DE WHERE "
+									.prepareStatement("DELETE FROM EQU04PRG01.DE WHERE "
 													+" FKIdReser="+IdReser);
 			state.executeUpdate();
 				 
