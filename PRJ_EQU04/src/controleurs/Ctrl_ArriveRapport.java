@@ -25,58 +25,60 @@ import modeles.ModConnexion;
 
 
 
-public class CtrlRapReser {
+public class Ctrl_ArriveRapport {
 	private static Connection laConnexion = ModConnexion.getInstance().getLaConnectionStatique();
 
 	private static JasperDesign design = null;
 	private static JasperReport report = null;
 	private static JasperPrint print = null;
 	private static String chemin = CtrlPathRapport.getRepertoireCourant()
-									+ CtrlPathRapport.getSeparateur()
-									+ "src" + CtrlPathRapport.getSeparateur()
-									+ "Rapports" + CtrlPathRapport.getSeparateur();
+			+ CtrlPathRapport.getSeparateur()
+			+ "src" + CtrlPathRapport.getSeparateur()
+			+ "Rapports" + CtrlPathRapport.getSeparateur();
 
 	public static void chargeEtcompile(String rapport, String date1, String date2)
 	{
 		try
 		{
-			System.out.println(chemin	+ rapport);
-		  design = JRXmlLoader.load(chemin	+ rapport);
-		  report = JasperCompileManager.compileReport(design);
+			design = JRXmlLoader.load(chemin	+ rapport);
+			
+			report = JasperCompileManager.compileReport(design);
 
-		 
-		  HashMap<String, Object> mesParametres = new HashMap<String,Object>();
-		  mesParametres.put("date1", date1);
-	  	  mesParametres.put("date2", date2);
+			System.out.println("Bloup0");
+			HashMap<String, Object> mesParametres = new HashMap<String,Object>();
+			mesParametres.put("date1", date1);
+			mesParametres.put("date2", date2);
 
-		 //Affichage du rapport
-		  print= JasperFillManager.fillReport(report, mesParametres, laConnexion);
+			//Affichage du rapport
+			print= JasperFillManager.fillReport(report, mesParametres, laConnexion);
+			System.out.println("Bloup1");
+			//Pour exporter le rapport en pdf
+			JFileChooser save = new JFileChooser();
+			save.setSelectedFile(new File("Arrives_" + date1 + "_" + date2 + ".pdf"));
+			int retour = save.showSaveDialog(save);
+			System.out.println("Bloup2");
+			if(retour == JFileChooser.APPROVE_OPTION)
+			{
+				try
+				{
+					JasperExportManager.exportReportToPdfFile(print, save.getSelectedFile().getAbsolutePath());
+					System.out.println("Bloup3");
+				}
+				catch(Exception e)
+				{
+					JOptionPane.showMessageDialog(null, "Exportation impossible","Erreur",JOptionPane.ERROR_MESSAGE);
+				}
 
-		  //Pour exporter le rapport en pdf
-		  JFileChooser save = new JFileChooser();
-		  save.setSelectedFile(new File("Reservation_" + date1 + "_" + date2 + ".pdf"));
-		  int retour = save.showSaveDialog(save);
-		  if(retour == JFileChooser.APPROVE_OPTION)
-		  {
-			  try
-			  {
-				  JasperExportManager.exportReportToPdfFile(print, save.getSelectedFile().getAbsolutePath());
-			  }
-			  catch(Exception e)
-			  {
-				  JOptionPane.showMessageDialog(null, "Exportation impossible","Erreur",JOptionPane.ERROR_MESSAGE);
-			  }
-
-		  }
+			}
 
 
 		}
 		catch(Exception e)
 		{
 			JOptionPane.showMessageDialog(null, "La compilation du rapport a échoué : \n"
-			+ e.getMessage()+JOptionPane.ERROR_MESSAGE);
+					+ e.getMessage() + e.getCause()+JOptionPane.ERROR_MESSAGE);
 		}
-}
+	}
 
 
 	public static void apercu(String rapport, String date1, String date2)
@@ -93,7 +95,7 @@ public class CtrlRapReser {
 	}
 
 	private static Date convertirChaineEnDateJava(String laDateEnChaine) throws ParseException{
-	   SimpleDateFormat dsf = new SimpleDateFormat("yyyy-MM-dd");
-	   return dsf.parse(laDateEnChaine);
-   }
+		SimpleDateFormat dsf = new SimpleDateFormat("yyyy-MM-dd");
+		return dsf.parse(laDateEnChaine);
+	}
 }

@@ -20,9 +20,7 @@ public final class Pk_List extends JDialog {
 
 	private Pk_List(AbstractTableModel m, String t, int state)
 	{
-<<<<<<< HEAD
-
-        jt = new JTable(m);
+		/*jt = new JTable(m);
         add(new JScrollPane(jt));
         this.setBounds(150, 150, 450, 200);
         setModal(true);
@@ -42,46 +40,46 @@ public final class Pk_List extends JDialog {
 	  			}
 			}
   		});
-		setVisible(true);
-=======
+		setVisible(true);*/
+
 		No_ligne = null;
 		if(m.getRowCount()>0){
 			jt = new JTable(m);
-	        add(new JScrollPane(jt));
-	        this.setBounds(150, 150, 450, 200);
-	        setModal(true);
+			add(new JScrollPane(jt));
+			this.setBounds(150, 150, 450, 200);
+			setModal(true);
 			setTitle(t);
-		    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 			jt.addMouseListener(new MouseAdapter()
 			{
-		  			@Override
-		  			public void mousePressed(MouseEvent e)
-		  			{
-		  				if(state == 0){
-			  				No_ligne = jt.getValueAt(jt.getSelectedRow(), 0);
-		  				}
-		  				else if (state == 1){
-		  					ArrayList<Object> row = new ArrayList<Object>();
-		  					for(int i =0;i<jt.getColumnCount();i++){
-		  						row.add(jt.getValueAt(jt.getSelectedRow(), i));
-		  					}
-		  					//System.out.println(row);
-		  					No_ligne = row;
-		  				}
-		  				else if(state == 2){
-		  					No_ligne = jt.getSelectedRow();
-		  				}
-					  	dispose();
-					   	e.setSource(null);
-		  			}
-	  		});
+				@Override
+				public void mousePressed(MouseEvent e)
+				{
+					if(state == 0){
+						No_ligne = jt.getValueAt(jt.getSelectedRow(), 0);
+					}
+					else if (state == 1){
+						ArrayList<Object> row = new ArrayList<Object>();
+						for(int i =0;i<jt.getColumnCount();i++){
+							row.add(jt.getValueAt(jt.getSelectedRow(), i));
+						}
+						//System.out.println(row);
+						No_ligne = row;
+					}
+					else if(state == 2){
+						No_ligne = jt.getSelectedRow();
+					}
+					dispose();
+					e.setSource(null);
+				}
+			});
 			setVisible(true);
 		}else{
 			JOptionPane.showMessageDialog(null, "Il n'y a pas de valeur a selectionn� pour " + t);
 		}
-        
->>>>>>> d0723883b42d41ba1fb8a5fc566d2d60252b9009
+
 	}
+
 
 	/** return the selectedRow from a table created with model and title
 	 *

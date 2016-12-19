@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -324,6 +325,14 @@ public class Frm_Arrive extends Frm_Base {
 		});
 		
 		SP_Table.setViewportView(TBL_Reserv);
+		
+		JMenuItem mntmRapportarrive = new JMenuItem("Rapport Arrive");
+		this.mnRapport.add(mntmRapportarrive);
+		mntmRapportarrive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crt_arrive.rapport();
+			}
+		});
 
 		crt_arrive.Consulter();
 		}

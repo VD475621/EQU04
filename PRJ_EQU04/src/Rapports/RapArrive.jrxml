@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-19T13:00:03 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RapArrive" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dcc1b320-86d4-4a3a-abd6-51ed947d1125">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="date1" class="java.lang.String"/>
+	<parameter name="date2" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select r.Idreser, r.DATERESER, r.DATEDEBUT, r.DATEFIN, nc.FKNOCHAM, ch.FKCODTYPCHA, nc.FKIDCLI, nc.nom
+from EQU04PRG01.reservation r, EQU04PRG01.chambre ch, (select d.FKIDRESER, d.FKNOCHAM, nb.nom, nb.FKIDCLI 
+                                from  EQU04PRG01.de d
+                                full outer join ( select a.FKNOCHAM, a.FKIDCLI, a.FKIDRESER, c.nom  from EQU04PRG01.ARRIVE a, EQU04PRG01.client c
+                                                  where a.FKIDCLI=c.IDCLI order by a.FKIDRESER
+                                                ) nb
+                                on d.FKIDRESER=nb.FKIDRESER and d.FKNOCHAM=nb.FKNOCHAM) nc
+where r.IDRESER=nc.FKIDRESER and ch.NOCHAM=nc.FKNOCHAM 
+and( (r.datedebut between to_date($P{date1},'yy-mm-dd') and to_date($P{date2},'yy-mm-dd'))
+ and (r.datefin between to_date($P{date1},'yy-mm-dd') and to_date($P{date2},'yy-mm-dd')))
+order by r.idreser]]>
+	</queryString>
+	<field name="IDRESER" class="java.math.BigDecimal"/>
+	<field name="DATERESER" class="java.sql.Timestamp"/>
+	<field name="DATEDEBUT" class="java.sql.Timestamp"/>
+	<field name="DATEFIN" class="java.sql.Timestamp"/>
+	<field name="FKNOCHAM" class="java.lang.String"/>
+	<field name="FKCODTYPCHA" class="java.lang.String"/>
+	<field name="FKIDCLI" class="java.math.BigDecimal"/>
+	<field name="NOM" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="120" y="0" width="290" height="30" uuid="5effa5f7-ce0d-4050-8303-e3231c06aaff"/>
+				<textElement>
+					<font size="18" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Rapport des Arrivés"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="144" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="10" width="110" height="30" uuid="b8613ece-01ea-4b20-8e2a-ccd0b0bd1905"/>
+				<textFieldExpression><![CDATA["Réservation entre le "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="10" width="30" height="30" uuid="b8968cb0-104d-4504-a139-003ed564f6b4"/>
+				<textFieldExpression><![CDATA[" et le "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="10" width="100" height="30" uuid="3b4dddce-849f-4a04-b663-990b6501f672"/>
+				<textFieldExpression><![CDATA[$P{date2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="10" width="100" height="30" uuid="51c1c765-ae9d-46c1-bff1-1d6c68f2aa3f"/>
+				<textFieldExpression><![CDATA[$P{date1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="100" height="30" uuid="cd876b6a-6539-49a7-9eed-1f78937daaba"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id Reservation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="50" width="100" height="30" uuid="9b6ed1fa-b8f1-4a44-a852-9b8c0bf12837"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Reservation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="50" width="100" height="30" uuid="075b902b-64fa-47c2-ae5a-f626a0fea9cd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Debut]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="50" width="100" height="30" uuid="7f232e17-80df-4458-a064-47ecd5defd30"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Fin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="93" width="100" height="30" uuid="0620075f-d886-4835-af9a-9f7691bc1780"/>
+				<text><![CDATA[No Chambre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="93" width="100" height="30" uuid="1a37ab3b-1c6a-4f0a-b677-cd8b3323feae"/>
+				<text><![CDATA[Type Chambre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="93" width="100" height="30" uuid="0e564ced-ba35-4467-8935-e876be637cab"/>
+				<text><![CDATA[Id Client]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="93" width="100" height="30" uuid="451e4745-d55d-4119-981c-ea2aadc738e6"/>
+				<text><![CDATA[Nom]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="69" splitType="Stretch">
+			<textField>
+				<reportElement x="230" y="20" width="100" height="30" uuid="3f8cd113-eddb-4275-93fa-50b4ac3e89a7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATEDEBUT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="20" width="100" height="30" uuid="742d4fcd-9f50-4140-bee4-f582ae84d19c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATEFIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="19" width="100" height="30" uuid="51fe2e14-30a8-49f5-a1a6-7a526bda542c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IDRESER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="19" width="100" height="30" uuid="05e1a5c2-9a52-4352-959d-02c9fbdf3d22"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATERESER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement x="160" y="9" width="100" height="30" uuid="785ffc15-be9b-41d7-8e16-15abe0f8962a"/>
+				<textFieldExpression><![CDATA[$F{FKCODTYPCHA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="10" width="100" height="30" uuid="c17d8bdf-81f3-47f0-8541-e7fcd6f8993e"/>
+				<textFieldExpression><![CDATA[$F{FKIDCLI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="10" width="100" height="30" uuid="e14c5882-f7e8-4488-b84b-c8c4f46034aa"/>
+				<textFieldExpression><![CDATA[$F{FKNOCHAM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="400" y="9" width="100" height="30" uuid="becb176b-3610-4898-967b-31c5517447ba"/>
+				<textFieldExpression><![CDATA[$F{NOM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="12" width="100" height="30" uuid="b3e35d67-995e-46b8-b3a6-50e57a705eb2"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="445" y="20" width="100" height="30" uuid="dd333f9a-ec4c-4b33-8144-103085c8b381"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

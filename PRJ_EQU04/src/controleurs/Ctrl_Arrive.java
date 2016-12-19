@@ -6,13 +6,14 @@ import java.sql.Date;
 import javax.swing.JOptionPane;
 
 import View.Frm_Arrive;
+import View.Frm_ArriveRapport;
+import View.Frm_ChambreRapport;
 import View.Pk_List;
 import modeles.Mod_Arrive;
 import modeles.Mod_Arrive_Cham;
 import modeles.Mod_Pk_Arrive;
 import modeles.Mod_Pk_Chambre;
 import modeles.Mod_Pk_Client;
-import modeles.Mod_Pk_Depart;
 import modeles.Mod_Pk_Reservation;
 
 public class Ctrl_Arrive {
@@ -380,6 +381,12 @@ public class Ctrl_Arrive {
 			return false;
 		}
 		return false;
+	}
+	
+	public void rapport(){
+		Frm_ArriveRapport winRapport = new Frm_ArriveRapport();
+		winRapport.setVisible(true);
+        //fenetre.dispose();
 	}
 
 	public void Annuler()
