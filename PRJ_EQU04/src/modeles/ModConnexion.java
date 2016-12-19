@@ -3,7 +3,6 @@ package modeles;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.TimeZone;
 
 import javax.swing.JOptionPane;
 
@@ -41,7 +40,12 @@ public final class ModConnexion {
 			if (ok == true)
 				{
 					try {
+<<<<<<< HEAD
 						setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@205.236.2.160:1522:orcl",nomUsager,mdp));//10.10.1.60:1522:orcl
+=======
+						//setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@10.10.1.60:1522:orcl",nomUsager,mdp));
+						setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@205.236.2.160:1522:orcl",nomUsager,mdp));
+>>>>>>> d0723883b42d41ba1fb8a5fc566d2d60252b9009
 					}
 					catch(SQLException en)
 					{

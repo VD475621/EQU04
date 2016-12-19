@@ -23,6 +23,10 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	private ArrayList<Mod_Reservation_cham> les_reser_c = new  ArrayList<Mod_Reservation_cham>();
 	private final  String[] lesTitres = {"IdReser","No chambre", "Type", "Prix", "Occupee"};
 	
+	public Mod_Reservation_cham(){
+		
+	}
+	
 	public Mod_Reservation_cham(int idreser, String nocham, String type, double prix, boolean occ)
 	{
 		this.setIdReser(idreser);
@@ -41,9 +45,9 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	public void Lire_Enre(int p)
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKIdReser, c.NoCham, tc.CodTypCha, c.Prix, d.Attribuee " +
-																											"from De d, Chambre c, TypeCham tc " + 
-																											"where tc.CodTypCha=c.FKCodTypCha and c.NoCham=d.FKNoCham and d.FKIdReser = ?");
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select * " +
+																											"from EQU04PRG01.SELECT_RESERVATION_CHAMBRE " + 
+																											"where FKIdReser = ?");
 			state.setInt(1, p);
 			
 			ResultSet rs = state.executeQuery();
@@ -62,6 +66,49 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 		{
 			JOptionPane.showMessageDialog(null, "Probleme rencontre dans Mod_Reservation_cham.java","ALERTE", JOptionPane.ERROR_MESSAGE);
 			System.out.println(e);
+		}
+	}
+	
+	public void InsertEnregistrement(int IdReser, ArrayList<String> c, boolean a[]){
+		try {
+			for(int i=0;i<c.size();i++){
+				//System.out.println(c.get(i));
+				PreparedStatement state = ModConnexion.getInstance()
+					.getLaConnectionStatique()
+					.prepareStatement("INSERT INTO EQU04PRG01.DE VALUES ( "
+					+ IdReser + " , '"
+					+ c.get(i) + "' , "
+					+ (a[i]?1:0)
+					+ " )");
+	
+				state.executeUpdate();
+				 
+				state.execute("commit");
+			}
+			
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans ajout des DE\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void UpdateEnregistrement(int IdReser, ArrayList<String> after, boolean a[]){
+		try {
+				//System.out.println(c.get(i));
+			PreparedStatement state = ModConnexion.getInstance()
+									.getLaConnectionStatique()
+									.prepareStatement("DELETE FROM EQU04PRG01.DE WHERE "
+													+" FKIdReser="+IdReser);
+			state.executeUpdate();
+				 
+			state.execute("commit");
+			
+			InsertEnregistrement(IdReser, after, a);
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans Update des DE\n" + e.getMessage(),
+					"ALERTE", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

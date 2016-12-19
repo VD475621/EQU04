@@ -8,6 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Frm_Base extends JFrame {
 
@@ -26,6 +31,10 @@ public class Frm_Base extends JFrame {
 	protected JButton btnModifier;
 	protected JButton btnAnnuler;
 	protected JButton btnSauvegarder;
+	protected JMenuBar menuBar;
+	protected JMenu mnFichier;
+	protected JMenuItem mntmQuitter;
+	protected JMenu mnRapport;
 
 	/**
 	 * Launch the application.
@@ -101,5 +110,18 @@ public class Frm_Base extends JFrame {
 		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBounds(553, 626, 117, 29);
 		contentPane.add(btnAnnuler);
+		
+	    menuBar = new JMenuBar();
+		menuBar.setBounds(0, 6, 138, 28);
+		contentPane.add(menuBar);
+		
+		mnFichier = new JMenu("Fichier");
+		menuBar.add(mnFichier);
+		
+		mntmQuitter = new JMenuItem("Quitter");
+		mnFichier.add(mntmQuitter);
+		
+		mnRapport = new JMenu("Rapport");
+		menuBar.add(mnRapport);
 	}
 }
