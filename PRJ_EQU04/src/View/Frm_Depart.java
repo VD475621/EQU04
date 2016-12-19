@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -60,6 +61,7 @@ public class Frm_Depart extends Frm_Base {
 	 */
 	public Frm_Depart() {
 		super();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		crt_depart = new Ctrl_Depart(this);
 		
 		btnFin.addActionListener(new ActionListener() {
