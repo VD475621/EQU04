@@ -17,19 +17,13 @@ public final class Pk_List extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private static JTable jt;
 	private static Object No_ligne = null;
+	private Pk_List instance;
 
 	private Pk_List(AbstractTableModel m, String t, int state)
 	{
-<<<<<<< HEAD
-
-        jt = new JTable(m);
-        add(new JScrollPane(jt));
-        this.setBounds(150, 150, 450, 200);
-        setModal(true);
-		setTitle(t);
-	    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-	    No_ligne = 0;
-		jt.addMouseListener(new MouseAdapter()
+		instance = this;
+	    //No_ligne = 0;
+		/*jt.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent e)
 			{
@@ -41,9 +35,7 @@ public final class Pk_List extends JDialog {
 				   	e.setSource(null);
 	  			}
 			}
-  		});
-		setVisible(true);
-=======
+  		});*/
 		No_ligne = null;
 		if(m.getRowCount()>0){
 			jt = new JTable(m);
@@ -71,7 +63,7 @@ public final class Pk_List extends JDialog {
 		  				else if(state == 2){
 		  					No_ligne = jt.getSelectedRow();
 		  				}
-					  	dispose();
+		  				instance.dispose();
 					   	e.setSource(null);
 		  			}
 	  		});
@@ -80,7 +72,6 @@ public final class Pk_List extends JDialog {
 			JOptionPane.showMessageDialog(null, "Il n'y a pas de valeur a selectionn� pour " + t);
 		}
         
->>>>>>> d0723883b42d41ba1fb8a5fc566d2d60252b9009
 	}
 
 	/** return the selectedRow from a table created with model and title
