@@ -5,11 +5,11 @@ import Utils.Query;
 
 public class Procs {
 	private static Query SELECT_RESERVATION = new Query("SELECT * FROM vueReservation");
-	private static Query SELECT_CHAMBRE = new Query("SELECT CHAMBRE.noCham, CHAMBRE.etage, CHAMBRE.etat,CHAMBRE.FKCodTypCha, TYPECHAM.descType, CHAMBRE.FKCodLoc,LOCALISATION.descLoc, CHAMBRE.prix ,CHAMBRE.memo FROM CHAMBRE ,TYPECHAM  ,LOCALISATION where CHAMBRE.FKCodTypCha = TYPECHAM.CodTypCha and CHAMBRE.FKCodLoc = LOCALISATION.CodLoc ORDER BY CHAMBRE.noCham ASC");
+	private static Query SELECT_CHAMBRE = new Query("SELECT CHAMBRE.noCham, CHAMBRE.etage, CHAMBRE.etat,CHAMBRE.FKCodTypCha, TYPECHAM.descType, CHAMBRE.FKCodLoc,LOCALISATION.descLoc, CHAMBRE.prix ,CHAMBRE.memo FROM EQU04PRG01.CHAMBRE ,EQU04PRG01.TYPECHAM  ,LOCALISATION where CHAMBRE.FKCodTypCha = TYPECHAM.CodTypCha and CHAMBRE.FKCodLoc = LOCALISATION.CodLoc ORDER BY CHAMBRE.noCham ASC");
 	private static Query SELECT_AYANT = new Query("select COMMODITE.CodCom , COMMODITE.DescCom FROM COMMODITE , AYANT where COMMODITE.CodCom = AYANT.FKCodCom and AYANT.FKnoCham = ?");
-	private static Query SELECT_CODCOM = new Query("select COMMODITE.CodCom,  COMMODITE.DescCom from COMMODITE");
-	private static Query SELECT_CODLOC = new Query("select LOCALISATION.CodLoc,  LOCALISATION.DescLoc from LOCALISATION");
-	private static Query SELECT_CODTYP = new Query("select TYPECHAM.CodTypCha,  TYPECHAM.DescType, TYPECHAM.nbdispo from TYPECHAM");
+	private static Query SELECT_CODCOM = new Query("select COMMODITE.CodCom,  COMMODITE.DescCom from EQU04PRG01.COMMODITE");
+	private static Query SELECT_CODLOC = new Query("select LOCALISATION.CodLoc,  LOCALISATION.DescLoc from EQU04PRG01.LOCALISATION");
+	private static Query SELECT_CODTYP = new Query("select TYPECHAM.CodTypCha,  TYPECHAM.DescType, TYPECHAM.nbdispo from EQU04PRG01.TYPECHAM");
 	private static Query SELECT_DE = new Query("select * from DE");
 	private static Procedure INSERT_CHAMBRE = new Procedure("INSERT into EQU04PRG01.CHAMBRE VALUES( ? , ? , ? , ? , ? , ? , ? )");
 	private static Procedure INSERT_AYANT = new Procedure("INSERT into EQU04PRG01.AYANT VALUES ( ? , ? )");
