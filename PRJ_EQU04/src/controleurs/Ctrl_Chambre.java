@@ -56,7 +56,7 @@ public class Ctrl_Chambre {
 		mode = Mode.CONSULTATION;
 		Frm_Chambre.getTb_NoCham().setEnabled(false);
 		Frm_Chambre.getTb_Etage().setEnabled(false);
-		Frm_Chambre.getTb_Etat().setEnabled(false);
+		//Frm_Chambre.getTb_Etat().setEnabled(false);
 		Frm_Chambre.getTb_CodType().setEnabled(false);
 		Frm_Chambre.getTb_Localisation().setEnabled(false);
 		Frm_Chambre.getTb_DescType().setEnabled(false);
@@ -97,7 +97,7 @@ public class Ctrl_Chambre {
 		
 		Frm_Chambre.getTb_NoCham().setText("");
 		Frm_Chambre.getTb_Etage().setText("");
-		Frm_Chambre.getTb_Etat().setText("");
+		//Frm_Chambre.getTb_Etat().setText("");
 		Frm_Chambre.getTb_CodType().setText("");
 		Frm_Chambre.getTb_Localisation().setText("");
 		Frm_Chambre.getTb_DescType().setText("");

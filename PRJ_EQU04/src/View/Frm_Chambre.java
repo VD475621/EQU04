@@ -26,7 +26,6 @@ public class Frm_Chambre extends Frm_Base{
 	private JPanel contentPane;
 	private JTextField Tb_NoCham;
 	private JTextField Tb_Etage;
-	private JTextField Tb_Etat;
 	private JTextField Tb_CodType;
 	private JTextField Tb_Localisation;
 	private JTextField Tb_DescType;
@@ -207,7 +206,7 @@ public class Frm_Chambre extends Frm_Base{
 	{
 		
 		JPanel Pn_Chambre = new JPanel();
-		Pn_Chambre.setBounds(26, 68, 493, 533);
+		Pn_Chambre.setBounds(36, 65, 493, 533);
 		getContentPane().add(Pn_Chambre);
 		Pn_Chambre.setLayout(null);
 		
@@ -222,14 +221,9 @@ public class Frm_Chambre extends Frm_Base{
 		Pn_Chambre.add(Lb_NoCham);
 		
 		
-		JLabel lblEtat = new JLabel("Etat");
-		lblEtat.setBounds(6, 160, 61, 16);
-		Pn_Chambre.add(lblEtat);
-		
-		
 		
 		JLabel Lb_Codetype = new JLabel("Code_Type");
-		Lb_Codetype.setBounds(6, 225, 76, 16);
+		Lb_Codetype.setBounds(6, 160, 76, 16);
 		Pn_Chambre.add(Lb_Codetype);
 		
 		
@@ -241,29 +235,29 @@ public class Frm_Chambre extends Frm_Base{
 		
 		
 		JLabel Lb_DescType = new JLabel("Description");
-		Lb_DescType.setBounds(222, 100, 76, 16);
+		Lb_DescType.setBounds(0, 225, 76, 16);
 		Pn_Chambre.add(Lb_DescType);
 		
 		Tb_DescType = new JTextField();
 		Tb_DescType.setEnabled(false);
 		Tb_DescType.setEditable(false);
-		Tb_DescType.setBounds(349, 95, 130, 26);
+		Tb_DescType.setBounds(74, 221, 130, 26);
 		Pn_Chambre.add(Tb_DescType);
 		Tb_DescType.setColumns(10);
 		
 		JLabel Lb_DescLoc = new JLabel("Description");
-		Lb_DescLoc.setBounds(222, 160, 76, 16);
+		Lb_DescLoc.setBounds(222, 100, 76, 16);
 		Pn_Chambre.add(Lb_DescLoc);
 		
 		Tb_DescLoc = new JTextField();
 		Tb_DescLoc.setEnabled(false);
 		Tb_DescLoc.setEditable(false);
-		Tb_DescLoc.setBounds(349, 155, 130, 26);
+		Tb_DescLoc.setBounds(349, 96, 130, 26);
 		Pn_Chambre.add(Tb_DescLoc);
 		Tb_DescLoc.setColumns(10);
 		
 		JLabel Lb_Prix = new JLabel("Prix");
-		Lb_Prix.setBounds(222, 225, 61, 16);
+		Lb_Prix.setBounds(222, 160, 61, 16);
 		Pn_Chambre.add(Lb_Prix);
 		
 		
@@ -315,17 +309,10 @@ public class Frm_Chambre extends Frm_Base{
 		Pn_Chambre.add(Tb_Etage);
 		Tb_Etage.setColumns(10);
 		
-		Tb_Etat = new JTextField();
-		Tb_Etat.setBounds(80, 155, 130, 26);
-		Tb_Etat.setEditable(false);
-		Tb_Etat.setEnabled(false);
-		Pn_Chambre.add(Tb_Etat);
-		Tb_Etat.setColumns(10);
-		
 		
 		Tb_CodType = new JTextField();
 		
-		Tb_CodType.setBounds(80, 220, 130, 26);
+		Tb_CodType.setBounds(80, 156, 130, 26);
 		Tb_CodType.setEditable(false);
 		Tb_CodType.setEnabled(false);
 		Pn_Chambre.add(Tb_CodType);
@@ -341,7 +328,7 @@ public class Frm_Chambre extends Frm_Base{
 		Tb_Localisation.setColumns(10);
 		
 		Tb_Prix = new JTextField();
-		Tb_Prix.setBounds(349, 220, 130, 26);
+		Tb_Prix.setBounds(349, 156, 130, 26);
 		Tb_Prix.setEditable(false);
 		Tb_Prix.setEnabled(false);
 		Pn_Chambre.add(Tb_Prix);
@@ -403,12 +390,11 @@ public class Frm_Chambre extends Frm_Base{
 		return Tb_Etage;
 	}
 
-
 	public void setTb_Etage(JTextField tb_Etage) {
 		Tb_Etage = tb_Etage;
 	}
 
-
+/*
 	public JTextField getTb_Etat() {
 		return Tb_Etat;
 	}
@@ -418,7 +404,7 @@ public class Frm_Chambre extends Frm_Base{
 		Tb_Etat = tb_Etat;
 	}
 
-
+*/
 	public JTextField getTb_CodType() {
 		return Tb_CodType;
 	}

@@ -44,11 +44,8 @@ public final class ModConnexion {
 						setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@205.236.2.160:1522:orcl",nomUsager,mdp));//10.10.1.60:1522:orcl
 
 						//setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@10.10.1.60:1522:orcl",nomUsager,mdp));
-<<<<<<< HEAD
-=======
-						setLaConnectionStatique((Connection) DriverManager.getConnection("jdbc:oracle:thin:@205.236.2.160:1522:orcl",nomUsager,mdp));
 
->>>>>>> f00f80cff2ee452e8b60a3ef6b630686fd18f3cb
+
 					}
 					catch(SQLException en)
 					{
