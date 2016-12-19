@@ -7,23 +7,27 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 
 import javax.swing.JOptionPane;
 
 public class Mod_Depart {
 	
-	private String NoCli;
+	private int NoCli;
 	private String NomCli;
 	private String AdrCli;
 	private String TelCli;
 	private String FaxCli;
 	private String TypeCarte;
 	
-	private String NoReserv;
-	private String DateReserv;
-	private String DateDebut;
-	private String DateFin;
+	private int NoReserv;
+	private Date DateReserv;
+	private Date DateDebut;
+	private Date DateFin;
+	private Date DateDepart;
+	private String ConfPar;
+	private int NoDepart;
 	
 	private int courant = 0;
 	
@@ -33,7 +37,7 @@ public class Mod_Depart {
     /*
      * Constructeur 1
      */
-    public Mod_Depart( String _NoCli,String _NomCli, String _AdrCli,String _TelCli, String _FaxCli,String _TypeCarte,String _NoReserv,String _DateReserv,String _DateDebut,String _DateFin) {
+    public Mod_Depart( int _NoCli,String _NomCli, String _AdrCli,String _TelCli, String _FaxCli,String _TypeCarte,int _NoReserv,Date _DateReserv,Date _DateDebut,Date _DateFin, String _ConfPar,int _NoDepart,Date _DateDepart) {
     	NoCli = _NoCli;
     	NomCli = _NomCli;
     	AdrCli = _AdrCli;
@@ -45,6 +49,10 @@ public class Mod_Depart {
     	DateReserv = _DateReserv;
     	DateDebut = _DateDebut;
     	DateFin = _DateFin;
+    	DateDepart = _DateDepart;
+    	ConfPar = _ConfPar;
+    	
+    	NoDepart = _NoDepart;
  
     }
     /*
@@ -60,50 +68,38 @@ public class Mod_Depart {
         try {    
             lesEnreg.clear();
             Statement state = laConnexion.createStatement();
-            ResultSet rs = state.executeQuery("SELECT c.IdCli,c.Nom,c.Adresse,c.Telephone,c.Fax,c.TypeCarte,r.IdReser,r.dateReser,r.dateDebut,r.dateFin FROM CLIENT c,RESERVATION r ,ARRIVE a WHERE r.FKIdCli = c.IdCli AND a.FKIdReser = r.IdReser");                                                                                                                                                                                                                                                                                                                                                                                                                                   
+            ResultSet rs = state.executeQuery("SELECT c.IdCli,c.Nom,c.Adresse,c.Telephone,c.Fax,c.TypeCarte,r.IdReser,r.dateReser,r.dateDebut,r.dateFin,d.ConfirmePar,d.NODEPART,d.dateDepart FROM CLIENT c,DEPART d, Reservation r WHERE d.FKIdCli = c.IdCli AND d.FKIdReser = r.IdReser");                                                                                                                                                                                                                                                                                                                                                                                                                                   
  
             while (rs.next())
             {
-            	String _NoCli = rs.getString("IdCli");
+            	int _NoCli = rs.getInt("IdCli");
             	//System.out.println(_NoCli);
             	String _NomCli = rs.getString("Nom");
             	String _AdrCli = rs.getString("Adresse");
             	String _TelCli = rs.getString("Telephone");
             	String _FaxCli = rs.getString("Fax");
             	String _TypeCarte = rs.getString("TypeCarte");
-            	String _NoReserv = rs.getString("IdReser");
+            	int _NoReserv = rs.getInt("IdReser");
             	
             	System.out.println(_NoCli);
             	System.out.println(_NomCli);
             	System.out.println(_NoReserv);
             	System.out.println("---------------------");
-            	
-            	Date date = null;
-                try {
-                    date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(rs.getString("dateReser"));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            
                 
-            	String _DateReserv = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                Date _DateReserv = rs.getDate("dateReser");
             	
-            	try {
-                    date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(rs.getString("dateDebut"));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                Date _DateDebut = rs.getDate("dateDebut");
             	
-            	String _DateDebut = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                Date _DateFin = rs.getDate("dateFin");
+                
+                String confpar = rs.getString("confirmepar");
+                
+                int nodepart = rs.getInt("nodepart");
+                
+                Date datedepart = rs.getDate("datedepart");
             	
-            	try {
-                    date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(rs.getString("dateFin"));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            	
-            	String _DateFin = new SimpleDateFormat("yyyy-MM-dd").format(date);
-            	
-                lesEnreg.add(new Mod_Depart(_NoCli,_NomCli,_AdrCli,_TelCli,_FaxCli,_TypeCarte,_NoReserv,_DateReserv,_DateDebut,_DateFin));  
+                lesEnreg.add(new Mod_Depart(_NoCli,_NomCli,_AdrCli,_TelCli,_FaxCli,_TypeCarte,_NoReserv,_DateReserv,_DateDebut,_DateFin,confpar,nodepart,datedepart));  
                 //System.out.println("Enregistrements count:" + lesEnreg.size());
             }           
         } catch (SQLException e) {
@@ -111,6 +107,38 @@ public class Mod_Depart {
                     "ALERTE", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    public boolean Delete(int _NoArrive)
+	{
+		try {
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("DELETE FROM DEPART WHERE NOARRIVE = ?");
+			state.setInt(1, _NoArrive);
+			
+			int rows = state.executeUpdate();
+			System.out.println("Insert Result: "+rows);
+			if(rows > 0)
+				return true;
+			else
+				return false;
+			
+			//this.lireEnreg();
+			//this.fireTableDataChanged();
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Delete" + e.getErrorCode() + " " + e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
+    
+    public Mod_Depart getDepartByIdReserv(int IdReserv)
+	{
+		for(int i = 0;i < (lesEnreg.size()-1) ; i++){
+			if((int)this.getValueAt(i,6) == IdReserv)
+				return lesEnreg.get(i);
+		}
+		return null;
+	}
  
     //Accesseurs
     /*this.setNoCli(_NoTrans);
@@ -125,7 +153,7 @@ public class Mod_Depart {
     this.setDateDebut();
     this.setDateFin();*/
  
-    public String getNoCli() {
+    public int getNoCli() {
         return NoCli;
     }
  
@@ -150,23 +178,38 @@ public class Mod_Depart {
         return TypeCarte;
     }
  
-    public String getNoReserv() {
+    public int getNoReserv() {
         return NoReserv;
     }
      
-    public String getDateReserv()
+    public Date getDateReserv()
     {
         return DateReserv;
     }
     
-    public String getDateDebut()
+    public Date getDateDebut()
     {
         return DateDebut;
     }
     
-    public String getDateFin()
+    public Date getDateFin()
     {
         return DateFin;
+    }
+    
+    public Date getDateDepart()
+    {
+        return DateDepart;
+    }
+    
+    public String getConfPar()
+    {
+        return ConfPar;
+    }
+    
+    public int getNoDepart()
+    {
+        return NoDepart;
     }
     
     public int Get_courant() {
@@ -193,6 +236,7 @@ public class Mod_Depart {
 		if(columnIndex == 7) return reser.getDateReserv();
 		if(columnIndex == 8) return reser.getDateDebut();
 		if(columnIndex == 9) return reser.getDateFin();
+		if(columnIndex == 10) return reser.getConfPar();
 		
 		return null;
 	}

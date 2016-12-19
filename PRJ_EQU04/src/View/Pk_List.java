@@ -28,19 +28,19 @@ public final class Pk_List extends JDialog {
 	    No_ligne = 0;
 		jt.addMouseListener(new MouseAdapter()
 		{
-	  			@Override
-	  			public void mousePressed(MouseEvent e)
-	  			{
+			public void mouseClicked(MouseEvent e)
+			{
+				if(e.getClickCount() >= 2)
+				{
 				  	//No_ligne = jt.getSelectedRow();
 	  				No_ligne = jt.getValueAt(jt.getSelectedRow(), 0);
 				  	dispose();
 				   	e.setSource(null);
 	  			}
+			}
   		});
 		setVisible(true);
 	}
-
-
 
 	/** return the selectedRow from a table created with model and title
 	 *

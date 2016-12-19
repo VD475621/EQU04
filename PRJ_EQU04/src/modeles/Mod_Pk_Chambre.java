@@ -27,8 +27,9 @@ public class Mod_Pk_Chambre extends AbstractTableModel{
 		try {
 			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select c.NOCHAM, c.ETAGE,c.PRIX,c.FKCODTYPCHA,c.FKCODLOC " +
 																											" from Chambre c, Reservation r, De d " + 
-																											" where c.Nocham=d.FKNOCHAM and d.FKIDRESER=r.IDRESER " + 
-																											" and not(?>r.DATEDEBUT and ?<r.DATEFIN) and not(?<r.DATEFIN and ?>r.DATEDEBUT)");	
+																											" where c.Nocham=d.FKNOCHAM and d.FKIDRESER=r.IDRESER AND c.etat = 1 " + 
+																											" and not(?>r.DATEDEBUT and ?<r.DATEFIN) and not(?<r.DATEFIN and ?>r.DATEDEBUT)" +
+																											" and d.Attribuee = 0");	
 			state.setDate(1, DateDeb);
 			state.setDate(2, DateDeb);
 			state.setDate(3, DateFin);

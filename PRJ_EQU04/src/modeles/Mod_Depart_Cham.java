@@ -1,5 +1,6 @@
 package modeles;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,14 +18,14 @@ public class Mod_Depart_Cham extends AbstractTableModel {
 	private int IdReser;
 	
 	private String NoCham;
-	private String NoCli;
+	private int NoCli;
 	private String NomCli;
-	private String DateDepart;
+	private Date DateDepart;
 	
-	private ArrayList<Mod_Depart_Cham> les_reser_c = new  ArrayList<Mod_Depart_Cham>();
+	private ArrayList<Mod_Depart_Cham> lesEnreg = new  ArrayList<Mod_Depart_Cham>();
 	private final  String[] lesTitres = {"No chambre", "No. Client", "Nom du client", "Date de départ"};
 	
-	public Mod_Depart_Cham(String _Nocham, String _NoCli, String _NomCli, String _DateDepart)
+	public Mod_Depart_Cham(String _Nocham, int _NoCli, String _NomCli, Date _DateDepart)
 	{
 		this.NoCham = _Nocham;
 		this.NoCli = _NoCli;
@@ -32,28 +33,30 @@ public class Mod_Depart_Cham extends AbstractTableModel {
 		this.DateDepart = _DateDepart;
 	}
 	
-	public Mod_Depart_Cham(String _IdReserv)
+	public Mod_Depart_Cham(int _IdReserv)
 	{
 		super();
 		Lire_Enre(_IdReserv);
 	}
 	
-	public void Lire_Enre(String _IdReserv)
+	public void Lire_Enre(int _IdReserv)
 	{
 		try {
-			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKNoCham,d.FKIdCli,c.Nom,d.dateDepart FROM Depart d,Client c WHERE d.FKIdReser = ?");
-			state.setInt(1, Integer.parseInt(_IdReserv));
+			this.clear();
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("select d.FKNoCham,d.FKIdCli,c.Nom,d.dateDepart FROM Depart d,Client c WHERE d.FKIdReser = ? AND d.FKIDCLI = c.IdCli");
+			state.setInt(1, _IdReserv);
 			
 			ResultSet rs = state.executeQuery();
 
 			while (rs.next()) {
 				String nocham = rs.getString("FKNoCham");
-				String IdCli = rs.getString("FKIdCli");
+				int IdCli = rs.getInt("FKIdCli");
 				String Nom = rs.getString("Nom");
-				String DateDepart = rs.getString("dateDepart");
+				Date DateDepart = rs.getDate("dateDepart");
 				
-				les_reser_c.add(new Mod_Depart_Cham(nocham, IdCli, Nom, DateDepart));  
+				lesEnreg.add(new Mod_Depart_Cham(nocham, IdCli, Nom, DateDepart));  
 			}
+			this.fireTableDataChanged();
 		} 
 		catch (SQLException e) 
 		{
@@ -61,11 +64,72 @@ public class Mod_Depart_Cham extends AbstractTableModel {
 		}
 	}
 	
+	public boolean Insert(int _IdReser, int _IdCli, String _NoCham, Date _dateDepart,String ConfPar)
+	{
+		try {
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("INSERT INTO DEPART (NODEPART,FKIDRESER,FKIDCLI,FKNOCHAM,DATEDEPART,CONFIRMEPAR) VALUES(SEQ_ARRIVE.nextval,?,?,?,?,?)");
+			state.setInt(1, _IdReser);
+			state.setInt(2, _IdCli);
+			state.setString(3, _NoCham);
+			state.setDate(4, _dateDepart);
+			state.setString(5, ConfPar);
+
+			int rows = state.executeUpdate();
+			System.out.println("Insert Result: "+rows);
+			if(rows > 0)
+			{
+				this.Lire_Enre(_IdReser);
+				return true;
+			}
+			else
+				return false;
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, e.getErrorCode() + " " + e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
+	
+	public boolean setAttribue(int _IdReser, String _NoCham, boolean value)
+	{
+		try {
+			PreparedStatement state = ModConnexion.getInstance().getLaConnectionStatique().prepareStatement("UPDATE DE SET Attribuee = ? WHERE FkNoCham = ? AND FkIdReser = ?");
+			state.setInt(1, ((value) ? 1 : 0));
+			state.setString(2, _NoCham);
+			state.setInt(3, _IdReser);
+
+			System.out.println("Attribue: " + ((value) ? 1 : 0));
+			System.out.println("NoCham: " + _NoCham);
+			System.out.println("IdReser: " + _IdReser);
+
+
+			int rows = state.executeUpdate();
+			System.out.println("Insert Result: "+rows);
+			if(rows > 0)
+				return true;
+			else
+				return false;
+
+		} 
+		catch (SQLException e) 
+		{
+			JOptionPane.showMessageDialog(null, "Delete" + e.getErrorCode() + " " + e.getMessage(),"ALERTE", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
+	
+	public void clear()
+	{
+		lesEnreg.clear();
+		this.fireTableDataChanged();
+	}
+	
 	
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return les_reser_c.size();
+		return lesEnreg.size();
 	}
 
 	@Override
@@ -77,7 +141,7 @@ public class Mod_Depart_Cham extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stubßßßßßßß
-		Mod_Depart_Cham c = les_reser_c.get(rowIndex);
+		Mod_Depart_Cham c = lesEnreg.get(rowIndex);
 		if(columnIndex == 0) {return c.getNoCham();}
 		if(columnIndex == 1) {return c.getNoCli();}
 		if(columnIndex == 2) {return c.getNomCli();}
@@ -86,11 +150,11 @@ public class Mod_Depart_Cham extends AbstractTableModel {
 	}
 
 	public ArrayList<Mod_Depart_Cham> getLes_reser_c() {
-		return les_reser_c;
+		return lesEnreg;
 	}
 
 	public void setLes_reser_c(ArrayList<Mod_Depart_Cham> les_reser_c) {
-		this.les_reser_c = les_reser_c;
+		this.lesEnreg = les_reser_c;
 	}
 
 	public String getColumnName(int ColumnIndex) {
@@ -105,7 +169,7 @@ public class Mod_Depart_Cham extends AbstractTableModel {
 		NoCham = noCham;
 	}
 
-	public String getNoCli() {
+	public int getNoCli() {
 		return NoCli;
 	}
 
@@ -113,7 +177,7 @@ public class Mod_Depart_Cham extends AbstractTableModel {
 		return NomCli;
 	}
 
-	public String getDateDepart() {
+	public Date getDateDepart() {
 		return DateDepart;
 	}
 

@@ -68,7 +68,8 @@ public class Frm_Menu extends JFrame {
 		btnDepart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "En cours de developpement", "En developpement", JOptionPane.INFORMATION_MESSAGE);
+				win= new Frm_Depart();
+				win.setVisible(true);
 			}
 		});
 		btnDepart.setBounds(83, 112, 105, 23);
@@ -98,7 +99,11 @@ public class Frm_Menu extends JFrame {
 		btnArrive.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				win= new Frm_Arrive();win.setVisible(true);
+				if(win == null)
+				{
+					win= new Frm_Arrive();
+					win.setVisible(true);
+				}
 			}
 		});
 		btnArrive.setBounds(222, 78, 105, 23);

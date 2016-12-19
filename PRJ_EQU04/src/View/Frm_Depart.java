@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import controleurs.Ctrl_Arrive;
+import controleurs.Ctrl_Depart;
 
 public class Frm_Depart extends Frm_Base {
 
@@ -35,7 +35,7 @@ public class Frm_Depart extends Frm_Base {
 	private JScrollPane SP_Table;
 	private JTable TBL_Reserv;
 	
-	private Ctrl_Arrive crt_arrive;
+	private Ctrl_Depart crt_depart;
 	private JTextField TB_ConfPar;
 	
 
@@ -60,43 +60,65 @@ public class Frm_Depart extends Frm_Base {
 	 */
 	public Frm_Depart() {
 		super();
-		//crt_arrive = new Ctrl_Arrive(this);
+		crt_depart = new Ctrl_Depart(this);
 		
 		btnFin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crt_arrive.Dernier();
+				crt_depart.Dernier();
 			}
 		});
+
 		btnNaviguer_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crt_arrive.Suivant();
+				crt_depart.Suivant();
 			}
 		});
+
 		btnConsulter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				crt_depart.Consulter();
 			}
 		});
+
 		btnModifier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				crt_depart.Modifier();
 			}
 		});
+
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				crt_depart.Supprimer();
 			}
 		});
+
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				crt_depart.Ajouter();
 			}
 		});
+
 		btnNaviguer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crt_arrive.Precedent();
+				crt_depart.Precedent();
+			}
+		});
+
+		btnNaviguerGauche.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crt_depart.Premier();
 			}
 		});
 		
-		btnNaviguerGauche.addActionListener(new ActionListener() {
+		btnSauvegarder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crt_arrive.Premier();
+				crt_depart.Sauvegarder();
+			}
+		});
+		
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crt_depart.Annuler();
 			}
 		});
 		
@@ -124,6 +146,16 @@ public class Frm_Depart extends Frm_Base {
 		
 		TB_CliNo = new JTextField();
 		TB_CliNo.setBounds(106, 14, 130, 26);
+		TB_CliNo.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent e)
+			{
+				if(e.getClickCount() >= 2)
+				{
+					System.out.println("DoubleClicked");
+					crt_depart.ListeArrive();
+				}
+			}
+		});
 		PN_InfoCli.add(TB_CliNo);
 		TB_CliNo.setColumns(10);
 		
@@ -196,8 +228,6 @@ public class Frm_Depart extends Frm_Base {
 				if(e.getClickCount() >= 2)
 				{
 					System.out.println("DoubleClicked");
-					PickList PlForm = new PickList(crt_arrive);
-					PlForm.setVisible(true);
 				}
 			}
 		});
@@ -261,7 +291,7 @@ public class Frm_Depart extends Frm_Base {
                 ));
 		
 		Consulter();
-		crt_arrive.Premier();
+		crt_depart.Premier();
 	}
 	
 	private void Consulter()

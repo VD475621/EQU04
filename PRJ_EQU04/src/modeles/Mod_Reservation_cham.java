@@ -146,8 +146,4 @@ public class Mod_Reservation_cham extends AbstractTableModel {
 	public void setIdReser(int idReser) {
 		IdReser = idReser;
 	}
-
-	
-	
-
 }
