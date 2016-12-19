@@ -14,6 +14,8 @@ import controleurs.Ctrl_Chambre;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
@@ -68,7 +70,7 @@ public class Frm_Chambre extends Frm_Base{
 	
 	public Frm_Chambre() {
 		super();
-		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		
 		

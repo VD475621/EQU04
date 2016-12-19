@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -62,6 +63,7 @@ public class Frm_Arrive extends Frm_Base {
 	 */
 	public Frm_Arrive() {
 		super();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		crt_arrive = new Ctrl_Arrive(this);
 
 

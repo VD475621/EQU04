@@ -152,14 +152,14 @@ public class Ctrl_Depart {
 		Date debut = MPA.getDateDebut();
 		Date fin = MPA.getDateFin();
 
-				int dialogResult = JOptionPane.showConfirmDialog (null, "Êtes-vous certain de vouloir supprimer cet enregistrement ? (Depart #"+nodepart+")","Confirmation",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+				int dialogResult = JOptionPane.showConfirmDialog (null, "ï¿½tes-vous certain de vouloir supprimer cet enregistrement ? (Depart #"+nodepart+")","Confirmation",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
 		if(dialogResult == JOptionPane.YES_OPTION){
 			System.out.println("Deleting Arrive #"+nodepart+" ...");
 
 			if(!mod_arrive.Delete(nodepart))
 			{
-				JOptionPane.showMessageDialog(null, "L'enregistrement n'a pas été supprimer.","Erreur", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "L'enregistrement n'a pas ï¿½tï¿½ supprimer.","Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 			else
 			{
@@ -292,7 +292,7 @@ public class Ctrl_Depart {
 			int NoCli = MPA.getIdCli();
 			String NoCham = MPA.getNoCham();
 
-			int dialogResult = JOptionPane.showConfirmDialog (null, "Êtes-vous certain de vouloir supprimer cet enregistrement ? (Arrive #"+NoArrive+")","Confirmation",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+			int dialogResult = JOptionPane.showConfirmDialog (null, "ï¿½tes-vous certain de vouloir supprimer cet enregistrement ? (Arrive #"+NoArrive+")","Confirmation",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
 			if(dialogResult == JOptionPane.YES_OPTION){
 				System.out.println("Deleting Arrive #"+NoArrive+" ...");
@@ -300,7 +300,7 @@ public class Ctrl_Depart {
 				{
 					if(!mod_depart.Delete(NoArrive))
 					{
-						JOptionPane.showMessageDialog(null, "L'enregistrement n'a pas été supprimer.","Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "L'enregistrement n'a pas ï¿½tï¿½ supprimer.","Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 					else
 					{
@@ -310,7 +310,7 @@ public class Ctrl_Depart {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "L'enregistrement que vous essayer de supprimer comporte une transaction ou un départ et ne peut être supprimer.","Erreur", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "L'enregistrement que vous essayer de supprimer comporte une transaction ou un dï¿½part et ne peut ï¿½tre supprimer.","Erreur", JOptionPane.ERROR_MESSAGE);
 				}
 			}*/
 		}
